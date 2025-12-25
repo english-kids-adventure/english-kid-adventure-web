@@ -8,8 +8,12 @@ import { useAuthStore } from '@/store/useAuthStore';
 import { authService } from '@/features/auth/services/authService';
 import { toast } from 'react-toastify';
 import type { AuthResponse } from '@/features/auth/types';
+import { ROUTES } from '@/shared/constants/routes';
+import { Button } from '@/shared/components/common/Button';
+import { Input } from '@/shared/components/common/Input';
+import { Text } from '@/shared/components/common/Text';
 
-export const LoginForm = () => {
+export const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const { setAuth } = useAuthStore();
 
@@ -49,28 +53,19 @@ export const LoginForm = () => {
     return true;
   };
 
-  const isSubmittingDisabled = loading;
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!validate()) return;
 
     try {
       setLoading(true);
-
       const res: AuthResponse = await authService.login(form);
-
       setAuth(res.user, res.token);
-
       toast.success('Welcome back! +10 XP for daily login!');
-
-      navigate('/home');
+      navigate(ROUTES.HOME);
     } catch (error) {
       const err = error as AxiosError<{ message?: string }>;
-      toast.error(
-        err?.response?.data?.message || 'Login failed',
-      );
+      toast.error(err?.response?.data?.message || 'Login failed');
     } finally {
       setLoading(false);
     }
@@ -80,9 +75,13 @@ export const LoginForm = () => {
     <AuthBackground>
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-sm sm:max-w-md bg-white rounded-3xl
-                   px-5 sm:px-8 py-8 sm:py-10 shadow-xl mx-4 sm:mx-0"
+        className="
+          w-full max-w-sm sm:max-w-md bg-white rounded-3xl
+          px-5 sm:px-8 py-8 sm:py-10 shadow-xl
+          mx-4 sm:mx-0
+        "
       >
+        {/* Logo */}
         <div className="text-center">
           <img
             src={logo}
@@ -91,78 +90,71 @@ export const LoginForm = () => {
           />
         </div>
 
-        <h1 className="mt-1 text-xl sm:text-2xl font-bold text-center text-blue-900">
+        {/* Title */}
+        <Text
+          as="h2"
+          variant="title"
+          color='primary'
+          align="center"
+        >
           Welcome back!
-        </h1>
+        </Text>
 
+        {/* Email */}
         <div className="mt-5">
-          <label className="text-md font-medium text-gray-700">
-            Email
-          </label>
-          <input
+          <Input
+            label="Email"
             name="email"
             type="email"
             value={form.email}
             onChange={handleChange}
             placeholder="your@email.com"
-            className="mt-2 w-full rounded-xl border border-gray-300
-                       px-4 py-3 text-sm sm:text-base
-                       focus:outline-none focus:ring-2 focus:ring-blue-500"
+            inputSize="sm"
           />
         </div>
 
+        {/* Password */}
         <div className="mt-4">
-          <label className="text-md font-medium text-gray-700">
-            Password
-          </label>
-
-          <div className="relative">
-            <input
-              name="password"
-              type={showPassword ? 'text' : 'password'}
-              value={form.password}
-              onChange={handleChange}
-              placeholder="Enter your password"
-              className="mt-2 w-full rounded-xl border border-gray-300
-                         px-4 py-3 text-sm sm:text-base
-                         focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-4 top-1/2 -translate-y-1/4
-                         text-gray-500 hover:text-gray-600"
-            >
-              {showPassword ? (
-                <EyeOff className="w-5 h-5" />
-              ) : (
-                <Eye className="w-5 h-5" />
-              )}
-            </button>
-          </div>
+          <Input
+            label="Password"
+            name="password"
+            type={showPassword ? 'text' : 'password'}
+            value={form.password}
+            onChange={handleChange}
+            placeholder="Enter your password"
+            inputSize="sm"
+            icon={showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            onIconClick={() => setShowPassword(!showPassword)}
+          />
         </div>
 
-        <button
+        {/* Submit */}
+        <Button
           type="submit"
-          disabled={isSubmittingDisabled}
-          className="mt-6 sm:mt-8 w-full rounded-xl py-3
-                    text-white font-semibold
-                    bg-gradient-to-r from-blue-500 to-indigo-600
-                    hover:opacity-90 transition
-                    disabled:opacity-60 disabled:cursor-not-allowed"
+          fullWidth
+          size="lg"
+          disabled={loading}
+          className="mt-6 sm:mt-8"
         >
           {loading ? 'LOGGING IN...' : 'LOGIN NOW'}
-        </button>
+        </Button>
 
-        <p className="mt-5 sm:mt-6 text-center text-sm text-gray-600">
+        {/* Footer */}
+        <Text
+          as="p"
+          variant="caption"
+          align="center"
+          color="muted"
+          className="mt-5 sm:mt-6"
+        >
           Don’t have an account?{' '}
           <Link
-            to="/register"
+            to={ROUTES.REGISTER}
             className="text-blue-600 font-medium hover:underline"
           >
             Sign up
           </Link>
-        </p>
+        </Text>
       </form>
     </AuthBackground>
   );
