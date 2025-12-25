@@ -1,17 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import React from 'react';
+import { ROUTES } from '@/shared/constants/routes';
 
 interface BackButtonProps {
   size?: number;
   fallback?: string;
 }
 
-export const BackButton: React.FC<BackButtonProps> = ({ size = 24, fallback = '/home' }) => {
+export const BackButton: React.FC<BackButtonProps> = ({ size = 24, fallback = ROUTES.HOME }) => {
   const navigate = useNavigate();
 
   return (
     <button
+      type='button'
       onClick={() => (window.history.length > 1 ? navigate(-1) : navigate(fallback))}
       className="
         inline-flex items-center gap-2
