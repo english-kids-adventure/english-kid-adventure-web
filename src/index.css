@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./shared/styles/typography.css";
 
 :root {
   --color-primary: #ff6b6b;
