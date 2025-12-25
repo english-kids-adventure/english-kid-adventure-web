@@ -18,11 +18,11 @@ interface ButtonProps {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700',
-  secondary: 'bg-gray-200 text-gray-700 hover:bg-gray-300',
-  success: 'bg-gradient-to-r from-green-400 to-green-500 text-white hover:from-green-500 hover:to-green-600',
-  warning: 'bg-gradient-to-r from-yellow-400 to-yellow-500 text-white hover:from-yellow-500 hover:to-yellow-600',
-  danger: 'bg-gradient-to-r from-red-400 to-red-500 text-white hover:from-red-500 hover:to-red-600',
+  primary: 'bg-btn-primary text-white bg-btn-primary:hover',
+  secondary: 'bg-btn-secondary text-gray-700 bg-btn-secondary:hover',
+  success: 'bg-btn-success text-white bg-btn-success:hover',
+  warning: 'bg-btn-warning text-white bg-btn-warning:hover',
+  danger: 'bg-btn-danger text-white bg-btn-danger:hover',
 };
 
 const sizeStyles: Record<ButtonSize, string> = {

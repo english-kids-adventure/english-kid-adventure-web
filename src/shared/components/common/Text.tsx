@@ -1,35 +1,35 @@
-import React, { type JSX } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 
 type TextVariant = 'title' | 'subtitle' | 'body' | 'caption' | 'small';
-
 type TextColor = 'default' | 'muted' | 'primary' | 'success' | 'warning' | 'danger';
 
 interface TextProps {
   children: React.ReactNode;
-  as?: keyof JSX.IntrinsicElements;
+  as?: React.ElementType;
   variant?: TextVariant;
   color?: TextColor;
   align?: 'left' | 'center' | 'right';
   truncate?: boolean;
   className?: string;
+  maxWidth?: string;
 }
 
 const variantStyles: Record<TextVariant, string> = {
-  title: 'text-xl font-bold',
-  subtitle: 'text-lg font-semibold',
-  body: 'text-sm',
-  caption: 'text-xs',
-  small: 'text-[11px]',
+  title: 'text-title',
+  subtitle: 'text-subtitle',
+  body: 'text-body',
+  caption: 'text-caption',
+  small: 'text-small',
 };
 
 const colorStyles: Record<TextColor, string> = {
-  default: 'text-white',
-  muted: 'text-gray-700',
-  primary: 'text-blue-700',
-  success: 'text-green-700',
-  warning: 'text-yellow-700',
-  danger: 'text-red-700',
+  default: 'text-default',
+  muted: 'text-muted',
+  primary: 'text-primary',
+  success: 'text-success',
+  warning: 'text-warning',
+  danger: 'text-danger',
 };
 
 export const Text: React.FC<TextProps> = ({
@@ -40,6 +40,7 @@ export const Text: React.FC<TextProps> = ({
   align = 'left',
   truncate = false,
   className,
+  maxWidth,
 }) => {
   return (
     <Component
@@ -51,6 +52,7 @@ export const Text: React.FC<TextProps> = ({
         truncate && 'truncate inline-block',
         className,
       )}
+      style={maxWidth ? { maxWidth } : undefined}
     >
       {children}
     </Component>
