@@ -3,7 +3,7 @@ export type MissionType = 'DAILY' | 'WEEKLY';
 
 export interface User {
   id: number;
-  nickname: string;
+  name: string;
   email: string;
   avatar_url?: string;
   total_xp: number;

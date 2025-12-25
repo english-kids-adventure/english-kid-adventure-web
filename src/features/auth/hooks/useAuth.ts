@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { User } from '../../../shared/types';
+import type { User } from '@/shared/types';
 
 export const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
