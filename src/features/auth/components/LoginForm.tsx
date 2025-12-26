@@ -14,7 +14,7 @@ import { Text } from '@/shared/components/common/Text';
 import { validateAuthForm } from '@/shared/utils/validation';
 import { handleApiError } from '@/shared/utils/error-handler';
 
-export const LoginForm: React.FC = () => {
+export const LoginForm = () => {
   const navigate = useNavigate();
   const { setAuth } = useAuthStore();
 
@@ -129,4 +129,3 @@ export const LoginForm: React.FC = () => {
     </AuthBackground>
   );
 };
-
