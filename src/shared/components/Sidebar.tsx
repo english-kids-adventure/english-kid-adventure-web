@@ -11,6 +11,7 @@ import logo from '@/assets/images/logo.png';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Text } from '@/shared/components/common/Text';
 import { ROUTES } from '@/shared/constants/routes';
+import { useAuthStore } from '@/store/useAuthStore';
 
 const menuItems = [
   { label: 'Home', icon: Home, path: ROUTES.HOME },
@@ -22,7 +23,10 @@ const menuItems = [
 export const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  const logout = useAuthStore((state) => state.logout);
+  const handleLogout = async () => {
+    await logout();
+  };
   return (
     <aside className="h-screen bg-white shadow-sm flex flex-col text-sm px-2 sm:px-6 w-auto sm:min-w-[220px] sm:max-w-[280px]">
       <Link to={ROUTES.HOME} className="flex justify-center">
@@ -67,10 +71,7 @@ export const Sidebar = () => {
             'hover:bg-red-500/15',
             'cursor-pointer',
           )}
-          onClick={() => {
-            localStorage.removeItem('token');
-            navigate(ROUTES.LOGIN);
-          }}
+          onClick={handleLogout}
         >
           <LogOut size={20} color="var(--text-danger)" />
           <span className="hidden sm:inline">
