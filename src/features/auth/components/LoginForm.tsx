@@ -1,71 +1,47 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import type { AxiosError } from 'axios';
 import { AuthBackground } from '@/features/auth/components/AuthBackground';
 import { Eye, EyeOff } from 'lucide-react';
 import logo from '@/assets/images/logo.png';
 import { useAuthStore } from '@/store/useAuthStore';
 import { authService } from '@/features/auth/services/authService';
 import { toast } from 'react-toastify';
-import type { AuthResponse } from '@/features/auth/types';
+import type { AuthResponse, LoginFormState } from '@/features/auth/types';
 import { ROUTES } from '@/shared/constants/routes';
 import { Button } from '@/shared/components/common/Button';
 import { Input } from '@/shared/components/common/Input';
 import { Text } from '@/shared/components/common/Text';
+import { validateAuthForm } from '@/shared/utils/validation';
+import { handleApiError } from '@/shared/utils/error-handler';
 
 export const LoginForm: React.FC = () => {
   const navigate = useNavigate();
   const { setAuth } = useAuthStore();
 
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<LoginFormState>({
     email: '',
     password: '',
   });
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const validate = () => {
-    if (!form.email.trim()) {
-      toast.error('Email is required');
-      return false;
-    }
-
-    if (!/^\S+@\S+\.\S+$/.test(form.email)) {
-      toast.error('Invalid email format');
-      return false;
-    }
-
-    if (!form.password.trim()) {
-      toast.error('Password is required');
-      return false;
-    }
-
-    if (form.password.length < 6) {
-      toast.error('Password must be at least 6 characters');
-      return false;
-    }
-
-    return true;
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
+    if (!validateAuthForm(form)) return;
 
     try {
       setLoading(true);
       const res: AuthResponse = await authService.login(form);
-      setAuth(res.user, res.token);
+      setAuth(res.user, res.accessToken);
       toast.success('Welcome back! +10 XP for daily login!');
       navigate(ROUTES.HOME);
     } catch (error) {
-      const err = error as AxiosError<{ message?: string }>;
-      toast.error(err?.response?.data?.message || 'Login failed');
+      handleApiError(error, 'Login failed. Please try again!');
     } finally {
       setLoading(false);
     }
@@ -81,7 +57,6 @@ export const LoginForm: React.FC = () => {
           mx-4 sm:mx-0
         "
       >
-        {/* Logo */}
         <div className="text-center">
           <img
             src={logo}
@@ -90,7 +65,6 @@ export const LoginForm: React.FC = () => {
           />
         </div>
 
-        {/* Title */}
         <Text
           as="h2"
           variant="title"
@@ -100,7 +74,6 @@ export const LoginForm: React.FC = () => {
           Welcome back!
         </Text>
 
-        {/* Email */}
         <div className="mt-5">
           <Input
             label="Email"
@@ -113,7 +86,6 @@ export const LoginForm: React.FC = () => {
           />
         </div>
 
-        {/* Password */}
         <div className="mt-4">
           <Input
             label="Password"
@@ -128,7 +100,6 @@ export const LoginForm: React.FC = () => {
           />
         </div>
 
-        {/* Submit */}
         <Button
           type="submit"
           fullWidth
@@ -139,7 +110,6 @@ export const LoginForm: React.FC = () => {
           {loading ? 'LOGGING IN...' : 'LOGIN NOW'}
         </Button>
 
-        {/* Footer */}
         <Text
           as="p"
           variant="caption"

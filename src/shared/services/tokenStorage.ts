@@ -1,28 +1,16 @@
-export const TOKEN_KEY = 'token';
+export const ACCESS_TOKEN_KEY = 'accessToken';
 
-export const getToken = (): string | null => {
+export const getAccessToken = (): string | null => {
   if (typeof window === 'undefined') return null;
-  try {
-    return localStorage.getItem(TOKEN_KEY);
-  } catch {
-    return null;
-  }
+  return localStorage.getItem(ACCESS_TOKEN_KEY);
 };
 
-export const setToken = (token: string): void => {
+export const setAccessToken = (token: string): void => {
   if (typeof window === 'undefined') return;
-  try {
-    localStorage.setItem(TOKEN_KEY, token);
-  } catch {
-    // optional: log error
-  }
+  localStorage.setItem(ACCESS_TOKEN_KEY, token);
 };
 
-export const removeToken = (): void => {
+export const removeAccessToken = (): void => {
   if (typeof window === 'undefined') return;
-  try {
-    localStorage.removeItem(TOKEN_KEY);
-  } catch {
-    // optional: log error
-  }
+  localStorage.removeItem(ACCESS_TOKEN_KEY);
 };

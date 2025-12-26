@@ -1,23 +1,51 @@
 import { create } from 'zustand';
-import type { User } from '@/shared/types';
-import { getToken, setToken, removeToken } from '@/shared/services/tokenStorage';
+import { persist } from 'zustand/middleware';
+import type { User } from '../shared/types';
+import axiosClient from '@/lib/axios';
+import { removeAccessToken } from '@/shared/services/tokenStorage';
 
 interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
   setAuth: (user: User, token: string) => void;
-  logout: () => void;
+  updateToken: (token: string) => void;
+  clearAuth: () => void;
+  logout: () => Promise<void>;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
-  user: null,
-  isAuthenticated: !!getToken(),
-  setAuth: (user, token) => {
-    setToken(token);
-    set({ user, isAuthenticated: true });
-  },
-  logout: () => {
-    removeToken();
-    set({ user: null, isAuthenticated: false });
-  },
-}));
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      user: null,
+      isAuthenticated: !!localStorage.getItem('accessToken'),
+
+      setAuth: (user, token) => {
+        localStorage.setItem('accessToken', token);
+        set({ user, isAuthenticated: true });
+      },
+
+      updateToken: (token) => {
+        localStorage.setItem('accessToken', token);
+        set({ isAuthenticated: true });
+      },
+      clearAuth: () => {
+        removeAccessToken();
+        set({ user: null, isAuthenticated: false });
+      },
+
+      logout: async () => {
+        try {
+          await axiosClient.post('/auth/logout');
+        } catch (error) {
+          console.error('Logout error', error);
+        } finally {
+          localStorage.removeItem('accessToken');
+          set({ user: null, isAuthenticated: false });
+        }
+      },
+    }),
+    {
+      name: 'auth-storage',
+    },
+  ),
+);
