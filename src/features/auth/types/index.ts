@@ -7,7 +7,11 @@ export type LoginCredentials = {
 
 export interface AuthResponse {
   user: User;
-  token: string;
+  accessToken: string;
+}
+
+export interface RefreshTokenResponse {
+  accessToken: string;
 }
 
 export interface RegisterCredentials extends LoginCredentials {

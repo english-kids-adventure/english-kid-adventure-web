@@ -1,19 +1,11 @@
-import { useState } from 'react';
-import type { User } from '@/shared/types';
+import { useAuthStore } from '@/store/useAuthStore';
 
 export const useAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState<User | null>(null);
+  const { user, isAuthenticated, logout } = useAuthStore();
 
-  const login = (userData: User) => {
-    setIsAuthenticated(true);
-    setUser(userData);
+  return {
+    user,
+    isAuthenticated,
+    logout,
   };
-
-  const logout = () => {
-    setIsAuthenticated(false);
-    setUser(null);
-  };
-
-  return { isAuthenticated, user, login, logout };
 };
