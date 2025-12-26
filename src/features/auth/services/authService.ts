@@ -6,7 +6,7 @@ export const authService = {
     const response = await axiosClient.post('/auth/login', data);
     return response.data.data;
   },
-  register: async (data: RegisterCredentials) => {
+  register: async (data: RegisterCredentials): Promise<AuthResponse> => {
     const response = await axiosClient.post('/auth/register', data);
     return response.data.data;
   },

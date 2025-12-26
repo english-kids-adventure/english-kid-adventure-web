@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '@/features/auth/services/authService';
 import { toast } from 'react-toastify';
@@ -9,79 +9,45 @@ import { Button } from '@/shared/components/common/Button';
 import { Input } from '@/shared/components/common/Input';
 import { Text } from '@/shared/components/common/Text';
 import logo from '@/assets/images/logo.png';
-import type { AxiosError } from 'axios';
+import type { RegisterCredentials } from '@/features/auth/types';
+import { validateRegisterForm } from '@/shared/utils/validation';
+import { handleApiError } from '@/shared/utils/error-handler';
+import { authReducer, initialState } from '@/features/auth/hooks/useRegisterForm';
 
-export const RegisterForm = () => {
+export const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
-  const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [state, dispatch] = useReducer(authReducer, initialState);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const validate = () => {
-    if (!form.name.trim()) {
-      toast.error('Name is required');
-      return false;
-    }
-
-    if (!form.email.trim()) {
-      toast.error('Email is required');
-      return false;
-    }
-
-    if (!/^\S+@\S+\.\S+$/.test(form.email)) {
-      toast.error('Invalid email format');
-      return false;
-    }
-
-    if (!form.password.trim()) {
-      toast.error('Password is required');
-      return false;
-    }
-
-    if (form.password.length < 6) {
-      toast.error('Password must be at least 6 characters');
-      return false;
-    }
-
-    if (form.password !== form.confirmPassword) {
-      toast.error('Passwords do not match!');
-      return false;
-    }
-
-    return true;
+    dispatch({
+      type: 'UPDATE_FIELD',
+      field: e.target.name,
+      value: e.target.value,
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!validate()) return;
+    if (!validateRegisterForm(state)) return;
 
     try {
-      setLoading(true);
-      await authService.register({
-        name: form.name,
-        email: form.email,
-        password: form.password,
-      });
+      dispatch({ type: 'SET_LOADING', value: true });
+      const apiPayload = Object.keys(state).reduce<Partial<RegisterCredentials>>((acc, key) => {
+        const blacklist = ['confirmPassword', 'loading', 'showPassword', 'showConfirmPassword'];
+        if (!blacklist.includes(key)) {
+          const authKey = key as keyof RegisterCredentials;
+          acc[authKey] = state[authKey as keyof typeof state] as string;
+        }
+        return acc;
+      }, {});
 
-      toast.success('Registration successful! Please login to get 10 XP!');
+      await authService.register(apiPayload as RegisterCredentials);
+      toast.success('Success!');
       navigate(ROUTES.LOGIN);
-    } catch (error: unknown) {
-      const axiosError = error as AxiosError<{ message: string }>;
-      const errorMessage = axiosError.response?.data?.message || 'Registration failed. Please try again!';
-      toast.error(errorMessage);
+    } catch (error) {
+      handleApiError(error, 'Error!');
     } finally {
-      setLoading(false);
+      dispatch({ type: 'SET_LOADING', value: false });
     }
   };
 
@@ -89,6 +55,7 @@ export const RegisterForm = () => {
     <AuthBackground>
       <form
         onSubmit={handleSubmit}
+        noValidate
         className="w-full max-w-sm sm:max-w-md bg-white rounded-3xl
                    px-5 sm:px-8 py-8 sm:py-10 shadow-xl mx-4 sm:mx-0"
       >
@@ -116,7 +83,7 @@ export const RegisterForm = () => {
               inputSize='sm'
               name="name"
               type="text"
-              value={form.name}
+              value={state.name}
               onChange={handleChange}
               placeholder="Your adventure name"
             />
@@ -128,7 +95,7 @@ export const RegisterForm = () => {
               inputSize='sm'
               name="email"
               type="email"
-              value={form.email}
+              value={state.email}
               onChange={handleChange}
               placeholder="Your@email.com"
             />
@@ -140,12 +107,12 @@ export const RegisterForm = () => {
                 label='Password'
                 inputSize='sm'
                 name="password"
-                type={showPassword ? 'text' : 'password'}
-                value={form.password}
+                type={state.showPassword ? 'text' : 'password'}
+                value={state.password}
                 onChange={handleChange}
                 placeholder="At least 6 characters"
-                icon={showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                onIconClick={() => setShowPassword(!showPassword)}
+                icon={state.showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                onIconClick={() => dispatch({ type: 'TOGGLE_EYE', field: 'showPassword' })}
               />
             </div>
           </div>
@@ -156,12 +123,12 @@ export const RegisterForm = () => {
                 label='Confirm Password'
                 inputSize='sm'
                 name="confirmPassword"
-                type={showConfirmPassword ? 'text' : 'password'}
-                value={form.confirmPassword}
+                type={state.showConfirmPassword ? 'text' : 'password'}
+                value={state.confirmPassword}
                 onChange={handleChange}
                 placeholder="Repeat your password"
-                icon={showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                onIconClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                icon={state.showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                onIconClick={() => dispatch({ type: 'TOGGLE_EYE', field: 'showConfirmPassword' })}
               />
             </div>
           </div>
@@ -169,13 +136,13 @@ export const RegisterForm = () => {
 
         <Button size='lg'
           type="submit"
-          disabled={loading}
+          disabled={state.loading}
           className="mt-6 sm:mt-8 w-full rounded-xl py-3 text-white font-semibold
                      bg-gradient-to-r from-blue-500 to-indigo-600
                      hover:opacity-90 transition-all shadow-md
                      disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          {loading ? 'CREATING ACCOUNT...' : 'REGISTER NOW'}
+          {state.loading ? 'CREATING ACCOUNT...' : 'REGISTER NOW'}
         </Button>
 
         <Text as="p" variant='caption' color='muted' className="mt-5 sm:mt-6 text-center text-sm">
@@ -191,3 +158,4 @@ export const RegisterForm = () => {
     </AuthBackground>
   );
 };
+

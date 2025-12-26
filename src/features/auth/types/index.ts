@@ -17,3 +17,7 @@ export interface RefreshTokenResponse {
 export interface RegisterCredentials extends LoginCredentials {
   name: string;
 }
+
+export interface RegisterFormState extends RegisterCredentials {
+  confirmPassword: string;
+}

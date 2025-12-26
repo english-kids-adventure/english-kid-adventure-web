@@ -1,11 +1,12 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { ROUTES } from '@/shared/constants/routes';
 import { lazy, Suspense } from 'react';
-import { AuthGuard } from '../shared/guards/AuthGuard';
-import MainLayout from '../shared/layouts/MainLayout';
-import LoginPage from '../pages/LoginPage';
+import { AuthGuard } from '@/shared/guards/AuthGuard';
+import MainLayout from '@/shared/layouts/MainLayout';
+import LoginPage from '@/pages/LoginPage';
 
 // Lazy page
-const RegisterPage = lazy(() => import('../pages/RegisterPage'));
+const RegisterPage = lazy(() => import('@/pages/Register'));
 
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center">
@@ -17,8 +18,8 @@ export const AppRoutes = () => {
   return (
     <Suspense fallback={<PageLoader />}>
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+        <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
 
         <Route element={<AuthGuard />}>
           <Route element={<MainLayout />}>
