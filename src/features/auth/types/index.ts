@@ -1,6 +1,6 @@
 import type { User } from '@/shared/types';
 
-export type LoginCredentials = {
+export interface LoginCredentials {
   email: string;
   password: string;
 };
@@ -20,4 +20,9 @@ export interface RegisterCredentials extends LoginCredentials {
 
 export interface RegisterFormState extends RegisterCredentials {
   confirmPassword: string;
+}
+
+export interface LoginFormState {
+  email: string;
+  password: string;
 }

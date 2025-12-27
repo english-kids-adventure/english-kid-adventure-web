@@ -10,7 +10,7 @@ import { Input } from '@/shared/components/common/Input';
 import { Text } from '@/shared/components/common/Text';
 import logo from '@/assets/images/logo.png';
 import type { RegisterCredentials } from '@/features/auth/types';
-import { validateRegisterForm } from '@/shared/utils/validation';
+import { validateAuthForm } from '@/shared/utils/validation';
 import { handleApiError } from '@/shared/utils/error-handler';
 import { authReducer, initialState } from '@/features/auth/hooks/useRegisterForm';
 
@@ -28,7 +28,7 @@ export const RegisterForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateRegisterForm(state)) return;
+    if (!validateAuthForm(state)) return;
 
     try {
       dispatch({ type: 'SET_LOADING', value: true });

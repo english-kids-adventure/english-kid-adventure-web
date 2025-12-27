@@ -4,7 +4,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export const AuthBackground: React.FC<Props> = ({ children }) => {
+export const AuthBackground = ({ children }: Props) => {
   return (
     <div className="min-h-screen bg-sky-400 flex items-center justify-center p-4 relative overflow-hidden">
       <div

@@ -1,72 +1,131 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../../../store/useAuthStore';
-import { authService } from '../services/authService';
+import { AuthBackground } from '@/features/auth/components/AuthBackground';
+import { Eye, EyeOff } from 'lucide-react';
+import logo from '@/assets/images/logo.png';
+import { useAuthStore } from '@/store/useAuthStore';
+import { authService } from '@/features/auth/services/authService';
 import { toast } from 'react-toastify';
-import type { AuthResponse } from '../types';
+import type { AuthResponse, LoginFormState } from '@/features/auth/types';
+import { ROUTES } from '@/shared/constants/routes';
+import { Button } from '@/shared/components/common/Button';
+import { Input } from '@/shared/components/common/Input';
+import { Text } from '@/shared/components/common/Text';
+import { validateAuthForm } from '@/shared/utils/validation';
+import { handleApiError } from '@/shared/utils/error-handler';
 
 export const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  const setAuth = useAuthStore((state) => state.setAuth);
   const navigate = useNavigate();
+  const { setAuth } = useAuthStore();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const [form, setForm] = useState<LoginFormState>({
+    email: '',
+    password: '',
+  });
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateAuthForm(form)) return;
 
-    if (!email || !password) {
-      return toast.error('Please fill in all fields! ❤️');
-    }
-
-    setIsLoading(true);
     try {
-      const response: AuthResponse = await authService.login({ email, password });
-      setAuth(response.user, response.token);
-      toast.success('Welcome back! +10 XP for daily login 🌟');
-      navigate('/');
-    } catch {
-      toast.error('Wrong email or password!');
+      setLoading(true);
+      const res: AuthResponse = await authService.login(form);
+      setAuth(res.user, res.accessToken);
+      toast.success('Welcome back! +10 XP for daily login!');
+      navigate(ROUTES.HOME);
+    } catch (error) {
+      handleApiError(error, 'Login failed. Please try again!');
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
   return (
-    <form
-      onSubmit={handleLogin}
-      className='bg-white p-8 rounded-[40px] shadow-2xl w-full border-8 border-blue-200 space-y-4'
-    >
-      <input
-        type='email'
-        placeholder="Kid's email..."
-        className='w-full p-4 bg-blue-50 rounded-2xl font-bold outline-none border-4 border-transparent focus:border-blue-300'
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        disabled={isLoading}
-      />
-      <input
-        type='password'
-        placeholder='Secret password...'
-        className='w-full p-4 bg-blue-50 rounded-2xl font-bold outline-none border-4 border-transparent focus:border-blue-300'
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        disabled={isLoading}
-      />
-      <button
-        type='submit'
-        disabled={isLoading}
-        className='w-full bg-orange-500 text-white font-black py-4 rounded-2xl text-xl shadow-[0_6px_0_0_#c2410c] active:translate-y-1 active:shadow-none transition-all'
+    <AuthBackground>
+      <form
+        onSubmit={handleSubmit}
+        className="
+          w-full max-w-sm sm:max-w-md bg-white rounded-3xl
+          px-5 sm:px-8 py-8 sm:py-10 shadow-xl
+          mx-4 sm:mx-0
+        "
       >
-        {isLoading ? 'LOGGING IN...' : 'LOGIN NOW'}
-      </button>
+        <div className="text-center">
+          <img
+            src={logo}
+            alt="EKA"
+            className="mx-auto w-[80px] sm:w-[100px]"
+          />
+        </div>
 
-      <div className='text-center pt-2'>
-        <Link to='/register' className='text-slate-500 font-bold hover:text-blue-500 transition-colors'>
-          Don't have an account? Register now!
-        </Link>
-      </div>
-    </form>
+        <Text
+          as="h2"
+          variant="title"
+          color='primary'
+          align="center"
+        >
+          Welcome back!
+        </Text>
+
+        <div className="mt-5">
+          <Input
+            label="Email"
+            name="email"
+            type="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="your@email.com"
+            inputSize="sm"
+          />
+        </div>
+
+        <div className="mt-4">
+          <Input
+            label="Password"
+            name="password"
+            type={showPassword ? 'text' : 'password'}
+            value={form.password}
+            onChange={handleChange}
+            placeholder="Enter your password"
+            inputSize="sm"
+            icon={showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            onIconClick={() => setShowPassword(!showPassword)}
+          />
+        </div>
+
+        <Button
+          type="submit"
+          fullWidth
+          size="lg"
+          disabled={loading}
+          className="mt-6 sm:mt-8"
+        >
+          {loading ? 'LOGGING IN...' : 'LOGIN NOW'}
+        </Button>
+
+        <Text
+          as="p"
+          variant="caption"
+          align="center"
+          color="muted"
+          className="mt-5 sm:mt-6"
+        >
+          Don’t have an account?{' '}
+          <Link
+            to={ROUTES.REGISTER}
+            className="text-blue-600 font-medium hover:underline"
+          >
+            Sign up
+          </Link>
+        </Text>
+      </form>
+    </AuthBackground>
   );
 };
