@@ -2,46 +2,49 @@ import { Text } from '@shared/components/common/Text';
 import { Link } from 'react-router-dom';
 
 interface TopicProps {
-  thumbnailUrl: string
-  name: string
-  description: string
-  totalVideos: number
-  totalTime: number
-  progressPercent: number
-  topicId: number
+  thumbnailUrl: string;
+  name: string;
+  description: string;
+  totalVideos: number;
+  totalTime: number;
+  progressPercent: number;
+  topicId: number;
 }
 
-export default function TopicCard({ thumbnailUrl, name, description, totalVideos, totalTime, progressPercent, topicId }: TopicProps) {
-  const getProgressColor = () => {
-    if (progressPercent === 0) return 'bg-btn-secondary';
-    if (progressPercent >= 1 && progressPercent <= 49) return 'bg-btn-danger';
-    if (progressPercent >= 50 && progressPercent <= 79) return 'bg-btn-primary';
-    if (progressPercent >= 80 && progressPercent <= 100) return 'bg-btn-success';
-    return 'bg-btn-secondary';
-  };
+interface ProgressColors {
+  bg: string;
+  text: string;
+}
 
-  const getProgressTextColor = () => {
-    if (progressPercent === 0) return 'text-muted';
-    if (progressPercent >= 1 && progressPercent <= 49) return 'text-danger';
-    if (progressPercent >= 50 && progressPercent <= 79) return 'text-primary';
-    if (progressPercent >= 80 && progressPercent <= 100) return 'text-success';
-    return 'text-muted';
-  };
+const getProgressStyle = (progressPercent: number): ProgressColors => {
+  if (progressPercent === 0) return { bg: 'bg-btn-secondary', text: 'text-muted' };
+  if (progressPercent >= 1 && progressPercent <= 49) return { bg: 'bg-btn-danger', text: 'text-danger' };
+  if (progressPercent >= 50 && progressPercent <= 79) return { bg: 'bg-btn-primary', text: 'text-primary' };
+  if (progressPercent >= 80 && progressPercent <= 100) return { bg: 'bg-btn-success', text: 'text-success' };
+  return { bg: 'bg-btn-secondary', text: 'text-muted' };
+};
+
+export function TopicCard({
+  thumbnailUrl,
+  name,
+  description,
+  totalVideos,
+  totalTime,
+  progressPercent,
+  topicId,
+}: TopicProps) {
+  const progressStyle = getProgressStyle(progressPercent);
 
   return (
     <Link to={`/topics/${topicId}`} className="block">
       <div className="
-                bg-white rounded-2xl shadow-lg overflow-hidden
-                hover:scale-[1.02] transition-transform duration-300
-                cursor-pointer w-full"
+        bg-white rounded-2xl shadow-lg overflow-hidden
+        hover:scale-[1.02] transition-transform duration-300
+        cursor-pointer w-full"
       >
         <div className="w-full h-32">
           <img
-            src={
-              thumbnailUrl
-                ? thumbnailUrl
-                : 'https://i.pinimg.com/736x/ed/0b/16/ed0b1667b743c8a393f97e61d13980d1.jpg'
-            }
+            src={thumbnailUrl || 'https://i.pinimg.com/736x/ed/0b/16/ed0b1667b743c8a393f97e61d13980d1.jpg'}
             alt={name}
             className="w-full h-full object-cover"
           />
@@ -57,27 +60,28 @@ export default function TopicCard({ thumbnailUrl, name, description, totalVideos
 
           <div className="flex justify-between items-center text-sm font-medium mb-2">
             <Text variant="caption" color="muted">
-                        Lessons: {totalVideos}
+              Lessons: {totalVideos}
             </Text>
             <Text variant="caption" color="muted">
-                        Time: {totalTime}h
+              Time: {totalTime}h
             </Text>
           </div>
 
           <div className="flex items-center gap-2">
             <div className="flex-1 bg-gray-200 rounded-full h-2 overflow-hidden">
               <div
-                className={`h-full ${getProgressColor()} transition-all duration-300 rounded-full`}
+                className={`h-full ${progressStyle.bg} transition-all duration-300 rounded-full`}
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
-            <span className={`font-bold text-xs ${getProgressTextColor()}`}>
+            <span className={`font-bold text-xs ${progressStyle.text}`}>
               {progressPercent}%
             </span>
           </div>
-
         </div>
       </div>
     </Link>
   );
 }
+
+export default TopicCard;
