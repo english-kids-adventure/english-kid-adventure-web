@@ -1,126 +1,149 @@
-# React + TypeScript + Vite
+# 📚 English Kid Adventure
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web application for an English learning platform for children, built with high performance and a scalable feature-based architecture.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📝 Commit Format Convention
 
-## React Compiler
+To maintain a clean and traceable project history, please follow this format for all commits:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+[id subtask] | name subtask
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**Example:**
+```
+VLIST-1 | Create front-end folder
 ```
 
+---
 
 ## 📦 Tech Stack
 
-- [React](https://react.dev/)
-- [Vite](https://vitejs.dev/)
-- [Tailwind CSS v4](https://tailwindcss.com/)
-- [ESLint](https://eslint.org/)
-- [Husky](https://typicode.github.io/husky)
-- [lint-staged](https://github.com/okonet/lint-staged)
+| Technology | Version | Purpose |
+|-----------|---------|---------|
+| **React** | v19.2.0 | JavaScript library for building component-based user interfaces |
+| **Vite** | v7.2.4 | Fast frontend tool with significantly leaner development experience |
+| **Tailwind CSS** | v4.1.18 | Utility-first CSS framework with built-in Vite integration |
+| **TypeScript** | v5.9.3 | Static typing to improve code quality and developer productivity |
+| **Zustand** | v5.0.9 | Small, fast, and scalable state-management solution |
+| **TanStack Query** | v5.90.12 | Powerful async state management for data fetching and caching |
+| **React Router Dom** | v7.11.0 | Standard routing library for client-side navigation |
+| **Axios** | v1.13.2 | Promise-based HTTP client for API requests |
+| **Lucide React** | v0.562.0 | Beautiful and consistent icon library |
+| **ESLint** | v9.39.2 | Code quality and style consistency tool |
+| **Husky & lint-staged** | Latest | Git hooks for pre-commit linting automation |
 
+---
 
-## Structure of source FE
+## 📂 Project Structure
+
+The project follows a **Feature-based architecture** for maintainability and scalability as the application grows.
+
 ```
 src/
-├── assets/                          # Multimedia resources (Images, Icons, Sounds)
-│
-├── features/                        # Main feature-based modules
-│   ├── auth/                        # Authentication feature
-│   │   ├── components/              # Feature-specific components (LoginForm, RegisterForm)
-│   │   ├── hooks/                   # Custom hooks for Auth logic (useAuth)
-│   │   ├── services/                # API service calls for Auth (authService)
-│   │   └── types/                   # Type definitions for the Auth module
-│   ├── leaderboard/                 # Leaderboard feature
-│   ├── learning/                    # Lessons & Video features
-│   ├── profile/                     # User profile feature
-│   └── quiz/                        # Interactive quiz/exercise feature
-│
-├── lib/                             # Third-party library configurations
-│   └── axios.ts                     # Axios Instance and Interceptors setup
-│
-├── pages/                           # Main application views (Pages)
-│   ├── LoginPage.tsx                # Login page view
-│   └── RegisterPage.tsx             # Registration page view
-│
-├── routes/                          # Navigation and Routing management
-│   └── AppRoutes.tsx                # Main application routing configuration
-│
-├── shared/                          # Global shared resources
-│   ├── components/                  # Common UI Components (Header, Footer)
-│   ├── constants/                   # System-wide constants and configurations
-│   ├── guards/                      # Route guards (AuthGuard - Access control)
-│   ├── hooks/                       # Shared custom hooks
-│   ├── layouts/                     # Main layout structures (MainLayout)
-│   ├── types/                       # Shared TypeScript interfaces/types
-│   └── utils/                       # Helper and utility functions
-│
-└── store/                           # Global state management (Zustand)
-    └── useAuthStore.ts              # Manages login state and user information
+├── assets/                  # Static assets (images, fonts, icons)
+├── features/                # Business logic modules (Domain-driven)
+│   └── auth/                # Authentication feature
+│       ├── components/      # Login/Register UI components
+│       ├── hooks/           # Auth-specific custom hooks
+│       ├── services/        # Auth-related API calls
+│       └── types/           # Auth-specific TypeScript definitions
+│   ├── leaderboard/         # Leaderboard features
+│   ├── learning/            # Learning content and activities
+│   ├── profile/             # User profile management
+│   └── quiz/                # Quiz and assessment logic
+├── lib/                     # Third-party library configurations
+│   └── axios.ts             # Axios configuration
+├── pages/                   # Page-level components (associated with routes)
+├── routes/                  # Route definitions and navigation logic
+│   └── AppRoutes.tsx
+├── shared/                  # Reusable resources across features
+│   ├── components/          # Shared UI components
+│   │   ├── Common/          # Common components
+│   │   ├── Layouts/         # Layout wrappers
+│   │   ├── Header/          # Header component
+│   │   └── Sidebar/         # Sidebar component
+│   ├── constants/           # Global constants and API endpoints
+│   ├── hooks/               # Global custom React hooks
+│   ├── services/            # Shared business logic and API services
+│   ├── types/               # Global TypeScript interfaces
+│   └── utils/               # Utility helper functions
+├── store/                   # Global state (Zustand)
+│   └── useAuthStore.ts      # Authentication store
+├── App.tsx                  # Main application component
+└── main.tsx                 # Application entry point
 ```
-## Format commit
-"[id subtask] | name subtask"
-Ex: VLIST-1 | Create front-end folder
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Installation
+
+Install all project dependencies:
+
+```bash
+npm install
+```
+
+### 2️⃣ Development
+
+Start the development server with Hot Module Replacement (HMR):
+
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:5173`
+
+### 3️⃣ Build for Production
+
+Create an optimized production build:
+
+```bash
+npm run build
+```
+
+### 4️⃣ Linting
+
+Check for code style and quality issues:
+
+```bash
+# Check for errors
+npm run lint
+
+# Automatically fix errors
+npm run lint:fix
+```
+
+### 5️⃣ Preview Production Build
+
+Preview the production build locally before deployment:
+
+```bash
+npm run preview
+```
+
+---
+
+## 🛠 Project Configuration
+
+- **Environment Variables:** Managed via `.env` file
+- **Git Hooks:** Pre-commit hooks enabled via Husky to run ESLint on staged files
+- **Code Formatting:** ESLint and TypeScript configurations strictly enforced for consistency
+
+---
+
+## 📌 Key Features
+
+✅ Feature-based modular architecture  
+✅ Fast development with Vite  
+✅ Type-safe with TypeScript  
+✅ Powerful state management with Zustand  
+✅ Automatic code quality checks with Husky  
+✅ Beautiful UI with Tailwind CSS v4  
+
+---
+
