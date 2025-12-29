@@ -8,12 +8,12 @@ interface StatCardProps {
   onClick?: () => void;
 }
 
-export const StatCard: React.FC<StatCardProps> = ({
+export function StatCard({
   icon,
   value,
   bgClass = 'from-gray-400 to-gray-500',
   onClick,
-}) => {
+}: StatCardProps) {
   const isClickable = Boolean(onClick);
 
   return (
@@ -35,4 +35,5 @@ export const StatCard: React.FC<StatCardProps> = ({
       <div className="text-sm whitespace-nowrap">{value}</div>
     </div>
   );
-};
+}
+

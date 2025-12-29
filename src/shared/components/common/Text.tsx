@@ -1,8 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 
-type TextVariant = 'title' | 'subtitle' | 'body' | 'caption' | 'small';
-type TextColor = 'default' | 'muted' | 'primary' | 'success' | 'warning' | 'danger';
+export type TextVariant = 'subtitle' | 'body' | 'caption' | 'small';
+export type TextColor = 'default' | 'muted' | 'primary' | 'success' | 'warning' | 'danger';
 
 interface TextProps {
   children: React.ReactNode;
@@ -16,7 +16,6 @@ interface TextProps {
 }
 
 const variantStyles: Record<TextVariant, string> = {
-  title: 'text-title',
   subtitle: 'text-subtitle',
   body: 'text-body',
   caption: 'text-caption',
@@ -32,7 +31,7 @@ const colorStyles: Record<TextColor, string> = {
   danger: 'text-danger',
 };
 
-export const Text: React.FC<TextProps> = ({
+export function Text({
   as: Component = 'span',
   children,
   variant = 'body',
@@ -41,7 +40,7 @@ export const Text: React.FC<TextProps> = ({
   truncate = false,
   className,
   maxWidth,
-}) => {
+}: TextProps) {
   return (
     <Component
       className={clsx(
@@ -57,6 +56,6 @@ export const Text: React.FC<TextProps> = ({
       {children}
     </Component>
   );
-};
+}
 
 export default Text;

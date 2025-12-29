@@ -1,7 +1,7 @@
-import axiosClient from '@/lib/axios';
-import { API_ENDPOINTS } from '@/shared/constants/api';
-import type { Topic, TopicResponse } from '@/features/learning/types/topic';
-import { CURSOR_PAGINATION } from '@/shared/constants/cursorPagination';
+import axiosClient from '@lib/axios';
+import { API_ENDPOINTS } from '@shared/constants/api';
+import type { Topic, TopicResponse } from '@features/learning/types/topic';
+import { CURSOR_PAGINATION } from '@shared/constants/cursorPagination';
 
 export const topicService = {
   getAll: async (params?: { limit?: number; cursor?: number | null }) => {

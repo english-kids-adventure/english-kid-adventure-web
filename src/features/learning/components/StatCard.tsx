@@ -1,5 +1,5 @@
 import React from 'react';
-import Text from '@/shared/components/common/Text';
+import Text from '@shared/components/common/Text';
 
 interface StatCardProps {
   icon: React.ReactElement

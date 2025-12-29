@@ -1,6 +1,6 @@
-import axiosClient from '@/lib/axios';
-import type { LoginCredentials, AuthResponse, RegisterCredentials } from '@/features/auth/types/index';
-import { API_ENDPOINTS } from '@/shared/constants/api';
+import axiosClient from '@lib/axios';
+import type { LoginCredentials, AuthResponse, RegisterCredentials } from '@features/auth/types/index';
+import { API_ENDPOINTS } from '@shared/constants/api';
 
 export const authService = {
   login: async (data: LoginCredentials): Promise<AuthResponse> => {

@@ -1,4 +1,3 @@
-import React from 'react';
 import clsx from 'clsx';
 
 interface LevelBadgeProps {
@@ -8,12 +7,12 @@ interface LevelBadgeProps {
   textColor?: string;
 }
 
-export const LevelBadge: React.FC<LevelBadgeProps> = ({
+export function LevelBadge({
   text,
   textSize = 'text-sm',
   bgColor = 'bg-green-200',
   textColor = 'text-green-600',
-}) => {
+}: LevelBadgeProps) {
   return (
     <div
       className={clsx(
@@ -29,4 +28,4 @@ export const LevelBadge: React.FC<LevelBadgeProps> = ({
       {text}
     </div>
   );
-};
+}

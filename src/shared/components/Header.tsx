@@ -1,12 +1,13 @@
-import { StatCard } from '@/shared/components/common/StatCard';
+import { StatCard } from '@shared/components/common/StatCard';
 import { Star, Flame, Sparkles } from 'lucide-react';
-import { Text } from '@/shared/components/common/Text';
-import Button from '@/shared/components/common/Button';
+import { Text } from '@shared/components/common/Text';
+import Button from '@shared/components/common/Button';
+import { Heading } from '@shared/components/common/Heading';
 
 const Header = () => {
   return (
     <header className="flex justify-end sm:justify-between bg-white px-6 py-4 shadow-sm z-10">
-      <Text className="hidden sm:inline-block" color='primary' variant="title">Welcome back Sa !!</Text>
+      <Heading level={3} className="hidden sm:block" color='primary'>Welcome back Sa !!</Heading>
       <div className="flex justify-end items-center gap-4 font-bold">
         <div className="hidden sm:flex gap-4">
           <StatCard

@@ -1,6 +1,6 @@
-import { FIELD_NAMES } from '@/shared/constants/forms';
-import type { RegisterFormState } from '@/features/auth/types';
-import type { CoreFormActions } from '@/shared/hooks/useFormHandler';
+import { FIELD_NAMES } from '@shared/constants/forms';
+import type { RegisterFormState } from '@features/auth/types';
+import type { CoreFormActions } from '@shared/hooks/useFormHandler';
 
 type ToggleableFields = typeof FIELD_NAMES.SHOW_PASSWORD | typeof FIELD_NAMES.SHOW_CONFIRM_PASSWORD;
 

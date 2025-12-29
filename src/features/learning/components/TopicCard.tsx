@@ -1,4 +1,4 @@
-import { Text } from '@/shared/components/common/Text';
+import { Text } from '@shared/components/common/Text';
 import { Link } from 'react-router-dom';
 
 interface TopicProps {
