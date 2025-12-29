@@ -1,129 +1,54 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthBackground } from '@/features/auth/components/AuthBackground';
+import { Link } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
-import logo from '@/assets/images/logo.png';
-import { useAuthStore } from '@/store/useAuthStore';
-import { authService } from '@/features/auth/services/authService';
-import { toast } from 'react-toastify';
-import type { AuthResponse, LoginFormState } from '@/features/auth/types';
+import { AuthBackground } from './AuthBackground';
 import { ROUTES } from '@/shared/constants/routes';
 import { Button } from '@/shared/components/common/Button';
 import { Input } from '@/shared/components/common/Input';
 import { Text } from '@/shared/components/common/Text';
-import { validateAuthForm } from '@/shared/utils/validation';
-import { handleApiError } from '@/shared/utils/error-handler';
+import logo from '@/assets/images/logo.png';
+import { useLogin } from '@/features/auth/hooks/useLogin';
+import { FIELD_NAMES } from '@/shared/constants/forms';
 
 export const LoginForm = () => {
-  const navigate = useNavigate();
-  const { setAuth } = useAuthStore();
-
-  const [form, setForm] = useState<LoginFormState>({
-    email: '',
-    password: '',
-  });
-
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateAuthForm(form)) return;
-
-    try {
-      setLoading(true);
-      const res: AuthResponse = await authService.login(form);
-      setAuth(res.user, res.accessToken);
-      toast.success('Welcome back! +10 XP for daily login!');
-      navigate(ROUTES.HOME);
-    } catch (error) {
-      handleApiError(error, 'Login failed. Please try again!');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { state, handleLogin, handleChange, handleTogglePassword } = useLogin();
 
   return (
     <AuthBackground>
-      <form
-        onSubmit={handleSubmit}
-        className="
-          w-full max-w-sm sm:max-w-md bg-white rounded-3xl
-          px-5 sm:px-8 py-8 sm:py-10 shadow-xl
-          mx-4 sm:mx-0
-        "
-      >
+      <form onSubmit={handleLogin} noValidate className="w-full max-w-md bg-white rounded-3xl px-8 py-10 shadow-xl">
         <div className="text-center">
-          <img
-            src={logo}
-            alt="EKA"
-            className="mx-auto w-[80px] sm:w-[100px]"
-          />
+          <img src={logo} alt="Logo" className="mx-auto w-[100px]" />
+          <Text as="h2" variant='title' color='primary' className="mt-2">Welcome back!</Text>
         </div>
 
-        <Text
-          as="h2"
-          variant="title"
-          color='primary'
-          align="center"
-        >
-          Welcome back!
-        </Text>
-
-        <div className="mt-5">
+        <div className="space-y-4 mt-5">
           <Input
-            label="Email"
-            name="email"
+            label='Email'
+            name={FIELD_NAMES.EMAIL}
             type="email"
-            value={form.email}
+            value={state.email}
             onChange={handleChange}
             placeholder="your@email.com"
-            inputSize="sm"
           />
-        </div>
 
-        <div className="mt-4">
           <Input
-            label="Password"
-            name="password"
-            type={showPassword ? 'text' : 'password'}
-            value={form.password}
+            label='Password'
+            name={FIELD_NAMES.PASSWORD}
+            type={state.showPassword ? 'text' : 'password'}
+            value={state.password}
             onChange={handleChange}
             placeholder="Enter your password"
-            inputSize="sm"
-            icon={showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-            onIconClick={() => setShowPassword(!showPassword)}
+            icon={state.showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            onIconClick={() => handleTogglePassword(FIELD_NAMES.SHOW_PASSWORD)}
           />
         </div>
 
-        <Button
-          type="submit"
-          fullWidth
-          size="lg"
-          disabled={loading}
-          className="mt-6 sm:mt-8"
-        >
-          {loading ? 'LOGGING IN...' : 'LOGIN NOW'}
+        <Button size='lg' type="submit" disabled={state.loading} className="mt-8 w-full">
+          {state.loading ? 'LOGGING IN...' : 'LOGIN NOW'}
         </Button>
 
-        <Text
-          as="p"
-          variant="caption"
-          align="center"
-          color="muted"
-          className="mt-5 sm:mt-6"
-        >
+        <Text as="p" variant='caption' color='muted' className="mt-6 text-center">
           Don’t have an account?{' '}
-          <Link
-            to={ROUTES.REGISTER}
-            className="text-blue-600 font-medium hover:underline"
-          >
-            Sign up
-          </Link>
+          <Link to={ROUTES.REGISTER} className="text-blue-600 font-medium hover:underline">Sign up</Link>
         </Text>
       </form>
     </AuthBackground>
