@@ -1,50 +1,45 @@
-import { toast } from 'react-toastify';
-import type {
-  LoginFormState,
-  RegisterFormState,
-} from '@/features/auth/types';
+import type { RegisterFormState } from '@/features/auth/types';
 
-type AuthForm = LoginFormState | RegisterFormState;
-
-const isRegisterForm = (
-  form: AuthForm,
-): form is RegisterFormState => {
-  return 'name' in form && 'confirmPassword' in form;
+export const validateRules = {
+  required: (val: string, fieldName: string) =>
+    !val.trim() ? `${fieldName} is required` : null,
+  email: (val: string) => {
+    if (!val.trim()) {
+      return 'Email is required';
+    }
+    const emailRegex = /^\S+@\S+\.\S+$/;
+    return !emailRegex.test(val) ? 'Invalid email format' : null;
+  },
+  password: (val: string) =>
+    val.length < 6 ? 'Password must be at least 6 characters' : null,
+  confirm: (pass: string, confirm: string) =>
+    pass !== confirm ? 'Passwords do not match!' : null,
 };
 
-export const validateAuthForm = (form: AuthForm): boolean => {
+export const validateLoginForm = (form: { email: string; password: string }) => {
+  const errors = [
+    validateRules.required(form.email, 'Email'),
+    validateRules.email(form.email),
+    validateRules.password(form.password),
+  ].filter((error): error is string => error !== null);
+  return {
+    isValid: errors.length === 0,
+    message: errors[0] || '',
+  };
+};
 
-  if (!form.email.trim()) {
-    toast.error('Email is required');
-    return false;
-  }
-
-  if (!/^\S+@\S+\.\S+$/.test(form.email)) {
-    toast.error('Invalid email format');
-    return false;
-  }
-
-  if (!form.password.trim()) {
-    toast.error('Password is required');
-    return false;
-  }
-
-  if (form.password.length < 6) {
-    toast.error('Password must be at least 6 characters');
-    return false;
-  }
-
-  if (isRegisterForm(form)) {
-    if (!form.name.trim()) {
-      toast.error('Name is required');
-      return false;
-    }
-
-    if (form.password !== form.confirmPassword) {
-      toast.error('Passwords do not match!');
-      return false;
-    }
-  }
-
-  return true;
+export const validateRegisterForm = (form: RegisterFormState) => {
+  const errors = [
+    validateRules.required(form.name, 'Name'),
+    validateRules.required(form.email, 'Email'),
+    validateRules.email(form.email),
+    validateRules.required(form.password, 'Password'),
+    validateRules.password(form.password),
+    validateRules.required(form.confirmPassword, 'Confirm Password'),
+    validateRules.confirm(form.password, form.confirmPassword),
+  ].filter((error): error is string => error !== null);
+  return {
+    isValid: errors.length === 0,
+    message: errors[0] || '',
+  };
 };
