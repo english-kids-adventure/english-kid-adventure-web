@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
 import { Eye, EyeOff, Rocket } from 'lucide-react';
-import { AuthBackground } from './AuthBackground';
-import { ROUTES } from '@/shared/constants/routes';
-import { Button } from '@/shared/components/common/Button';
-import { Input } from '@/shared/components/common/Input';
-import { Text } from '@/shared/components/common/Text';
-import logo from '@/assets/images/logo.png';
-import { useRegister } from '../hooks/useRegister';
-import { FIELD_NAMES } from '@/shared/constants/forms';
+import { AuthBackground } from '@features/auth/components/AuthBackground';
+import { ROUTES } from '@shared/constants/routes';
+import { Button } from '@shared/components/common/Button';
+import { Input } from '@shared/components/common/Input';
+import { Text } from '@shared/components/common/Text';
+import logo from '@assets/images/logo.png';
+import { useRegister } from '@features/auth/hooks/useRegister';
+import { FIELD_NAMES } from '@shared/constants/forms';
+import { Heading } from '@shared/components/common/Heading';
 
 export const RegisterForm = () => {
   const { state, handleRegister, handleChange, handleTogglePassword } = useRegister();
@@ -17,8 +18,8 @@ export const RegisterForm = () => {
       <form onSubmit={handleRegister} noValidate className="w-full max-w-md bg-white rounded-3xl px-8 py-10 shadow-xl">
         <div className="text-center">
           <img src={logo} alt="Logo" className="mx-auto w-[100px]" />
-          <Text as="h2" variant='title' color='primary' className="mt-2">Create Account</Text>
-          <Text as="p" variant='subtitle' color='muted' className="flex items-center justify-center gap-2">
+          <Heading level={2} color='primary'>Create your account</Heading>
+          <Text as="p" variant='body' color='muted' className="flex items-center justify-center gap-2 mt-2">
             Start your English journey! <Rocket size={16} className="text-orange-500" />
           </Text>
         </div>

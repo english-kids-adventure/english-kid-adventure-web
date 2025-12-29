@@ -2,13 +2,13 @@ import { useReducer, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { authService } from '../services/authService';
-import { useAuthStore } from '@/store/useAuthStore';
+import { useAuthStore } from '@store/useAuthStore';
 import { authReducer, initialState } from './useAuthFormState';
 import type { AuthAction } from './useAuthFormState';
-import { useFormHandler } from '@/shared/hooks/useFormHandler';
-import { validateLoginForm } from '@/shared/utils/validation';
-import { handleApiError } from '@/shared/utils/error-handler';
-import { ROUTES } from '@/shared/constants/routes';
+import { useFormHandler } from '@shared/hooks/useFormHandler';
+import { validateLoginForm } from '@shared/utils/validation';
+import { handleApiError } from '@shared/utils/error-handler';
+import { ROUTES } from '@shared/constants/routes';
 
 export const useLogin = () => {
   const navigate = useNavigate();

@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
-import { AuthBackground } from './AuthBackground';
-import { ROUTES } from '@/shared/constants/routes';
-import { Button } from '@/shared/components/common/Button';
-import { Input } from '@/shared/components/common/Input';
-import { Text } from '@/shared/components/common/Text';
-import logo from '@/assets/images/logo.png';
-import { useLogin } from '@/features/auth/hooks/useLogin';
-import { FIELD_NAMES } from '@/shared/constants/forms';
+import { AuthBackground } from '@features/auth/components/AuthBackground';
+import { ROUTES } from '@shared/constants/routes';
+import { Button } from '@shared/components/common/Button';
+import { Input } from '@shared/components/common/Input';
+import { Text } from '@shared/components/common/Text';
+import logo from '@assets/images/logo.png';
+import { useLogin } from '@features/auth/hooks/useLogin';
+import { FIELD_NAMES } from '@shared/constants/forms';
+import { Heading } from '@shared/components/common/Heading';
 
 export const LoginForm = () => {
   const { state, handleLogin, handleChange, handleTogglePassword } = useLogin();
@@ -17,7 +18,7 @@ export const LoginForm = () => {
       <form onSubmit={handleLogin} noValidate className="w-full max-w-md bg-white rounded-3xl px-8 py-10 shadow-xl">
         <div className="text-center">
           <img src={logo} alt="Logo" className="mx-auto w-[100px]" />
-          <Text as="h2" variant='title' color='primary' className="mt-2">Welcome back!</Text>
+          <Heading level={2} color='primary'>Welcome back!</Heading>
         </div>
 
         <div className="space-y-4 mt-5">

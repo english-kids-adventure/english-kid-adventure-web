@@ -4,10 +4,10 @@ import { toast } from 'react-toastify';
 import { authService } from '../services/authService';
 import { authReducer, initialState } from './useAuthFormState';
 import type { AuthAction } from './useAuthFormState';
-import { useFormHandler } from '@/shared/hooks/useFormHandler';
-import { validateRegisterForm } from '@/shared/utils/validation';
-import { handleApiError } from '@/shared/utils/error-handler';
-import { ROUTES } from '@/shared/constants/routes';
+import { useFormHandler } from '@shared/hooks/useFormHandler';
+import { validateRegisterForm } from '@shared/utils/validation';
+import { handleApiError } from '@shared/utils/error-handler';
+import { ROUTES } from '@shared/constants/routes';
 
 export const useRegister = () => {
   const navigate = useNavigate();

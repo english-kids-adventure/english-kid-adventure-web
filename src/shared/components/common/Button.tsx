@@ -1,15 +1,17 @@
 import React from 'react';
 import clsx from 'clsx';
+import Text from '@shared/components/common/Text';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'success' | 'warning';
 export type ButtonSize = 'sm' | 'md' | 'lg';
+export type ButtonIconPosition = 'prefix' | 'suffix';
 
 interface ButtonProps {
   children: React.ReactNode;
   variant?: ButtonVariant;
   size?: ButtonSize;
   icon?: React.ReactNode;
-  iconPosition?: 'left' | 'right';
+  iconPosition?: ButtonIconPosition;
   fullWidth?: boolean;
   disabled?: boolean;
   onClick?: () => void;
@@ -18,11 +20,11 @@ interface ButtonProps {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: 'bg-btn-primary text-white bg-btn-primary:hover',
-  secondary: 'bg-btn-secondary text-gray-700 bg-btn-secondary:hover',
-  success: 'bg-btn-success text-white bg-btn-success:hover',
-  warning: 'bg-btn-warning text-white bg-btn-warning:hover',
-  danger: 'bg-btn-danger text-white bg-btn-danger:hover',
+  primary: 'bg-btn-primary text-white bg-btn-primary-hover',
+  secondary: 'bg-btn-secondary text-gray-700 bg-btn-secondary-hover',
+  success: 'bg-btn-success text-white bg-btn-success-hover',
+  warning: 'bg-btn-warning text-white bg-btn-warning-hover',
+  danger: 'bg-btn-danger text-white bg-btn-danger-hover',
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -31,20 +33,23 @@ const sizeStyles: Record<ButtonSize, string> = {
   lg: 'px-[1.2em] py-[0.6em] text-sm rounded-xl',
 };
 
-export const Button: React.FC<ButtonProps> = ({
+export function Button({
   children,
   variant = 'primary',
   size = 'md',
   icon,
-  iconPosition = 'left',
+  iconPosition = 'prefix',
   fullWidth = false,
   disabled = false,
   onClick,
   className,
   type = 'button',
-}) => {
+}: ButtonProps) {
   return (
     <button
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
       className={clsx(
         'inline-flex items-center justify-center gap-2 font-semibold cursor-pointer',
         'transition-all duration-200',
@@ -55,15 +60,12 @@ export const Button: React.FC<ButtonProps> = ({
         disabled && 'opacity-50 cursor-not-allowed pointer-events-none',
         className,
       )}
-      type={type}
-      disabled={disabled}
-      onClick={onClick}
     >
-      {icon && iconPosition === 'left' && icon}
-      <span className="whitespace-nowrap">{children}</span>
-      {icon && iconPosition === 'right' && icon}
+      {icon && iconPosition === 'prefix' && icon}
+      <Text className="whitespace-nowrap">{children}</Text>
+      {icon && iconPosition === 'suffix' && icon}
     </button>
   );
-};
+}
 
 export default Button;

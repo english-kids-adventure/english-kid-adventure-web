@@ -7,11 +7,11 @@ import {
 } from 'lucide-react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
-import logo from '@/assets/images/logo.png';
+import logo from '@assets/images/logo.png';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Text } from '@/shared/components/common/Text';
-import { ROUTES } from '@/shared/constants/routes';
-import { useAuthStore } from '@/store/useAuthStore';
+import { Text } from '@shared/components/common/Text';
+import { ROUTES } from '@shared/constants/routes';
+import { useAuthStore } from '@store/useAuthStore';
 
 const menuItems = [
   { label: 'Home', icon: Home, path: ROUTES.HOME },

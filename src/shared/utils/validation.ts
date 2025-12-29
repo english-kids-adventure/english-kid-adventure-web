@@ -1,4 +1,4 @@
-import type { RegisterFormState } from '@/features/auth/types';
+import type { RegisterFormState } from '@features/auth/types';
 
 export const validateRules = {
   required: (val: string, fieldName: string) =>

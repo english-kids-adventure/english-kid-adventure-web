@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import Text from '@shared/components/common/Text';
 
 type InputSize = 'sm' | 'md' | 'lg';
 
@@ -71,9 +72,9 @@ export const Input = React.forwardRef<HTMLInputElement, FormInputProps>((props, 
       </div>
 
       {error && (
-        <p className="text-xs mt-2 text-red-500">
+        <Text as="p" className="text-xs mt-2 text-red-500">
           {error}
-        </p>
+        </Text>
       )}
     </div>
   );
