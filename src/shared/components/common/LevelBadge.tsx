@@ -18,7 +18,7 @@ export function LevelBadge({
       className={clsx(
         'inline-flex items-center justify-center',
         'rounded-full',
-        'px-[1.2em] py-[0.2em]',
+        'px-[1.2em] py-[0.3em]',
         textSize,
         bgColor,
         textColor,

@@ -1,12 +1,20 @@
-export default function VideoPlayer({ videoId }: { videoId: string }) {
+interface VideoPlayerProps {
+  url: string;
+}
+
+export function VideoPlayer({ url }: VideoPlayerProps) {
+  if (!url) return null;
+
   return (
-    <div className="aspect-video bg-black rounded-4xl overflow-hidden border-8 border-white shadow-xl">
+    <div className="aspect-video bg-black rounded-3xl overflow-hidden border-8 border-white shadow-xl">
       <iframe
-        width="100%" height="100%"
-        src={`https://www.youtube.com/embed/${videoId}`}
-        title="Kid Learning Video"
+        className="w-full h-full"
+        src={url}
+        title="Learning Video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
-      ></iframe>
+      />
     </div>
   );
 }
+
