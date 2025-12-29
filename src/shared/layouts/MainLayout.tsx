@@ -4,7 +4,7 @@ import { Sidebar } from '@/shared/components/Sidebar';
 
 const MainLayout = () => {
   return (
-    <div className="h-screen flex bg-[#FDFCF0] overflow-hidden">
+    <div className="h-screen flex bg-gray-50 overflow-hidden">
       <Sidebar />
       <div className="flex flex-col flex-1">
         <Header />

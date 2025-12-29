@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import Text from '@/shared/components/common/Text';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'success' | 'warning';
 export type ButtonSize = 'sm' | 'md' | 'lg';
@@ -18,11 +19,11 @@ interface ButtonProps {
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
-  primary: 'bg-btn-primary text-white bg-btn-primary:hover',
-  secondary: 'bg-btn-secondary text-gray-700 bg-btn-secondary:hover',
-  success: 'bg-btn-success text-white bg-btn-success:hover',
-  warning: 'bg-btn-warning text-white bg-btn-warning:hover',
-  danger: 'bg-btn-danger text-white bg-btn-danger:hover',
+  primary: 'bg-btn-primary text-white bg-btn-primary-hover',
+  secondary: 'bg-btn-secondary text-gray-700 bg-btn-secondary-hover',
+  success: 'bg-btn-success text-white bg-btn-success-hover',
+  warning: 'bg-btn-warning text-white bg-btn-warning-hover',
+  danger: 'bg-btn-danger text-white bg-btn-danger-hover',
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -60,7 +61,7 @@ export const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
     >
       {icon && iconPosition === 'left' && icon}
-      <span className="whitespace-nowrap">{children}</span>
+      <Text className="whitespace-nowrap">{children}</Text>
       {icon && iconPosition === 'right' && icon}
     </button>
   );
