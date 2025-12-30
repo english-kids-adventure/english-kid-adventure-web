@@ -2,23 +2,6 @@
 
 A modern web application for an English learning platform for children, built with high performance and a scalable feature-based architecture.
 
----
-
-## 📝 Commit Format Convention
-
-To maintain a clean and traceable project history, please follow this format for all commits:
-
-```
-[id subtask] | name subtask
-```
-
-**Example:**
-```
-VLIST-1 | Create front-end folder
-```
-
----
-
 ## 📦 Tech Stack
 
 | Technology | Version | Purpose |
@@ -104,26 +87,6 @@ Create an optimized production build:
 
 ```bash
 npm run build
-```
-
-### 4️⃣ Linting
-
-Check for code style and quality issues:
-
-```bash
-# Check for errors
-npm run lint
-
-# Automatically fix errors
-npm run lint:fix
-```
-
-### 5️⃣ Preview Production Build
-
-Preview the production build locally before deployment:
-
-```bash
-npm run preview
 ```
 
 ---
