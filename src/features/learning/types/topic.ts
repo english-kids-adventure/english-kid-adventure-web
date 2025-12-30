@@ -19,3 +19,4 @@ export interface TopicResponse {
     completedVideos: number;
   };
 }
+

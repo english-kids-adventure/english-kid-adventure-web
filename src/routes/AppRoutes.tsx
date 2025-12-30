@@ -8,6 +8,8 @@ import MainLayout from '@shared/layouts/MainLayout';
 const Register = lazy(() => import('@pages/Register'));
 const Login = lazy(() => import('@pages/Login'));
 const Home = lazy(() => import('@pages/Home'));
+const ListVideo = lazy(() => import('@/pages/ListVideo'));
+const VideoDetail = lazy(() => import('@/pages/VideoDetail'));
 
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center">
@@ -25,8 +27,8 @@ export const AppRoutes = () => {
         <Route element={<AuthGuard />}>
           <Route element={<MainLayout />}>
             <Route path={ROUTES.HOME} element={<Home />} />
-            {/* <Route path="/leaderboard" element={<LeaderboardPage />} /> */}
-            {/* <Route path="/profile" element={<ProfilePage />} /> */}
+            <Route path={ROUTES.LISTVIDEO} element={<ListVideo />} />
+            <Route path={ROUTES.VIDEO_DETAIL} element={<VideoDetail />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Route>

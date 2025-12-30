@@ -3,7 +3,12 @@ export const API_ENDPOINTS = {
     REGISTER: '/auth/register',
     LOGIN: '/auth/login',
   },
+
   TOPICS: {
     GET_ALL: '/topics',
+  },
+
+  VIDEO: {
+    LIST_VIDEO_BY_TOPIC: (id: number) => `/topics/${id}/videos`,
   },
 };

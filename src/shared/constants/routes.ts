@@ -5,4 +5,6 @@ export const ROUTES = {
   LEADERBOARD: '/leaderboard',
   TASK: '/task',
   PROFILE: '/profile',
+  LISTVIDEO: '/topics/:topicId',
+  VIDEO_DETAIL: '/topics/:topicId/lessons/:orderIndex',
 } as const;
