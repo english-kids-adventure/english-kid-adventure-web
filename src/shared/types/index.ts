@@ -9,6 +9,7 @@ export interface User {
   total_xp: number;
   total_stars: number;
   current_streak: number;
+  longest_streak: number;
 }
 
 export interface Topic {
