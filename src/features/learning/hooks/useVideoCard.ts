@@ -2,14 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '@/shared/constants/routes';
 import type { Video } from '@/features/learning/types';
 
-export function useVideoCard(
-  video: Video,
-  onUnlocked?: (videoId: number) => void,
-) {
+export function useVideoCard(video: Video) {
   const navigate = useNavigate();
 
   const isLocked =
-    video.isUnlocked !== undefined ? !video.isUnlocked : video.unlockCost > 0;
+    video.level !== 'EASY' ||
+    video.isUnlocked !== undefined
+      ? !video.isUnlocked
+      : video.unlockCost > 0;
 
   const levelConfig = {
     EASY: {
@@ -33,20 +33,13 @@ export function useVideoCard(
     navigate(
       ROUTES.VIDEO_DETAIL
         .replace(':topicId', String(video.topicId))
-        .replace(':orderIndex', String(video.orderIndex)),
+        .replace(':videoId', String(video.id)),
     );
-  };
-
-  const unlock = async () => {
-    // call API
-    // toast.success(...)
-    onUnlocked?.(video.id);
   };
 
   return {
     isLocked,
     levelConfig,
     goToVideo,
-    unlock,
   };
 }

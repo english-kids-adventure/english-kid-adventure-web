@@ -6,5 +6,5 @@ export const ROUTES = {
   TASK: '/task',
   PROFILE: '/profile',
   LISTVIDEO: '/topics/:topicId',
-  VIDEO_DETAIL: '/topics/:topicId/lessons/:orderIndex',
+  VIDEO_DETAIL: '/topics/:topicId/lessons/:videoId',
 } as const;

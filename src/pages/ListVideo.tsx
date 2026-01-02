@@ -9,8 +9,8 @@ import { useListVideo } from '@/features/learning/hooks/useListVideo';
 const ListVideo = () => {
   const { topicId } = useParams<{ topicId: string }>();
 
-  const { videos, topic, loading, handleUnlocked } =
-    useListVideo(topicId);
+  const { videos, topic, loading } =
+  useListVideo(topicId);
 
   if (loading) return <Loading />;
 
@@ -22,7 +22,7 @@ const ListVideo = () => {
         {topic && (
           <div className="flex items-center gap-5">
             <img
-              src={topic.thumbnailUrl}
+              src={topic.thumbnailUrl || 'https://i.pinimg.com/736x/ed/0b/16/ed0b1667b743c8a393f97e61d13980d1.jpg'}
               alt={topic.name}
               className="w-20 h-20 rounded-xl object-cover"
             />
@@ -47,7 +47,6 @@ const ListVideo = () => {
             <VideoCard
               key={video.id}
               video={video}
-              onUnlocked={handleUnlocked}
             />
           ))
         )}

@@ -12,13 +12,12 @@ interface Props {
   onUnlocked?: (videoId: number) => void;
 }
 
-export function VideoCard({ video, onUnlocked }: Props) {
-  const { isLocked, levelConfig, goToVideo, unlock } =
-    useVideoCard(video, onUnlocked);
+export function VideoCard({ video }: Props) {
+  const { isLocked, levelConfig, goToVideo } =
+    useVideoCard(video);
 
   return (
     <div className="flex gap-4 bg-white rounded-2xl shadow-sm p-4 hover:shadow-md transition">
-      {/* Thumbnail */}
       <div className="relative w-32 h-24 shrink-0 rounded-xl overflow-hidden">
         <img
           src={getYoutubeThumbnail(video.url)}
@@ -32,7 +31,6 @@ export function VideoCard({ video, onUnlocked }: Props) {
         )}
       </div>
 
-      {/* Content */}
       <div className="flex-1 flex justify-between">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
@@ -61,7 +59,7 @@ export function VideoCard({ video, onUnlocked }: Props) {
 
         <div className="self-center">
           {isLocked ? (
-            <Button variant="warning" icon={<Lock size={16} />} onClick={unlock}>
+            <Button variant="warning" icon={<Lock size={16} />}>
               Unlock
             </Button>
           ) : (
