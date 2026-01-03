@@ -1,0 +1,137 @@
+@theme {
+  /* RED */
+  --color-red-50:  oklch(0.97 0.02 25);
+  --color-red-100: oklch(0.94 0.04 25);
+  --color-red-200: oklch(0.89 0.07 25);
+  --color-red-300: oklch(0.82 0.11 25);
+  --color-red-400: oklch(0.72 0.16 25);
+  --color-red-500: oklch(0.64 0.20 25);
+  --color-red-600: oklch(0.57 0.22 25);
+  --color-red-700: oklch(0.50 0.20 25);
+  --color-red-800: oklch(0.44 0.17 25);
+  --color-red-900: oklch(0.39 0.14 25);
+
+  /* BLUE */
+  --color-blue-50:  oklch(0.97 0.014 254);
+  --color-blue-100: oklch(0.93 0.03 252);
+  --color-blue-200: oklch(0.88 0.06 250);
+  --color-blue-300: oklch(0.82 0.10 248);
+  --color-blue-400: oklch(0.74 0.16 246);
+  --color-blue-500: oklch(0.65 0.19 244);
+  --color-blue-600: oklch(0.58 0.22 242);
+  --color-blue-700: oklch(0.51 0.20 241);
+  --color-blue-800: oklch(0.44 0.17 240);
+  --color-blue-900: oklch(0.38 0.14 238);
+
+  /* YELLOW */
+  --color-yellow-50:  oklch(0.98 0.02 96);
+  --color-yellow-100: oklch(0.95 0.05 96);
+  --color-yellow-200: oklch(0.90 0.10 96);
+  --color-yellow-300: oklch(0.86 0.14 96);
+  --color-yellow-400: oklch(0.82 0.17 96);
+  --color-yellow-500: oklch(0.78 0.18 96);
+  --color-yellow-600: oklch(0.72 0.19 96);
+  --color-yellow-700: oklch(0.65 0.17 96);
+  --color-yellow-800: oklch(0.58 0.15 96);
+  --color-yellow-900: oklch(0.52 0.12 96);
+
+  /* GREEN */
+  --color-green-50:  oklch(0.97 0.02 145);
+  --color-green-100: oklch(0.94 0.05 145);
+  --color-green-200: oklch(0.89 0.09 145);
+  --color-green-300: oklch(0.83 0.13 145);
+  --color-green-400: oklch(0.76 0.17 145);
+  --color-green-500: oklch(0.69 0.19 145);
+  --color-green-600: oklch(0.62 0.20 145);
+  --color-green-700: oklch(0.55 0.18 145);
+  --color-green-800: oklch(0.48 0.15 145);
+  --color-green-900: oklch(0.42 0.12 145);
+
+  /* GRAY */
+  --color-gray-50:  oklch(0.985 0.002 247);
+  --color-gray-100: oklch(0.965 0.004 247);
+  --color-gray-200: oklch(0.93 0.006 247);
+  --color-gray-300: oklch(0.87 0.008 247);
+  --color-gray-400: oklch(0.71 0.01 247);
+  --color-gray-500: oklch(0.55 0.01 247);
+  --color-gray-600: oklch(0.44 0.01 247);
+  --color-gray-700: oklch(0.37 0.01 247);
+  --color-gray-800: oklch(0.28 0.01 247);
+  --color-gray-900: oklch(0.21 0.01 247);
+
+  /* SEMANTIC COLORS */
+  --color-primary: var(--color-blue-500);
+  --color-primary-hover: var(--color-blue-600);
+  --color-primary-active: var(--color-blue-700);
+
+  --color-success: var(--color-green-500);
+  --color-warning: var(--color-yellow-500);
+  --color-danger: var(--color-red-500);
+
+  --color-bg: var(--color-gray-50);
+  --color-surface: white;
+  --color-border: var(--color-gray-200);
+
+  --color-text: var(--color-gray-900);
+  --color-text-muted: var(--color-gray-500);
+
+  /* SHADOWS */
+  --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.1),
+               0 1px 2px rgb(0 0 0 / 0.06);
+
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+               0 2px 4px -2px rgb(0 0 0 / 0.1);
+
+  /* RADIUS */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+
+/* TYPOGRAPHY – BODY */
+--text-2xs: 0.625rem;               
+--text-2xs--line-height: 0.875rem;
+
+--text-xs: 0.75rem;                
+--text-xs--line-height: 1rem;
+
+--text-sm: 0.875rem;              
+--text-sm--line-height: 1.25rem;
+
+--text-base: 1rem;                  
+--text-base--line-height: 1.5rem;
+
+--text-lg: 1.125rem;                
+--text-lg--line-height: 1.75rem;
+
+--text-xl: 1.25rem;                 
+--text-xl--line-height: 1.75rem;
+
+--text-2xl: 1.5rem;               
+--text-2xl--line-height: 2rem;
+
+/* TYPOGRAPHY – HEADINGS */
+--text-h1: 3rem;                   
+--text-h1--line-height: 3.5rem;
+--text-h1--font-weight: 700;
+
+--text-h2: 2.25rem;                 
+--text-h2--line-height: 2.75rem;
+--text-h2--font-weight: 700;
+
+--text-h3: 1.875rem;                
+--text-h3--line-height: 2.25rem;
+--text-h3--font-weight: 600;
+
+--text-h4: 1.5rem;                  
+--text-h4--line-height: 2rem;
+--text-h4--font-weight: 600;
+
+--text-h5: 1.25rem;               
+--text-h5--line-height: 1.75rem;
+--text-h5--font-weight: 600;
+
+--text-h6: 1.125rem;                
+--text-h6--line-height: 1.5rem;
+--text-h6--font-weight: 600;
+}
