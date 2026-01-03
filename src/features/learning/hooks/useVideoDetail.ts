@@ -1,31 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { videoService } from '@/features/learning/services/videoService';
-import type { Video } from '@/features/learning/types';
 
 interface Params {
   topicId?: string;
-  orderIndex?: string;
+  videoId?: string;
 }
 
-export function useVideoDetail({ topicId, orderIndex }: Params) {
-  const [video, setVideo] = useState<Video | null>(null);
-  const [loading, setLoading] = useState(true);
+export function useVideoDetail({ topicId, videoId }: Params) {
+  const topicIdNum = Number(topicId);
+  const videoIdNum = Number(videoId);
 
-  useEffect(() => {
-    if (!topicId || !orderIndex) return;
+  const {
+    data: video,
+    isLoading: loading,
+    isError,
+  } = useQuery({
+    queryKey: ['video-detail', topicIdNum],
+    enabled: Boolean(topicId && videoId),
+    queryFn: async () => {
+      const videos = await videoService.getVideosByTopic(topicIdNum);
+      return (
+        videos.find((v) => v.id === videoIdNum) ?? null
+      );
+    },
+  });
 
-    setLoading(true);
-
-    videoService
-      .getVideosByTopic(Number(topicId))
-      .then((videos) => {
-        const found = videos.find(
-          (v) => v.orderIndex === Number(orderIndex),
-        );
-        setVideo(found ?? null);
-      })
-      .finally(() => setLoading(false));
-  }, [topicId, orderIndex]);
-
-  return { video, loading };
+  return {
+    video,
+    loading,
+    isError,
+  };
 }

@@ -1,10 +1,11 @@
 import { useReducer, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
+
 import { authService } from '../services/authService';
 import { useAuthStore } from '@store/useAuthStore';
 import { authReducer, initialState } from './useAuthFormState';
-import type { AuthAction } from './useAuthFormState';
 import { useFormHandler } from '@shared/hooks/useFormHandler';
 import { validateLoginForm } from '@shared/utils/validation';
 import { handleApiError } from '@shared/utils/error-handler';
@@ -15,12 +16,17 @@ export const useLogin = () => {
   const { setAuth } = useAuthStore();
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const { handleChange, handleTogglePassword } = useFormHandler<AuthAction>(dispatch);
+  const { handleChange, handleTogglePassword } =
+    useFormHandler(dispatch);
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: authService.login,
+  });
 
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (state.loading) return;
+    if (isPending) return;
 
     const validation = validateLoginForm(state);
     if (!validation.isValid) {
@@ -29,21 +35,27 @@ export const useLogin = () => {
     }
 
     try {
-      dispatch({ type: 'SET_LOADING', value: true });
-      const res = await authService.login({
+      const res = await mutateAsync({
         email: state.email,
         password: state.password,
       });
 
       setAuth(res.user, res.accessToken);
+
       toast.success('Welcome back! +10 XP for daily login!');
       navigate(ROUTES.HOME, { replace: true });
     } catch (error) {
       handleApiError(error, 'Login failed. Please try again!');
-    } finally {
-      dispatch({ type: 'SET_LOADING', value: false });
     }
   };
 
-  return { state, handleLogin, handleChange, handleTogglePassword };
+  return {
+    state: {
+      ...state,
+      loading: isPending,
+    },
+    handleLogin,
+    handleChange,
+    handleTogglePassword,
+  };
 };

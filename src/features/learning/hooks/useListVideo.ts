@@ -1,46 +1,37 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { videoService } from '@/features/learning/services/videoService';
 import { topicService } from '@/features/learning/services/topicService';
-import type { Video, Topic } from '@/features/learning/types';
+import type { Topic } from '@/features/learning/types';
 
 export function useListVideo(topicId?: string) {
-  const [videos, setVideos] = useState<Video[]>([]);
-  const [topic, setTopic] = useState<Topic | null>(null);
-  const [loading, setLoading] = useState(true);
+  const {
+    data: videos = [],
+    isLoading: loadingVideos,
+  } = useQuery({
+    queryKey: ['videos', topicId],
+    queryFn: () => videoService.getVideosByTopic(Number(topicId)),
+    enabled: !!topicId,
+  });
 
-  const handleUnlocked = (videoId: number) => {
-    setVideos((prev) =>
-      prev.map((v) =>
-        v.id === videoId ? { ...v, is_unlocked: true } : v,
-      ),
-    );
-  };
-
-  useEffect(() => {
-    if (!topicId) return;
-
-    setLoading(true);
-
-    Promise.all([
-      videoService.getVideosByTopic(Number(topicId)),
-      topicService.getAll(),
-    ])
-      .then(([videosRes, topicsRes]) => {
-        setVideos(videosRes);
-
-        const foundTopic = topicsRes.topics.find(
+  const {
+    data: topic,
+    isLoading: loadingTopic,
+  } = useQuery<Topic | null>({
+    queryKey: ['topic', topicId],
+    queryFn: async () => {
+      const res = await topicService.getAll();
+      return (
+        res.topics.find(
           (t: Topic) => t.topicId === Number(topicId),
-        );
-
-        setTopic(foundTopic ?? null);
-      })
-      .finally(() => setLoading(false));
-  }, [topicId]);
+        ) ?? null
+      );
+    },
+    enabled: !!topicId,
+  });
 
   return {
     videos,
     topic,
-    loading,
-    handleUnlocked,
+    loading: loadingVideos || loadingTopic,
   };
 }

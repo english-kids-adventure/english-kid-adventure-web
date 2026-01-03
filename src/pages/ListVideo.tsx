@@ -5,12 +5,13 @@ import { Loading } from '@/shared/components/common/Loading';
 import { Heading } from '@/shared/components/common/Heading';
 import Text from '@/shared/components/common/Text';
 import { useListVideo } from '@/features/learning/hooks/useListVideo';
+import { DEFAULT_THUMBNAIL_URL } from '@/shared/constants/image';
 
 const ListVideo = () => {
   const { topicId } = useParams<{ topicId: string }>();
 
-  const { videos, topic, loading, handleUnlocked } =
-    useListVideo(topicId);
+  const { videos, topic, loading } =
+  useListVideo(topicId);
 
   if (loading) return <Loading />;
 
@@ -22,7 +23,7 @@ const ListVideo = () => {
         {topic && (
           <div className="flex items-center gap-5">
             <img
-              src={topic.thumbnailUrl}
+              src={topic.thumbnailUrl || DEFAULT_THUMBNAIL_URL}
               alt={topic.name}
               className="w-20 h-20 rounded-xl object-cover"
             />
@@ -47,7 +48,6 @@ const ListVideo = () => {
             <VideoCard
               key={video.id}
               video={video}
-              onUnlocked={handleUnlocked}
             />
           ))
         )}

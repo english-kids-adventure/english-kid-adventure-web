@@ -6,12 +6,12 @@ import Text from '@/shared/components/common/Text';
 import { useVideoDetail } from '@/features/learning/hooks/useVideoDetail';
 
 const VideoDetail = () => {
-  const { topicId, orderIndex } = useParams<{
+  const { topicId, videoId } = useParams<{
     topicId: string;
-    orderIndex: string;
+    videoId: string;
   }>();
 
-  const { video, loading } = useVideoDetail({ topicId, orderIndex });
+  const { video, loading } = useVideoDetail({ topicId, videoId });
 
   if (loading) return <Loading />;
 
