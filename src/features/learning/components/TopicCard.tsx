@@ -1,6 +1,6 @@
 import { Text } from '@shared/components/common/Text';
 import { Link } from 'react-router-dom';
-import { DEFAULT_THUMBNAIL_URL } from '@/shared/constants/image';
+import { DEFAULT_IMAGES } from '@/shared/constants/image';
 
 interface TopicProps {
   thumbnailUrl: string;
@@ -45,7 +45,7 @@ export function TopicCard({
       >
         <div className="w-full h-32">
           <img
-            src={thumbnailUrl || DEFAULT_THUMBNAIL_URL}
+            src={thumbnailUrl || DEFAULT_IMAGES.thumbnail}
             alt={name}
             className="w-full h-full object-cover"
           />

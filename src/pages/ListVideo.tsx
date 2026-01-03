@@ -1,16 +1,16 @@
 import { useParams } from 'react-router-dom';
-import { BackButton } from '@/shared/components/common/BackButton';
-import { VideoCard } from '@/features/learning/components/VideoCard';
-import { Loading } from '@/shared/components/common/Loading';
-import { Heading } from '@/shared/components/common/Heading';
-import Text from '@/shared/components/common/Text';
-import { useListVideo } from '@/features/learning/hooks/useListVideo';
-import { DEFAULT_THUMBNAIL_URL } from '@/shared/constants/image';
+import { BackButton } from '@shared/components/common/BackButton';
+import { VideoCard } from '@features/learning/components/VideoCard';
+import { Loading } from '@shared/components/common/Loading';
+import { Heading } from '@shared/components/common/Heading';
+import Text from '@shared/components/common/Text';
+import { useListVideo } from '@features/learning/hooks/useListVideo';
+import { DEFAULT_IMAGES } from '@/shared/constants/image';
 
 const ListVideo = () => {
   const { topicId } = useParams<{ topicId: string }>();
 
-  const { videos, topic, loading } =
+  const { videos, topic, loading, handleUnlocked } =
   useListVideo(topicId);
 
   if (loading) return <Loading />;
@@ -23,7 +23,7 @@ const ListVideo = () => {
         {topic && (
           <div className="flex items-center gap-5">
             <img
-              src={topic.thumbnailUrl || DEFAULT_THUMBNAIL_URL}
+              src={topic.thumbnailUrl || DEFAULT_IMAGES.thumbnail}
               alt={topic.name}
               className="w-20 h-20 rounded-xl object-cover"
             />
@@ -48,6 +48,7 @@ const ListVideo = () => {
             <VideoCard
               key={video.id}
               video={video}
+              onUnlocked={handleUnlocked}
             />
           ))
         )}
@@ -57,4 +58,3 @@ const ListVideo = () => {
 };
 
 export default ListVideo;
-

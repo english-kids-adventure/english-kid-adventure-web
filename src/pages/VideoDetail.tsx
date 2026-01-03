@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
-import { BackButton } from '@/shared/components/common/BackButton';
-import { VideoPlayer } from '@/features/learning/components/VideoPlayer';
-import { Loading } from '@/shared/components/common/Loading';
-import Text from '@/shared/components/common/Text';
-import { useVideoDetail } from '@/features/learning/hooks/useVideoDetail';
+import { BackButton } from '@shared/components/common/BackButton';
+import { VideoPlayer } from '@features/learning/components/VideoPlayer';
+import { Loading } from '@shared/components/common/Loading';
+import Text from '@shared/components/common/Text';
+import { useVideoDetail } from '@features/learning/hooks/useVideoDetail';
 
 const VideoDetail = () => {
   const { topicId, videoId } = useParams<{

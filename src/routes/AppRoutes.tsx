@@ -8,8 +8,8 @@ import MainLayout from '@shared/layouts/MainLayout';
 const Register = lazy(() => import('@pages/Register'));
 const Login = lazy(() => import('@pages/Login'));
 const Home = lazy(() => import('@pages/Home'));
-const ListVideo = lazy(() => import('@/pages/ListVideo'));
-const VideoDetail = lazy(() => import('@/pages/VideoDetail'));
+const ListVideo = lazy(() => import('@pages/ListVideo'));
+const VideoDetail = lazy(() => import('@pages/VideoDetail'));
 
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center">

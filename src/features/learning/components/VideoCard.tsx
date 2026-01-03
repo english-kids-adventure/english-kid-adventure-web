@@ -1,20 +1,20 @@
 import { Play, Lock, Star } from 'lucide-react';
-import { LevelBadge } from '@/shared/components/common/LevelBadge';
-import Button from '@/shared/components/common/Button';
-import { Heading } from '@/shared/components/common/Heading';
-import Text from '@/shared/components/common/Text';
-import { getYoutubeThumbnail } from '@/shared/utils/youtube';
-import type { Video } from '@/features/learning/types';
-import { useVideoCard } from '@/features/learning/hooks/useVideoCard';
+import { LevelBadge } from '@shared/components/common/LevelBadge';
+import Button from '@shared/components/common/Button';
+import { Heading } from '@shared/components/common/Heading';
+import Text from '@shared/components/common/Text';
+import { getYoutubeThumbnail } from '@shared/utils/youtube';
+import type { Video } from '@features/learning/types';
+import { useVideoCard } from '@features/learning/hooks/useVideoCard';
 
 interface Props {
   video: Video;
   onUnlocked?: (videoId: number) => void;
 }
 
-export function VideoCard({ video }: Props) {
-  const { isLocked, levelConfig, goToVideo } =
-    useVideoCard(video);
+export function VideoCard({ video, onUnlocked }: Props) {
+  const { isLocked, levelConfig, goToVideo, unlock, unlocking } =
+    useVideoCard(video, onUnlocked);
 
   return (
     <div className="flex gap-4 bg-white rounded-2xl shadow-sm p-4 hover:shadow-md transition">
@@ -59,7 +59,7 @@ export function VideoCard({ video }: Props) {
 
         <div className="self-center">
           {isLocked ? (
-            <Button variant="warning" icon={<Lock size={16} />}>
+            <Button variant="warning" icon={<Lock size={16} />} onClick={unlock} disabled={unlocking}>
               Unlock
             </Button>
           ) : (

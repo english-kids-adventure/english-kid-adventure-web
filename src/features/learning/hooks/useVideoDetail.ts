@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { videoService } from '@/features/learning/services/videoService';
+import { videoService } from '@features/learning/services/videoService';
 
 interface Params {
   topicId?: string;

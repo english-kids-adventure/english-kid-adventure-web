@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
-import { authService } from '../services/authService';
+import { authService } from '@features/auth/services/authService';
 import { useAuthStore } from '@store/useAuthStore';
-import { authReducer, initialState } from './useAuthFormState';
+import { authReducer, initialState } from '@features/auth/hooks/useAuthFormState';
 import { useFormHandler } from '@shared/hooks/useFormHandler';
 import { validateLoginForm } from '@shared/utils/validation';
 import { handleApiError } from '@shared/utils/error-handler';
