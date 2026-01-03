@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { topicService } from '@/features/learning/services/topicService';
-import { CURSOR_PAGINATION } from '@/shared/constants/cursorPagination';
-import type { Topic } from '@/features/learning/types/topic';
+import { topicService } from '@features/learning/services/topicService';
+import { CURSOR_PAGINATION } from '@shared/constants/cursorPagination';
+import type { Topic } from '@features/learning/types';
 
 export function useTopic() {
   const {

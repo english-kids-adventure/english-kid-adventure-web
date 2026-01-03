@@ -4,7 +4,7 @@ import TopicCard from '@features/learning/components/TopicCard';
 import Text from '@shared/components/common/Text';
 import DotsLoading from '@features/learning/components/DotsLoading';
 import { Heading } from '@shared/components/common/Heading';
-import { useTopic } from '@/features/learning/hooks/useTopic';
+import { useTopic } from '@features/learning/hooks/useTopic';
 import { useEffect, useRef } from 'react';
 
 export default function Home() {
