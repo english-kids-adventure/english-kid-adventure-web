@@ -4,7 +4,7 @@ import TopicCard from '@features/learning/components/TopicCard';
 import Text from '@shared/components/common/Text';
 import DotsLoading from '@features/learning/components/DotsLoading';
 import { Heading } from '@shared/components/common/Heading';
-import { useHomeTopics } from '@/features/learning/hooks/useHomeTopics';
+import { useTopic } from '@/features/learning/hooks/useTopic';
 import { useEffect, useRef } from 'react';
 
 export default function Home() {
@@ -14,7 +14,7 @@ export default function Home() {
     error,
     hasMore,
     loadMore,
-  } = useHomeTopics();
+  } = useTopic();
 
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
@@ -37,7 +37,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-gray-50 p-4 md:p-8">
       <div className="mx-auto">
-        {/* HEADER */}
+
         <div className="bg-btn-primary rounded-3xl p-8 md:p-12 mb-8 shadow-xl">
           <Heading level={1} color="default">
             Welcome to English Kids Adventure!

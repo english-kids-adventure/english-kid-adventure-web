@@ -1,17 +1,4 @@
 :root {
-  --text-xs: 0.75rem;
-  --text-xs--line-height: 1rem;
-  --text-sm: 0.875rem;
-  --text-sm--line-height: 1.25rem;
-  --text-base: 1rem;
-  --text-base--line-height: 1.5rem;
-  --text-lg: 1.125rem;
-  --text-lg--line-height: 1.75rem;
-  --text-xl: 1.25rem;
-  --text-xl--line-height: 1.75rem;
-  --text-2xl: 1.5rem;
-  --text-2xl--line-height: 2rem;
-  
   --text-default: #ffffff;
   --text-muted: #374151;
   --text-primary: #1d4ed8;
@@ -50,14 +37,6 @@
 .bg-btn-danger-hover:hover { background: var(--btn-danger-bg-hover); }
 
 @layer base {
-  h1 { font-size: var(--text-2xl); line-height: var(--text-2xl--line-height); font-weight: 700; }
-  h2 { font-size: var(--text-xl); line-height: var(--text-xl--line-height); font-weight: 600; }
-  h3 { font-size: var(--text-lg); line-height: var(--text-lg--line-height); font-weight: 500; }
-  h4 { font-size: var(--text-base); line-height: var(--text-base--line-height); font-weight: 500; }
-  h5 { font-size: var(--text-sm); line-height: var(--text-sm--line-height); font-weight: 500; }
-  h6 { font-size: var(--text-xs); line-height: var(--text-xs--line-height); font-weight: 500; }
-
-  .text-title { font-size: var(--text-xl); line-height: var(--text-xl--line-height); font-weight: 700; }
   .text-subtitle { font-size: var(--text-lg); line-height: var(--text-lg--line-height); font-weight: 600; }
   .text-body { font-size: var(--text-base); line-height: var(--text-base--line-height); }
   .text-caption { font-size: var(--text-sm); line-height: var(--text-sm--line-height); }
