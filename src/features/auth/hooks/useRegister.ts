@@ -1,18 +1,13 @@
-import React from 'react';
 import { useReducer } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
-
 import { authService } from '@features/auth/services/authService';
+import { useMutation } from '@tanstack/react-query';
 import { authReducer, initialState } from '@features/auth/hooks/useAuthFormState';
 import { useFormHandler } from '@shared/hooks/useFormHandler';
 import { validateRegisterForm } from '@shared/utils/validation';
-import { handleApiError } from '@shared/utils/error-handler';
-import { ROUTES } from '@shared/constants/routes';
+import type { AuthResult } from '@features/auth/types';
+import { handleApiError } from '@/shared/utils';
 
 export const useRegister = () => {
-  const navigate = useNavigate();
   const [state, dispatch] = useReducer(authReducer, initialState);
   const { handleChange, handleTogglePassword } =
     useFormHandler(dispatch);
@@ -21,13 +16,12 @@ export const useRegister = () => {
     mutationFn: authService.register,
   });
 
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleRegister = async () : Promise<AuthResult> => {
+    if (isPending) return { success: false, message: 'Please wait...' };
 
     const validation = validateRegisterForm(state);
     if (!validation.isValid) {
-      toast.error(validation.message);
-      return;
+      return { success: false, message: validation.message };
     }
 
     try {
@@ -36,11 +30,9 @@ export const useRegister = () => {
         email: state.email,
         password: state.password,
       });
-
-      toast.success('Registration successful!');
-      navigate(ROUTES.LOGIN);
+      return { success: true };
     } catch (error) {
-      handleApiError(error, 'Registration failed!');
+      return { success: false, message: handleApiError(error) };
     }
   };
 

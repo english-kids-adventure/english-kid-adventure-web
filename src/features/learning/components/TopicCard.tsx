@@ -1,3 +1,4 @@
+import { UI_LABELS } from '@/shared/constants';
 import { Text } from '@shared/components/common/Text';
 import { Link } from 'react-router-dom';
 import { DEFAULT_IMAGES } from '@/shared/constants/image';
@@ -61,10 +62,10 @@ export function TopicCard({
 
           <div className="flex justify-between items-center text-sm font-medium mb-2">
             <Text variant="caption" color="muted">
-              Lessons: {totalVideos}
+              {UI_LABELS.LEARNING.LESSONS}: {totalVideos}
             </Text>
             <Text variant="caption" color="muted">
-              Time: {totalTime}h
+              {UI_LABELS.LEARNING.TIME}: {totalTime}{UI_LABELS.LEARNING.UNIT_HOUR}
             </Text>
           </div>
 

@@ -1,13 +1,27 @@
-import { AxiosError } from 'axios';
-import { toast } from 'react-toastify';
+import axios from 'axios';
+import { MESSAGES } from '@shared/constants';
 
 interface ApiErrorData {
   message: string;
   error?: string;
 }
 
-export const handleApiError = (error: unknown, fallbackMessage: string) => {
-  const axiosError = error as AxiosError<ApiErrorData>;
-  const errorMessage = axiosError.response?.data?.error || fallbackMessage;
-  toast.error(errorMessage);
-};
+export function handleApiError(
+  error: unknown,
+  fallbackMessage: string = MESSAGES.ERROR.DEFAULT_API,
+): string {
+  if (axios.isAxiosError<ApiErrorData>(error)) {
+    return (
+      error.response?.data?.error ||
+      error.response?.data?.message ||
+      error.message ||
+      fallbackMessage
+    );
+  }
+
+  if (error instanceof Error) {
+    return error.message;
+  }
+
+  return fallbackMessage;
+}
