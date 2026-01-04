@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import Text from '@shared/components/common/Text';
+import { Text } from '@shared/components/common';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'success' | 'warning';
 export type ButtonSize = 'sm' | 'md' | 'lg';

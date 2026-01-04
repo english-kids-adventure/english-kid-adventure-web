@@ -1,0 +1,39 @@
+export const UI_LABELS = {
+  AUTH: {
+    WELCOME_BACK: 'Welcome back!',
+    CREATE_ACCOUNT: 'Create your account',
+    START_JOURNEY: 'Start your English learning journey!',
+    NO_ACCOUNT: 'Don’t have an account?',
+    ALREADY_ACCOUNT: 'Already have an account?',
+    SIGN_UP: 'Sign up',
+    LOG_IN: 'Log in',
+  },
+  FORM: {
+    LABEL_EMAIL: 'Email',
+    LABEL_PASSWORD: 'Password',
+    LABEL_NAME: 'Name',
+    LABEL_CONFIRM_PASSWORD: 'Confirm Password',
+    BTN_LOGIN: 'LOGIN NOW',
+    BTN_LOGGING_IN: 'LOGGING IN...',
+    BTN_REGISTER: 'REGISTER NOW',
+    BTN_CREATING_ACCOUNT: 'CREATING ACCOUNT...',
+  },
+  LEARNING: {
+    LESSONS: 'Lessons',
+    TIME: 'Time',
+    UNIT_HOUR: 'h',
+    UNLOCK: 'Unlock',
+    START: 'Start',
+    LESSON_PREFIX: 'Lesson',
+    STARS_UNIT: 'star',
+    XP_UNIT: 'XP',
+  },
+  PROFILE: {
+    CURRENT_DAY: 'Current Day',
+    BEST_STREAK: 'Best Streak',
+    WEEK_DAYS: {
+      SUN: 'Sun', MON: 'Mon', TUE: 'Tue', WED: 'Wed',
+      THU: 'Thu', FRI: 'Fri', SAT: 'Sat',
+    },
+  },
+} as const;

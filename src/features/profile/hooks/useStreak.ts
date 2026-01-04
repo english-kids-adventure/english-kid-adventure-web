@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useProfile } from '@/features/profile/hooks/useProfile';
 import type{ DayData } from '@/features/profile/types';
+import { UI_LABELS } from '@/shared/constants';
 
 export const useStreak = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,24 +18,44 @@ export const useStreak = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen]);
 
-  const generateWeekDays = (): DayData[] => {
-    const labels = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const days = useMemo((): DayData[] => {
+    const labels = Object.values(UI_LABELS.PROFILE.WEEK_DAYS);
     const today = new Date();
     const currentDayIndex = today.getDay();
+    return labels.map((label, index) => {
+      const isActive = index <= currentDayIndex;
 
-    return labels.map((label, index) => ({
-      label,
-      active: index <= currentDayIndex,
-      fire: index <= currentDayIndex,
-      current: index === currentDayIndex,
-    }));
-  };
+      return {
+        label,
+        active: isActive,
+        fire: isActive,
+        current: index === currentDayIndex,
+      };
+    });
+  }, []);
+
+  const toggle = useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, []);
+
+  // const generateWeekDays = (): DayData[] => {
+  //   const labels = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  //   const today = new Date();
+  //   const currentDayIndex = today.getDay();
+
+  //   return labels.map((label, index) => ({
+  //     label,
+  //     active: index <= currentDayIndex,
+  //     fire: index <= currentDayIndex,
+  //     current: index === currentDayIndex,
+  //   }));
+  // };
 
   return {
     isOpen,
     popoverRef,
     isLoading,
-    days: generateWeekDays(),
+    days,
     toggle: () => setIsOpen((prev) => !prev),
     currentStreak: user?.current_streak ?? 0,
     longestStreak: user?.longest_streak ?? 0,

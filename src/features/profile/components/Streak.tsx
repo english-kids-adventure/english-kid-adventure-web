@@ -2,6 +2,7 @@ import { Triangle, Flame } from 'lucide-react';
 import clsx from 'clsx';
 import { Text } from '@/shared/components/common/Text';
 import type { DayData } from '@/features/profile/types';
+import { UI_LABELS } from '@/shared/constants';
 
 interface StreakProps {
   days: DayData[];
@@ -21,7 +22,7 @@ export function Streak({ days, currentStreak, longestStreak }: StreakProps) {
               {currentStreak}
             </Text>
             <Text variant="small" className="uppercase font-bold !text-black/50 mt-1.5 tracking-tight">
-              Current Day
+              {UI_LABELS.PROFILE.CURRENT_DAY}
             </Text>
           </div>
 
@@ -30,7 +31,7 @@ export function Streak({ days, currentStreak, longestStreak }: StreakProps) {
               {longestStreak}
             </Text>
             <Text variant="small" className="uppercase font-bold !text-black/50 mt-1.5 tracking-tight">
-              Best Streak
+              {UI_LABELS.PROFILE.BEST_STREAK}
             </Text>
           </div>
         </div>

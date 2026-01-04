@@ -1,9 +1,6 @@
-import { StatCard } from '@shared/components/common/StatCard';
 import { Flame, Sparkles, Star } from 'lucide-react';
-import { Text } from '@shared/components/common/Text';
-import Button from '@shared/components/common/Button';
+import { Text, Button, Loading, StatCard } from '@shared/components/common';
 import { useStreak, Streak } from '@features/profile';
-import { Loading } from '@shared/components/common/Loading';
 
 const Header = () => {
   const {
