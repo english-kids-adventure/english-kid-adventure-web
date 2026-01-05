@@ -40,7 +40,7 @@ const ListVideo = () => {
 
       <div className="flex-1 overflow-y-auto pr-2 space-y-4 hide-scrollbar">
         {videos.length === 0 ? (
-          <Text align="center" color="muted">
+          <Text as="p" align="center" color="muted">
             There are no videos yet!
           </Text>
         ) : (

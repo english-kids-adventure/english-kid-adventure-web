@@ -1,4 +1,4 @@
-import { Play, Lock, Star } from 'lucide-react';
+import { Play, Lock, Sparkles } from 'lucide-react';
 import { LevelBadge, Heading, Text, Button } from '@shared/components/common';
 import { getYoutubeThumbnail } from '@shared/utils/youtube';
 import type { Video } from '@features/learning/types';
@@ -59,7 +59,7 @@ export function VideoCard({ video, onUnlocked }: Props) {
 
           <div className="flex items-center gap-4">
             <Text variant="small" color="muted" className="flex items-center gap-1">
-              <Star size={16} className="text-yellow-500" />
+              <Sparkles size={16} className="text-yellow-500" />
               {video.xpReward} {UI_LABELS.LEARNING.XP_UNIT}
             </Text>
 
