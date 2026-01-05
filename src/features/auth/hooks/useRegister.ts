@@ -5,7 +5,7 @@ import { authReducer, initialState } from '@features/auth/hooks/useAuthFormState
 import { useFormHandler } from '@shared/hooks/useFormHandler';
 import { validateRegisterForm } from '@shared/utils/validation';
 import type { AuthResult } from '@features/auth/types';
-import { handleApiError } from '@/shared/utils';
+import { handleApiError } from '@shared/utils';
 
 export const useRegister = () => {
   const [state, dispatch] = useReducer(authReducer, initialState);

@@ -1,11 +1,11 @@
 import { useReducer } from 'react';
-import { authService } from '@/features/auth/services/authService';
+import { authService } from '@features/auth/services/authService';
 import { useMutation } from '@tanstack/react-query';
 import { useAuthStore } from '@store/useAuthStore';
 import { authReducer, initialState } from '@features/auth/hooks/useAuthFormState';
 import { useFormHandler } from '@shared/hooks/useFormHandler';
 import { validateLoginForm } from '@shared/utils/validation';
-import type { AuthResult } from '@/features/auth/types/index';
+import type { AuthResult } from '@features/auth/types';
 
 export const useLogin = () => {
   const { setAuth } = useAuthStore();

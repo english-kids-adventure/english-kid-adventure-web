@@ -1,6 +1,6 @@
-import axiosClient from '@/lib/axios';
+import axiosClient from '@lib/axios';
 import { API_ENDPOINTS } from '@shared/constants/api';
-import type { Video } from '@features/learning/types';
+import type { Video, UnlockVideoResponse } from '@features/learning/types';
 
 export const videoService = {
   getVideosByTopic: async (topicId: number): Promise<Video[]> => {
@@ -10,11 +10,14 @@ export const videoService = {
     return response.data.data;
   },
 
-  unlockVideo: async (videoId: number): Promise<void> => {
-    await axiosClient.post(
+  unlockVideo: async (
+    videoId: number,
+  ): Promise<UnlockVideoResponse> => {
+    const response = await axiosClient.post(
       API_ENDPOINTS.VIDEO.UNLOCK(videoId),
     );
-  },
 
+    return response.data.data;
+  },
 };
 

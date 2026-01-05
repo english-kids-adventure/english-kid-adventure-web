@@ -1,7 +1,7 @@
-import { UI_LABELS } from '@/shared/constants';
+import { UI_LABELS } from '@shared/constants';
 import { Text } from '@shared/components/common/Text';
 import { Link } from 'react-router-dom';
-import { DEFAULT_IMAGES } from '@/shared/constants/image';
+import { DEFAULT_IMAGES } from '@shared/constants/image';
 
 interface TopicProps {
   thumbnailUrl: string;
@@ -46,7 +46,7 @@ export function TopicCard({
       >
         <div className="w-full h-32">
           <img
-            src={thumbnailUrl || DEFAULT_IMAGES.thumbnail}
+            src={thumbnailUrl || DEFAULT_IMAGES.THUMBNAIL}
             alt={name}
             className="w-full h-full object-cover"
           />

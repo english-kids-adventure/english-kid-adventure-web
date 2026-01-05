@@ -1,9 +1,10 @@
-import { Play, Lock, Star } from 'lucide-react';
-import { LevelBadge, Heading, Text, Button } from '@/shared/components/common';
-import { getYoutubeThumbnail } from '@/shared/utils/youtube';
-import type { Video } from '@/features/learning/types';
-import { useVideoCard } from '@/features/learning/hooks/useVideoCard';
-import { UI_LABELS } from '@/shared/constants';
+import { Play, Lock, Sparkles } from 'lucide-react';
+import { LevelBadge, Heading, Text, Button } from '@shared/components/common';
+import { getYoutubeThumbnail } from '@shared/utils/youtube';
+import type { Video } from '@features/learning/types';
+import { useVideoCard } from '@features/learning/hooks/useVideoCard';
+import { UI_LABELS } from '@shared/constants';
+import { toast } from 'react-toastify';
 
 interface Props {
   video: Video;
@@ -11,8 +12,24 @@ interface Props {
 }
 
 export function VideoCard({ video, onUnlocked }: Props) {
-  const { isLocked, levelConfig, goToVideo, unlock, unlocking } =
-    useVideoCard(video, onUnlocked);
+  const {
+    isLocked,
+    levelConfig,
+    goToVideo,
+    handleUnlock,
+    unlocking,
+  } = useVideoCard(video, onUnlocked);
+
+  const onUnlockClick = async () => {
+    const result = await handleUnlock();
+
+    if (!result.success) {
+      toast.error('Not enough stars!');
+      return;
+    }
+
+    toast.success('Video unlocked!');
+  };
 
   return (
     <div className="flex gap-4 bg-white rounded-2xl shadow-sm p-4 hover:shadow-md transition">
@@ -42,7 +59,7 @@ export function VideoCard({ video, onUnlocked }: Props) {
 
           <div className="flex items-center gap-4">
             <Text variant="small" color="muted" className="flex items-center gap-1">
-              <Star size={16} className="text-yellow-500" />
+              <Sparkles size={16} className="text-yellow-500" />
               {video.xpReward} {UI_LABELS.LEARNING.XP_UNIT}
             </Text>
 
@@ -57,7 +74,7 @@ export function VideoCard({ video, onUnlocked }: Props) {
 
         <div className="self-center">
           {isLocked ? (
-            <Button variant="warning" icon={<Lock size={16} />} onClick={unlock}>
+            <Button variant="warning" icon={<Lock size={16} />} onClick={onUnlockClick} disabled={unlocking}>
               {UI_LABELS.LEARNING.UNLOCK}
             </Button>
           ) : (
