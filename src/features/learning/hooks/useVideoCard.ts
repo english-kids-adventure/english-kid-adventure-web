@@ -1,14 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
 import { ROUTES } from '@shared/constants/routes';
 import type { Video } from '@features/learning/types';
-import { videoService } from '@features/learning/services/videoService';
+import { useUnlockVideo } from '@features/learning/hooks/useUnlockVideo';
 
-export function useVideoCard(
-  video: Video,
-  onUnlocked?: (videoId: number) => void,
-) {
+export function useVideoCard( video: Video, onUnlocked?: (videoId: number) => void ) {
   const navigate = useNavigate();
 
   const isLocked =
@@ -43,23 +38,16 @@ export function useVideoCard(
     );
   };
 
-  const { mutate: unlock, isPending } = useMutation({
-    mutationFn: () =>
-      videoService.unlockVideo(video.id),
-    onSuccess: () => {
-      toast.success('Video unlocked!');
-      onUnlocked?.(video.id);
-    },
-    onError: () => {
-      toast.error('Not enough stars!');
-    },
-  });
+  const { handleUnlock, loading } = useUnlockVideo(
+    video.id,
+    onUnlocked,
+  );
 
   return {
     isLocked,
     levelConfig,
     goToVideo,
-    unlock,
-    unlocking: isPending,
+    handleUnlock,
+    unlocking: loading,
   };
 }

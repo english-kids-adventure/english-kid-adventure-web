@@ -81,7 +81,7 @@ export default function Home() {
         {loading && <DotsLoading />}
 
         {!hasMore && !loading && (
-          <Text align="center" className="mt-10" color="primary">
+          <Text as="p" align="center" className="mt-10" color="primary">
             You have reached the end
           </Text>
         )}

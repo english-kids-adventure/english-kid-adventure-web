@@ -16,3 +16,8 @@ export interface Video {
 
   locked?: boolean;
 }
+
+export interface UnlockVideoResponse {
+  remainingStars: number;
+  isUnlocked: boolean;
+}
