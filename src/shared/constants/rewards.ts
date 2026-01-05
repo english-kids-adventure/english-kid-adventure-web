@@ -1,0 +1,8 @@
+export const REWARDS = {
+  EASY_XP: 50,
+  MEDIUM_XP: 100,
+  HARD_XP: 200,
+  QUIZ_STARS: 5,
+  UNLOCK_MEDIUM: 5,
+  UNLOCK_HARD: 10,
+};

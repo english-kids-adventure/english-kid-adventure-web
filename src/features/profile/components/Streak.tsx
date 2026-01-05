@@ -2,6 +2,7 @@ import { Triangle, Flame } from 'lucide-react';
 import clsx from 'clsx';
 import { Text } from '@/shared/components/common/Text';
 import type { DayData } from '@/features/profile/types';
+import { UI_LABELS } from '@/shared/constants';
 
 interface StreakProps {
   days: DayData[];
@@ -21,7 +22,7 @@ export function Streak({ days, currentStreak, longestStreak }: StreakProps) {
               {currentStreak}
             </Text>
             <Text variant="small" className="uppercase font-bold !text-black/50 mt-1.5 tracking-tight">
-              Current Day
+              {UI_LABELS.PROFILE.CURRENT_DAY}
             </Text>
           </div>
 
@@ -30,7 +31,7 @@ export function Streak({ days, currentStreak, longestStreak }: StreakProps) {
               {longestStreak}
             </Text>
             <Text variant="small" className="uppercase font-bold !text-black/50 mt-1.5 tracking-tight">
-              Best Streak
+              {UI_LABELS.PROFILE.BEST_STREAK}
             </Text>
           </div>
         </div>
@@ -46,14 +47,15 @@ export function Streak({ days, currentStreak, longestStreak }: StreakProps) {
                 <div
                   className={clsx(
                     'w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300',
-                    day.current && !day.active
-                      ? 'border-2 border-dashed border-[#ff5252]'
-                      : day.active
-                        ? 'bg-[#ff5252] text-white'
-                        : 'border-2 border-gray-200',
+                    {
+                      'border-2 border-dashed border-[#ff5252]': day.current && !day.active,
+                      'bg-[#ff5252] text-white': day.active,
+                      'bg-gray-200 border-none': !day.active && day.status === 'missed',
+                      'border-2 border-gray-200': !day.active && day.status === 'future' && !day.current,
+                    },
                   )}
                 >
-                  {(day.fire || day.active) ? (
+                  {day.active ? (
                     <Flame size={18} className="text-white fill-current" />
                   ) : null}
                 </div>

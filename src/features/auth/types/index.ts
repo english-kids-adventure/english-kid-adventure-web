@@ -1,5 +1,9 @@
 import type { User } from '@shared/types';
 
+export type AuthResult =
+  | { success: true }
+  | { success: false; message?: string; error?: unknown };
+
 export interface LoginCredentials {
   email: string;
   password: string;

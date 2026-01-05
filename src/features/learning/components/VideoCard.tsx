@@ -1,11 +1,9 @@
 import { Play, Lock, Star } from 'lucide-react';
-import { LevelBadge } from '@shared/components/common/LevelBadge';
-import Button from '@shared/components/common/Button';
-import { Heading } from '@shared/components/common/Heading';
-import Text from '@shared/components/common/Text';
-import { getYoutubeThumbnail } from '@shared/utils/youtube';
-import type { Video } from '@features/learning/types';
-import { useVideoCard } from '@features/learning/hooks/useVideoCard';
+import { LevelBadge, Heading, Text, Button } from '@/shared/components/common';
+import { getYoutubeThumbnail } from '@/shared/utils/youtube';
+import type { Video } from '@/features/learning/types';
+import { useVideoCard } from '@/features/learning/hooks/useVideoCard';
+import { UI_LABELS } from '@/shared/constants';
 
 interface Props {
   video: Video;
@@ -36,7 +34,7 @@ export function VideoCard({ video, onUnlocked }: Props) {
           <div className="flex items-center gap-2">
             <LevelBadge {...levelConfig} />
             <Text variant="small" color="muted">
-              Lesson {video.orderIndex}
+              {UI_LABELS.LEARNING.LESSON_PREFIX} {video.orderIndex}
             </Text>
           </div>
 
@@ -45,13 +43,13 @@ export function VideoCard({ video, onUnlocked }: Props) {
           <div className="flex items-center gap-4">
             <Text variant="small" color="muted" className="flex items-center gap-1">
               <Star size={16} className="text-yellow-500" />
-              {video.xpReward} XP
+              {video.xpReward} {UI_LABELS.LEARNING.XP_UNIT}
             </Text>
 
             {isLocked && (
               <Text variant="small" color="danger" className="flex items-center gap-1">
                 <Lock size={15} />
-                {video.unlockCost} star
+                {video.unlockCost} {UI_LABELS.LEARNING.STARS_UNIT}
               </Text>
             )}
           </div>
@@ -59,12 +57,12 @@ export function VideoCard({ video, onUnlocked }: Props) {
 
         <div className="self-center">
           {isLocked ? (
-            <Button variant="warning" icon={<Lock size={16} />} onClick={unlock} disabled={unlocking}>
-              Unlock
+            <Button variant="warning" icon={<Lock size={16} />} onClick={unlock}>
+              {UI_LABELS.LEARNING.UNLOCK}
             </Button>
           ) : (
             <Button icon={<Play size={16} />} onClick={goToVideo}>
-              Start
+              {UI_LABELS.LEARNING.START}
             </Button>
           )}
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import Text from '@shared/components/common/Text';
+import { Text } from '@shared/components/common';
 
 type InputSize = 'sm' | 'md' | 'lg';
 
