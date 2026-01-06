@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef, useMemo } from 'react';
 import { useProfile } from '@/features/profile/hooks/useProfile';
 import type { DayData } from '@/features/profile/types';
@@ -35,7 +36,6 @@ export const useStreak = () => {
 
     return labels.map((label, index) => {
       const isCompleted = completedDays.includes(index);
-
       return {
         label,
         active: isCompleted,

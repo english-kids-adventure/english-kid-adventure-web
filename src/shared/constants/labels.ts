@@ -24,6 +24,7 @@ export const UI_LABELS = {
     UNIT_HOUR: 'h',
     UNLOCK: 'Unlock',
     START: 'Start',
+    RESTART: 'Restart',
     LESSON_PREFIX: 'Lesson',
     STARS_UNIT: 'star',
     XP_UNIT: 'XP',

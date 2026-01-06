@@ -1,6 +1,7 @@
 export type VideoLevel = 'EASY' | 'MEDIUM' | 'HARD';
 
 export interface Video {
+  progress: number;
   id: number;
   topicId: number;
   title: string;

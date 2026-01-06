@@ -11,6 +11,7 @@ export const API_ENDPOINTS = {
   VIDEO: {
     LIST_VIDEO_BY_TOPIC: (id: number) => `/topics/${id}/videos`,
     UNLOCK: (videoId: number) => `/videos/${videoId}/unlock`,
+    COMPLETE: (videoId: number) => `/videos/complete/${videoId}`,
   },
 
   QUIZ: {

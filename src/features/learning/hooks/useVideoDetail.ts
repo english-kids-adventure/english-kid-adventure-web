@@ -1,33 +1,64 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { videoService } from '@features/learning/services/videoService';
+import { useCallback, useState } from 'react';
+import type { Video } from '@features/learning/types';
+import { usePlayer } from '@shared/hooks/usePlayer';
 
-interface Params {
-  topicId?: string;
-  videoId?: string;
-}
+export function useVideoDetail({
+  topicId,
+  videoId,
+}: {
+  topicId: string;
+  videoId: string;
+}) {
+  const queryClient = useQueryClient();
+  const [showQuiz, setShowQuiz] = useState(false);
+  const { addXp, syncFromProfile } = usePlayer();
 
-export function useVideoDetail({ topicId, videoId }: Params) {
   const topicIdNum = Number(topicId);
   const videoIdNum = Number(videoId);
 
-  const {
-    data: video,
-    isLoading: loading,
-    isError,
-  } = useQuery({
-    queryKey: ['video-detail', topicIdNum],
-    enabled: Boolean(topicId && videoId),
-    queryFn: async () => {
-      const videos = await videoService.getVideosByTopic(topicIdNum);
-      return (
-        videos.find((v) => v.id === videoIdNum) ?? null
+  const { data: topicVideos = [], isLoading: loadingTopicVideos } = useQuery<Video[]>({
+    queryKey: ['topic-videos', topicIdNum],
+    queryFn: () => videoService.getVideosByTopic(topicIdNum),
+    enabled: !!topicIdNum,
+  });
+
+  const video = topicVideos.find((v) => v.id === videoIdNum) ?? null;
+
+  const { mutate: claimXpApi, isPending } = useMutation({
+    mutationFn: () => videoService.completeVideo(videoIdNum),
+    onSuccess: async (updatedUser) => {
+      queryClient.setQueryData(['profile'], updatedUser);
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
+
+      queryClient.setQueryData<Video[]>(['topic-videos', topicIdNum], (old) =>
+        old?.map((v) =>
+          v.id === videoIdNum ? { ...v, isCompleted: true } : v,
+        ),
       );
+
+      if (video) {
+        addXp(video.xpReward);
+      }
+
+      await syncFromProfile();
     },
   });
 
+  const handleClaimXP = useCallback(async() => {
+    if (isPending || !video) return;
+    await claimXpApi();
+  }, [isPending, claimXpApi, video]);
+
   return {
     video,
-    loading,
-    isError,
+    topicVideos,
+    loading: loadingTopicVideos,
+    isCompleted: !!video?.isCompleted,
+    isClaiming: isPending,
+    showQuiz,
+    handleClaimXP,
+    startQuiz: () => setShowQuiz(true),
   };
 }

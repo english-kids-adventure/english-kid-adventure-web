@@ -19,5 +19,12 @@ export const videoService = {
 
     return response.data.data;
   },
+
+  completeVideo: async (videoId: number): Promise<{ xpGained: number }> => {
+    const response = await axiosClient.post(
+      API_ENDPOINTS.VIDEO.COMPLETE(videoId),
+    );
+    return response.data.data;
+  },
 };
 

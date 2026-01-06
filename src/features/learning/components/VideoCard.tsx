@@ -14,6 +14,7 @@ interface Props {
 export function VideoCard({ video, onUnlocked }: Props) {
   const {
     isLocked,
+    isCompleted,
     levelConfig,
     goToVideo,
     handleUnlock,
@@ -79,7 +80,7 @@ export function VideoCard({ video, onUnlocked }: Props) {
             </Button>
           ) : (
             <Button icon={<Play size={16} />} onClick={goToVideo}>
-              {UI_LABELS.LEARNING.START}
+              {isCompleted ? UI_LABELS.LEARNING.RESTART : UI_LABELS.LEARNING.START}
             </Button>
           )}
         </div>
