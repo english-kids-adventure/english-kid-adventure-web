@@ -62,7 +62,11 @@ export default function QuizCard({
         {currentQuestion.media_url && (
           <div className="mb-6">
             {currentQuestion.media_url.endsWith('.mp3') ? (
-              <audio controls className="w-full">
+              <audio
+                key={currentQuestion.question_id}
+                controls
+                className="w-full"
+              >
                 <source src={currentQuestion.media_url} />
               </audio>
             ) : (
