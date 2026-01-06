@@ -16,6 +16,7 @@ interface ButtonProps {
   disabled?: boolean;
   onClick?: () => void;
   className?: string;
+  unstyled?: boolean;
   type?: 'button' | 'submit' | 'reset';
 }
 
@@ -38,6 +39,7 @@ export function Button({
   variant = 'primary',
   size = 'md',
   icon,
+  unstyled = false,
   iconPosition = 'prefix',
   fullWidth = false,
   disabled = false,
@@ -54,15 +56,19 @@ export function Button({
         'inline-flex items-center justify-center gap-2 font-semibold cursor-pointer',
         'transition-all duration-200',
         'active:scale-95',
-        variantStyles[variant],
-        sizeStyles[size],
+        !unstyled && variantStyles[variant],
+        !unstyled && sizeStyles[size],
         fullWidth && 'w-full',
         disabled && 'opacity-50 cursor-not-allowed pointer-events-none',
         className,
       )}
     >
       {icon && iconPosition === 'prefix' && icon}
-      <Text className="whitespace-nowrap">{children}</Text>
+      {unstyled ? (
+        children
+      ) : (
+        <Text className="whitespace-nowrap">{children}</Text>
+      )}
       {icon && iconPosition === 'suffix' && icon}
     </button>
   );

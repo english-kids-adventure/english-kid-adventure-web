@@ -7,4 +7,5 @@ export const ROUTES = {
   PROFILE: '/profile',
   LISTVIDEO: '/topics/:topicId',
   VIDEO_DETAIL: '/topics/:topicId/lessons/:videoId',
+  QUIZ: '/topics/:topicId/lessons/:orderIndex/quiz',
 } as const;

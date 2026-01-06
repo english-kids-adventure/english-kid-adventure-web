@@ -3,18 +3,17 @@ import { ROUTES } from '@shared/constants/routes';
 import { lazy, Suspense } from 'react';
 import { AuthGuard } from '@shared/guards/AuthGuard';
 import MainLayout from '@shared/layouts/MainLayout';
+import { Loading } from '@/shared/components/common';
 
-// Lazy page
 const Register = lazy(() => import('@pages/Register'));
 const Login = lazy(() => import('@pages/Login'));
 const Home = lazy(() => import('@pages/Home'));
 const ListVideo = lazy(() => import('@pages/ListVideo'));
 const VideoDetail = lazy(() => import('@pages/VideoDetail'));
+const Quiz = lazy(() => import('@pages/Quiz'));
 
 const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center">
-    Loading...
-  </div>
+  <Loading/>
 );
 
 export const AppRoutes = () => {
@@ -29,6 +28,7 @@ export const AppRoutes = () => {
             <Route path={ROUTES.HOME} element={<Home />} />
             <Route path={ROUTES.LISTVIDEO} element={<ListVideo />} />
             <Route path={ROUTES.VIDEO_DETAIL} element={<VideoDetail />} />
+            <Route path={ROUTES.QUIZ} element={<Quiz />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Route>

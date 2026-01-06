@@ -1,14 +1,28 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { profileService } from '@/features/profile/services/profileService';
+import { useAuthStore } from '@store/useAuthStore';
+import { useEffect } from 'react';
 
 export const useProfile = () => {
   const queryClient = useQueryClient();
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
 
-  const { data, isLoading, isError, refetch } = useQuery({
+  const {
+    data,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
     queryKey: ['profile'],
     queryFn: profileService.getProfile,
-    staleTime: 1000 * 60 * 5,
+    enabled: false,
   });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      refetch();
+    }
+  }, [isAuthenticated, refetch]);
 
   const updateMutation = useMutation({
     mutationFn: profileService.updateProfile,
