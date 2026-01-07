@@ -1,7 +1,5 @@
-import { Heading } from '@/shared/components/common/Heading';
-import Text from '@/shared/components/common/Text';
-import { Button } from '@/shared/components/common/Button';
-import { ROUTES } from '@/shared/constants';
+import { Heading, Text, Button } from '@shared/components/common';
+import { ROUTES, QUIZ_CONFIG } from '@shared/constants';
 import { RotateCcw, Star } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuizAvailability } from '@features/quiz/hooks/useQuizAvailability';
@@ -27,7 +25,15 @@ export default function ResultQuizCard({ results, resetQuiz }: ResultQuizCardPro
   } = results;
 
   const percentage = Math.round((correctAnswers / totalQuestions) * 100);
-  const isPassed = percentage >= 60;
+  const isPassed = percentage >= QUIZ_CONFIG.PASS_PERCENTAGE;
+
+  const attemptsLeft =
+    typeof timesPlayed === 'number'
+      ? Math.max(
+        QUIZ_CONFIG.MAX_ATTEMPTS_PER_DAY - timesPlayed,
+        0,
+      )
+      : QUIZ_CONFIG.MAX_ATTEMPTS_PER_DAY;
 
   const navigate = useNavigate();
 
@@ -67,7 +73,7 @@ export default function ResultQuizCard({ results, resetQuiz }: ResultQuizCardPro
         </Text>
 
         <div className="flex justify-center gap-2 mb-8">
-          {[...Array(5)].map((_, i) => (
+          {[...Array(QUIZ_CONFIG.MAX_STARS)].map((_, i) => (
             <Star
               key={i}
               className={`w-8 h-8 ${
@@ -140,7 +146,7 @@ export default function ResultQuizCard({ results, resetQuiz }: ResultQuizCardPro
             )}
             {timesPlayed !== undefined && (
               <Text variant="body" color="primary">
-                Attempts left: {3 - timesPlayed}
+                Attempts left: {attemptsLeft}
               </Text>
             )}
           </div>

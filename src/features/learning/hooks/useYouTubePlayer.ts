@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import type { YTPlayer, YTEvent } from '@features/learning/types';
+import type { YTPlayer, YTEvent } from '@shared/types/youtube';
 
 export function useYouTubePlayer(onCheckProgress: () => void) {
   const playerRef = useRef<YTPlayer | null>(null);

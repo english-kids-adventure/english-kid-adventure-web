@@ -9,84 +9,34 @@ import { ROUTES } from '@shared/constants/routes';
 import { VideoPlayerSection } from '@features/learning/components/VideoPlayerSection';
 import { TopicLessonSidebar } from '@features/learning/components/TopicLessonSidebar';
 
-export interface VideoItem {
-  id: string;
-  title: string;
-  url: string;
-  level: 'EASY' | 'MEDIUM' | 'HARD';
-  xpReward?: number;
-  isUnlocked: boolean;
-}
-
-export const levelConfigMap: Record<
-  VideoItem['level'],
-  { text: string; bgColor: string; textColor: string }
-> = {
-  EASY: {
-    text: 'Easy',
-    bgColor: 'bg-green-200',
-    textColor: 'text-green-700',
-  },
-  MEDIUM: {
-    text: 'Medium',
-    bgColor: 'bg-yellow-200',
-    textColor: 'text-yellow-700',
-  },
-  HARD: {
-    text: 'Hard',
-    bgColor: 'bg-red-200',
-    textColor: 'text-red-700',
-  },
-};
+export const levelConfigMap = {
+  EASY: { text: 'Easy', bgColor: 'bg-green-200', textColor: 'text-green-700' },
+  MEDIUM: { text: 'Medium', bgColor: 'bg-yellow-200', textColor: 'text-yellow-700' },
+  HARD: { text: 'Hard', bgColor: 'bg-red-200', textColor: 'text-red-700' },
+} as const;
 
 const VideoDetail = () => {
-  const { topicId, videoId } = useParams<{
-    topicId: string;
-    videoId: string;
-  }>();
-
+  const { topicId, videoId } = useParams<{ topicId: string; videoId: string }>();
   const navigate = useNavigate();
 
-  const {
-    video,
-    loading,
-    isCompleted,
-    handleClaimXP,
-    topicVideos = [],
-  } = useVideoDetail({
-    topicId: topicId ?? '',
-    videoId: videoId ?? '',
-  }) as unknown as {
-    video: VideoItem | null;
-    loading: boolean;
-    isCompleted: boolean;
-    handleClaimXP: () => void;
-    startQuiz: () => void;
-    topicVideos: VideoItem[];
-  };
+  const topicIdNum = Number(topicId);
+  const videoIdNum = Number(videoId);
 
-  const { canStart, loading: quizLoading } =
-    useQuizAvailability(videoId ? Number(videoId) : undefined);
+  const { video, loading, isCompleted, handleClaimXP, topicVideos = [] } = useVideoDetail({
+    topicId: topicIdNum,
+    videoId: videoIdNum,
+  });
+
+  const { canStart, loading: quizLoading } = useQuizAvailability(videoIdNum);
 
   if (loading) return <Loading />;
+  if (!video) return <Text align="center" color="muted">The lesson could not be found!</Text>;
 
-  if (!video) {
-    return (
-      <Text align="center" color="muted">
-        The lesson could not be found!
-      </Text>
-    );
-  }
   const videoLevel = levelConfigMap[video.level];
 
   const handleStartQuiz = () => {
     if (!canStart) return;
-
-    navigate(
-      ROUTES.QUIZ
-        .replace(':topicId', topicId || '')
-        .replace(':orderIndex', videoId || ''),
-    );
+    navigate(ROUTES.QUIZ.replace(':topicId', topicId || '').replace(':orderIndex', videoId || ''));
   };
 
   return (
@@ -104,14 +54,17 @@ const VideoDetail = () => {
             onStartQuiz={handleStartQuiz}
           />
         </div>
-
         <div className="lg:col-span-4">
           <TopicLessonSidebar
             topicVideos={topicVideos}
             currentVideoId={video.id}
             levelConfigMap={levelConfigMap}
             onSelect={(id) =>
-              navigate(`/topics/${topicId}/lessons/${id}`)
+              navigate(
+                ROUTES.VIDEO_DETAIL
+                  .replace(':topicId', topicId || '')
+                  .replace(':videoId', String(id)),
+              )
             }
           />
         </div>

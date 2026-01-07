@@ -1,8 +1,7 @@
 import { RewardOverlay } from '@features/learning/components/RewardOverlay';
-import { useYouTubePlayer } from '@features/learning/hooks/useYouTubePlayer';
-import { useVideoProgress } from '@features/learning/hooks/useVideoProgress';
 import type { VideoLevel } from '@features/learning/types';
-import { useParams } from 'react-router-dom';
+import { getYoutubeEmbedUrl } from '@shared/utils/youtube';
+import { useLearningVideoPlayer } from '@features/learning/hooks/useLearningVideoPlayer';
 
 interface VideoPlayerProps {
   url: string;
@@ -13,26 +12,10 @@ interface VideoPlayerProps {
 }
 
 export function VideoPlayer({ url, xpReward, onProgressReached }: VideoPlayerProps) {
-  const { playerRef } = useYouTubePlayer(() => checkProgress());
-
-  const { orderIndex } = useParams<{
-    topicId: string
-    orderIndex: string
-  }>();
-
-  const videoId = Number(orderIndex);
-
-  const { canClaimXP, checkProgress, handleClaim } = useVideoProgress(
-    playerRef,
-    videoId,
-    onProgressReached,
-  );
-
-  const getEmbedUrl = (rawUrl: string): string => {
-    const videoId = rawUrl.match(/(?:v=|\/embed\/|youtu\.be\/)([^?&]+)/)?.[1] ?? '';
-    const origin = typeof window !== 'undefined' ? window.location.origin : '';
-    return `https://www.youtube.com/embed/${videoId}?enablejsapi=1&origin=${origin}&rel=0&modestbranding=1`;
-  };
+  const {
+    canClaimXP,
+    handleClaim,
+  } = useLearningVideoPlayer(onProgressReached);
 
   return (
     <div className="flex flex-col items-center justify-center w-full max-w-4xl mx-auto gap-5">
@@ -43,7 +26,7 @@ export function VideoPlayer({ url, xpReward, onProgressReached }: VideoPlayerPro
         <iframe
           id="yt-player-iframe"
           className="w-full h-full"
-          src={getEmbedUrl(url)}
+          src={getYoutubeEmbedUrl(url)}
           allow="autoplay; encrypted-media; picture-in-picture"
           allowFullScreen
         />

@@ -4,58 +4,65 @@ import { useCallback, useState } from 'react';
 import type { Video } from '@features/learning/types';
 import { usePlayer } from '@shared/hooks/usePlayer';
 
-export function useVideoDetail({
-  topicId,
-  videoId,
-}: {
-  topicId: string;
-  videoId: string;
-}) {
+export type VideoUI = Video & {
+  isUnlocked: boolean;
+  isCompleted: boolean;
+};
+
+interface UseVideoDetailParams {
+  topicId: number;
+  videoId: number;
+}
+
+export function useVideoDetail({ topicId, videoId }: UseVideoDetailParams) {
   const queryClient = useQueryClient();
   const [showQuiz, setShowQuiz] = useState(false);
   const { addXp, syncFromProfile } = usePlayer();
 
-  const topicIdNum = Number(topicId);
-  const videoIdNum = Number(videoId);
-
   const { data: topicVideos = [], isLoading: loadingTopicVideos } = useQuery<Video[]>({
-    queryKey: ['topic-videos', topicIdNum],
-    queryFn: () => videoService.getVideosByTopic(topicIdNum),
-    enabled: !!topicIdNum,
+    queryKey: ['topic-videos', topicId],
+    queryFn: () => videoService.getVideosByTopic(topicId),
+    enabled: Number.isFinite(topicId),
   });
 
-  const video = topicVideos.find((v) => v.id === videoIdNum) ?? null;
+  const topicVideosUI: VideoUI[] = topicVideos.map((v) => ({
+    ...v,
+    isUnlocked: v.isUnlocked ?? true,
+    isCompleted: v.isCompleted ?? false,
+  }));
+
+  const videoUI: VideoUI | null =
+    topicVideosUI.find((v) => v.id === videoId) ?? null;
 
   const { mutate: claimXpApi, isPending } = useMutation({
-    mutationFn: () => videoService.completeVideo(videoIdNum),
+    mutationFn: () => videoService.completeVideo(videoId),
     onSuccess: async (updatedUser) => {
       queryClient.setQueryData(['profile'], updatedUser);
       queryClient.invalidateQueries({ queryKey: ['profile'] });
 
-      queryClient.setQueryData<Video[]>(['topic-videos', topicIdNum], (old) =>
-        old?.map((v) =>
-          v.id === videoIdNum ? { ...v, isCompleted: true } : v,
-        ),
+      queryClient.setQueryData<Video[]>(
+        ['topic-videos', topicId],
+        (old) =>
+          old?.map((v) =>
+            v.id === videoId ? { ...v, isCompleted: true } : v,
+          ),
       );
 
-      if (video) {
-        addXp(video.xpReward);
-      }
-
+      if (videoUI) addXp(videoUI.xpReward);
       await syncFromProfile();
     },
   });
 
-  const handleClaimXP = useCallback(async() => {
-    if (isPending || !video) return;
+  const handleClaimXP = useCallback(async () => {
+    if (isPending || !videoUI) return;
     await claimXpApi();
-  }, [isPending, claimXpApi, video]);
+  }, [isPending, claimXpApi, videoUI]);
 
   return {
-    video,
-    topicVideos,
+    video: videoUI,
+    topicVideos: topicVideosUI,
     loading: loadingTopicVideos,
-    isCompleted: !!video?.isCompleted,
+    isCompleted: !!videoUI?.isCompleted,
     isClaiming: isPending,
     showQuiz,
     handleClaimXP,

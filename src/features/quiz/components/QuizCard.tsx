@@ -1,5 +1,6 @@
 import { Button, BackButton, Text, Heading } from '@shared/components/common';
-import { DEFAULT_IMAGES } from '@/shared/constants/image';
+import { DEFAULT_IMAGES } from '@shared/constants/image';
+import { isImageUrl } from '@shared/utils/media';
 
 interface Answer {
   id: number
@@ -26,11 +27,6 @@ interface QuizQuestionCardProps {
   onSelectAnswer: (answerId: number) => void
   onNextQuestion: () => void
 }
-
-const isImageUrl = (url?: string | null) => {
-  if (!url) return false;
-  return /\.(jpg|jpeg|png|webp|gif)$/i.test(url);
-};
 
 export default function QuizCard({
   currentQuestion,
@@ -117,9 +113,9 @@ export default function QuizCard({
                     }}
                   />
                 ) : (
-                  <span className="text-base font-medium">
+                  <Text variant='subtitle' color='muted'>
                     {answer.content}
-                  </span>
+                  </Text>
                 )}
               </Button>
             );

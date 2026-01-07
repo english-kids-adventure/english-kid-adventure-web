@@ -1,9 +1,16 @@
 import { VideoPlayer } from '@features/learning/components/VideoPlayer';
 import { useVideoDetail } from '@features/learning/hooks/useVideoDetail';
 
-export function LearningContent({ topicId, videoId }: { topicId: string; videoId: string }) {
+interface LearningContentProps {
+  topicId: string;
+  videoId: string;
+}
+
+export function LearningContent({ topicId, videoId }: LearningContentProps) {
+  const topicIdNum = Number(topicId);
+  const videoIdNum = Number(videoId);
   const { video, loading, isCompleted, handleClaimXP } =
-    useVideoDetail({ topicId, videoId });
+    useVideoDetail({ topicId: topicIdNum, videoId: videoIdNum });
 
   if (loading) return <div className="p-10 text-center text-blue-500 font-black text-2xl animate-pulse">LOADING...</div>;
   if (!video) return <div className="p-10 text-center text-slate-500">Video not found.</div>;

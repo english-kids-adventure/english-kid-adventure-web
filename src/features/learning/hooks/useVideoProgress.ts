@@ -1,5 +1,5 @@
-import { useState, useCallback, useRef } from 'react';
-import type { YTPlayer } from '@features/learning/types';
+import { useState, useCallback, useRef, useEffect } from 'react';
+import type { YTPlayer } from '@shared/types/youtube';
 import React from 'react';
 
 export function useVideoProgress(
@@ -11,6 +11,12 @@ export function useVideoProgress(
 
   const claimedSessions = useRef<Record<string | number, boolean>>({});
   const isClaiming = useRef(false);
+
+  useEffect(() => {
+    setCanClaimXP(false);
+    claimedSessions.current[videoId] = false;
+    isClaiming.current = false;
+  }, [videoId]);
 
   const checkProgress = useCallback(() => {
     const player = playerRef.current;

@@ -1,7 +1,7 @@
 import { ClipboardCheck } from 'lucide-react';
 import { LevelBadge, Button, Text } from '@shared/components/common';
 import { VideoPlayer } from '@features/learning/components/VideoPlayer';
-import type { VideoItem } from '@pages/VideoDetail';
+import type { VideoItem } from '@features/learning/types';
 
 interface LevelConfig {
   text: string;
