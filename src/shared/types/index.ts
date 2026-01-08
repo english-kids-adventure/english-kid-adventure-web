@@ -2,7 +2,7 @@ export type VideoLevel = 'EASY' | 'MEDIUM' | 'HARD';
 export type MissionType = 'DAILY' | 'WEEKLY';
 
 export interface User {
-  id: number;
+  user_id: number;
   name: string;
   email: string;
   avatar_url?: string;

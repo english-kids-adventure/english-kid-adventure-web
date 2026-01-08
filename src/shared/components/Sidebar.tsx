@@ -27,6 +27,7 @@ export const Sidebar = () => {
   const handleLogout = async () => {
     await logout();
     navigate(ROUTES.LOGIN, { replace: true });
+
   };
   return (
     <aside className="h-screen bg-white shadow-sm flex flex-col text-sm px-2 sm:px-6 w-auto sm:min-w-[220px] sm:max-w-[280px]">

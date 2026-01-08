@@ -12,6 +12,8 @@ export function useVideoCard( video: Video, onUnlocked?: (videoId: number) => vo
       ? !video.isUnlocked
       : video.unlockCost > 0;
 
+  const isCompleted = !!video.isCompleted;
+
   const levelConfig = {
     EASY: {
       text: 'Easy',
@@ -45,6 +47,7 @@ export function useVideoCard( video: Video, onUnlocked?: (videoId: number) => vo
 
   return {
     isLocked,
+    isCompleted,
     levelConfig,
     goToVideo,
     handleUnlock,

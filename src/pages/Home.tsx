@@ -6,6 +6,8 @@ import DotsLoading from '@features/learning/components/DotsLoading';
 import { Heading } from '@shared/components/common/Heading';
 import { useTopic } from '@features/learning/hooks/useTopic';
 import { useEffect, useRef } from 'react';
+import { useStreak } from '@features/profile';
+import { usePlayer } from '@shared/hooks/usePlayer';
 
 export default function Home() {
   const {
@@ -15,6 +17,10 @@ export default function Home() {
     hasMore,
     loadMore,
   } = useTopic();
+
+  const { totalStars } = usePlayer();
+  const { streakData } = useStreak();
+  const { currentStreak } = streakData;
 
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
@@ -48,8 +54,8 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <StatCard icon={<Layers />} value={30} label="Topics" />
-            <StatCard icon={<Star />} value={50} label="Your Stars" />
-            <StatCard icon={<Flame />} value={5} label="Days in a Row" />
+            <StatCard icon={<Star />} value={totalStars} label="Your Stars" />
+            <StatCard icon={<Flame />} value={currentStreak} label="Days in a Row" />
           </div>
         </div>
 

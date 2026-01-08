@@ -5,3 +5,4 @@ export * from './messages';
 export * from './cursorPagination';
 export * from './labels';
 export * from './placeholders';
+export * from './quiz';
