@@ -44,7 +44,7 @@ export function useVideoDetail({ topicId, videoId }: UseVideoDetailParams) {
         ['topic-videos', topicId],
         (old) =>
           old?.map((v) =>
-            v.id === videoId ? { ...v, isCompleted: true } : v,
+            v.id === videoId ? { ...v, isCompleted: false } : v,
           ),
       );
 

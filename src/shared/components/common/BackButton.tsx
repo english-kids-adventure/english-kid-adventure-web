@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { ROUTES } from '@shared/constants/routes';
 
@@ -9,11 +9,26 @@ interface BackButtonProps {
 
 export function BackButton({ size = 24, fallback = ROUTES.HOME }: BackButtonProps) {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleBack = () => {
+    // If we're on a lesson page, go directly to topic
+    if (location.pathname.includes('/lessons/')) {
+      const topicId = location.pathname.split('/topics/')[1]?.split('/lessons/')[0];
+      if (topicId) {
+        navigate(`/topics/${topicId}`);
+        return;
+      }
+    }
+
+    // Default behavior
+    navigate(fallback);
+  };
 
   return (
     <button
       type="button"
-      onClick={() => (window.history.length > 1 ? navigate(-1) : navigate(fallback))}
+      onClick={handleBack}
       className="
         inline-flex items-center gap-2
         text-sm font-medium text-gray-600

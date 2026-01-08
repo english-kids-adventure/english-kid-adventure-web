@@ -13,6 +13,7 @@ export function useYouTubePlayer(onCheckProgress: () => void) {
   useEffect(() => {
     const initPlayer = () => {
       if (playerRef.current) return;
+
       new window.YT.Player('yt-player-iframe', {
         events: {
           onReady: (event: { target: YTPlayer }) => {
@@ -42,6 +43,10 @@ export function useYouTubePlayer(onCheckProgress: () => void) {
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
+      if (playerRef.current) {
+        playerRef.current.destroy();
+        playerRef.current = null;
+      }
     };
   }, []);
 
