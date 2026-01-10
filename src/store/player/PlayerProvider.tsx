@@ -1,10 +1,10 @@
 import { useCallback, useMemo, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import { PlayerContext } from './PlayerContext';
-import type { PlayerState } from './types/player';
-import { createPlayerActions } from './actions/player';
-import { profileService } from '@/features/profile/services/profileService';
-import { useAuthStore } from '@/store/useAuthStore';
+import { PlayerContext } from '@store/player/PlayerContext';
+import type { PlayerState } from '@store/player/types/player';
+import { createPlayerActions } from '@store/player/actions/player';
+import { profileService } from '@features/profile/services/profileService';
+import { useAuthStore } from '@store/useAuthStore';
 
 const initialState: PlayerState = {
   totalXp: 0,
