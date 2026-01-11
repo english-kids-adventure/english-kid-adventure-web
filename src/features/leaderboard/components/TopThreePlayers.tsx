@@ -1,6 +1,6 @@
 import PlayerCard from '@features/leaderboard/components/PlayerCard';
 import { useLeaderboard } from '@features/leaderboard/hooks/useLeaderboard';
-import type { LeaderboardUser } from '@features/leaderboard/types';
+import { getPodiumOrder } from '@shared/utils/leaderboard';
 
 const TopThreePlayers = () => {
   const { data } = useLeaderboard();
@@ -8,11 +8,7 @@ const TopThreePlayers = () => {
 
   const topThree = data.top_10.slice(0, 3);
 
-  const podiumOrder = [
-    topThree.find((p) => p.rank === 2),
-    topThree.find((p) => p.rank === 1),
-    topThree.find((p) => p.rank === 3),
-  ].filter((p): p is LeaderboardUser => Boolean(p));
+  const podiumOrder = getPodiumOrder(topThree);
 
   return (
     <div className="flex items-end justify-center gap-10 mb-10 h-80">
