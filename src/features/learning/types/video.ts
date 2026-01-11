@@ -27,3 +27,16 @@ export type VideoItem = Video & {
   isUnlocked: boolean;
   isCompleted: boolean;
 };
+
+export interface CompleteVideoResponse {
+  id: number;
+  name: string;
+  email: string;
+  avatarUrl?: string;
+  totalXp: number;
+  totalStars: number;
+  streakUpdatedAt?: string;
+  lastLoginAt?: string;
+  createdAt: string;
+  updatedAt: string;
+}

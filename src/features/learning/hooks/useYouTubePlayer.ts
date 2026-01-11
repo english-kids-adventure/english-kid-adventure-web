@@ -5,12 +5,16 @@ export function useYouTubePlayer(onCheckProgress: () => void) {
   const playerRef = useRef<YTPlayer | null>(null);
   const onCheckRef = useRef(onCheckProgress);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const isInitialized = useRef(false);
 
   useEffect(() => {
     onCheckRef.current = onCheckProgress;
   }, [onCheckProgress]);
 
   useEffect(() => {
+    if (isInitialized.current) return;
+    isInitialized.current = true;
+
     const initPlayer = () => {
       if (playerRef.current) return;
 
@@ -47,6 +51,7 @@ export function useYouTubePlayer(onCheckProgress: () => void) {
         playerRef.current.destroy();
         playerRef.current = null;
       }
+      isInitialized.current = false;
     };
   }, []);
 
