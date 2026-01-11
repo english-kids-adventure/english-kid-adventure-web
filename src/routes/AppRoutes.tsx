@@ -12,6 +12,7 @@ const ListVideo = lazy(() => import('@pages/ListVideo'));
 const VideoDetail = lazy(() => import('@pages/VideoDetail'));
 const Task = lazy(() => import('@pages/Task'));
 const Quiz = lazy(() => import('@pages/Quiz'));
+const Leaderboard = lazy(() => import('@pages/LeaderBoard'));
 
 const PageLoader = () => (
   <Loading/>
@@ -31,6 +32,8 @@ export const AppRoutes = () => {
             <Route path={ROUTES.VIDEO_DETAIL} element={<VideoDetail />} />
             <Route path={ROUTES.TASK} element={<Task />} />
             <Route path={ROUTES.QUIZ} element={<Quiz />} />
+            <Route path={ROUTES.LEADERBOARD} element={<Leaderboard />} />
+
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Route>
