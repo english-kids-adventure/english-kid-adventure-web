@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { videoService } from '@features/learning/services/videoService';
-import type { UnlockVideoResponse } from '../types';
+import type { UnlockVideoResponse } from '@features/learning/types';
 import { usePlayer } from '@shared/hooks/usePlayer';
 
 interface UnlockResult {
