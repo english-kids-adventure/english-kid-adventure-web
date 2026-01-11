@@ -12,7 +12,6 @@ export function BackButton({ size = 24, fallback = ROUTES.HOME }: BackButtonProp
   const location = useLocation();
 
   const handleBack = () => {
-    // If we're on a lesson page, go directly to topic
     if (location.pathname.includes('/lessons/')) {
       const topicId = location.pathname.split('/topics/')[1]?.split('/lessons/')[0];
       if (topicId) {
@@ -21,7 +20,6 @@ export function BackButton({ size = 24, fallback = ROUTES.HOME }: BackButtonProp
       }
     }
 
-    // Default behavior
     navigate(fallback);
   };
 
