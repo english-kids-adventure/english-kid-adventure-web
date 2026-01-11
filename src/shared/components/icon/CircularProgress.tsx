@@ -1,3 +1,5 @@
+import { calculateCircularProgress } from '@shared/utils/circularProgress';
+
 interface CircularProgressProps {
   current: number
   target: number
@@ -7,11 +9,11 @@ const CircularProgress = ({
   current,
   target,
 }: CircularProgressProps) => {
-  const percentage = Math.min((current / target) * 100, 100);
-  const radius = 45;
-  const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset =
-    circumference - (percentage / 100) * circumference;
+  const {
+    radius,
+    circumference,
+    strokeDashoffset,
+  } = calculateCircularProgress(current, target);
 
   return (
     <div className="relative w-12 h-12">
@@ -43,7 +45,7 @@ const CircularProgress = ({
         />
       </svg>
 
-      <div className="absolute inset-0 flex items-center justify-center text-xs text-muted font-semibold text-foreground">
+      <div className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-foreground">
         {current}/{target}
       </div>
     </div>
