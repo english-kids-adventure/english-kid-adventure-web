@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useQuizQuestions } from './useQuizQuestions';
+import { useQuizQuestions } from '@features/quiz/hooks/useQuizQuestions';
 import { quizApi } from '@features/quiz/services/quizService';
 import { usePlayer } from '@shared/hooks/usePlayer';
 

@@ -19,4 +19,9 @@ export const API_ENDPOINTS = {
     SUBMIT_QUIZ: (videoId: number) => `/quizzes/video/${videoId}/submit`,
     GET_ATTEMPTS: (videoId: number) => `/quizzes/attempts/${videoId}`,
   },
+
+  TASK: {
+    GET_TASK: '/missions/today',
+    CLAIM_AWARD: '/missions/claim',
+  },
 };

@@ -2,7 +2,7 @@ import React, { type JSX } from 'react';
 import clsx from 'clsx';
 
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
-export type HeadingColor = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
+export type HeadingColor = 'default' | 'muted' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
 
 interface HeadingProps {
   children: React.ReactNode;
@@ -15,6 +15,7 @@ interface HeadingProps {
 
 const colorClasses: Record<HeadingColor, string> = {
   default: 'text-default',
+  muted: 'text-muted',
   primary: 'text-primary',
   secondary: 'text-secondary',
   success: 'text-success',

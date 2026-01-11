@@ -10,6 +10,7 @@ const Login = lazy(() => import('@pages/Login'));
 const Home = lazy(() => import('@pages/Home'));
 const ListVideo = lazy(() => import('@pages/ListVideo'));
 const VideoDetail = lazy(() => import('@pages/VideoDetail'));
+const Task = lazy(() => import('@pages/Task'));
 const Quiz = lazy(() => import('@pages/Quiz'));
 
 const PageLoader = () => (
@@ -28,6 +29,7 @@ export const AppRoutes = () => {
             <Route path={ROUTES.HOME} element={<Home />} />
             <Route path={ROUTES.LISTVIDEO} element={<ListVideo />} />
             <Route path={ROUTES.VIDEO_DETAIL} element={<VideoDetail />} />
+            <Route path={ROUTES.TASK} element={<Task />} />
             <Route path={ROUTES.QUIZ} element={<Quiz />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
