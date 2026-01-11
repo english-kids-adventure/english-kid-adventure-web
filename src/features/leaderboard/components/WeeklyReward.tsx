@@ -1,4 +1,3 @@
-import React from 'react';
 import { Star, Gift } from 'lucide-react';
 import { Heading, Text } from '@shared/components/common';
 import { PODIUM_ICON_MAP } from '@shared/constants/leaderboard';
