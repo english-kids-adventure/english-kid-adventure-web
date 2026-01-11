@@ -24,4 +24,8 @@ export const API_ENDPOINTS = {
     GET_TASK: '/missions/today',
     CLAIM_AWARD: '/missions/claim',
   },
+
+  LEADERBOARD: {
+    GET_WEEKLY: 'users/leaderboard',
+  },
 };
