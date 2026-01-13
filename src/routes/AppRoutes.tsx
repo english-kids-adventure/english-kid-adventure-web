@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { ROUTES } from '@shared/constants/routes';
 import { lazy, Suspense } from 'react';
 import { AuthGuard } from '@shared/guards/AuthGuard';
@@ -13,6 +13,7 @@ const VideoDetail = lazy(() => import('@pages/VideoDetail'));
 const Task = lazy(() => import('@pages/Task'));
 const Quiz = lazy(() => import('@pages/Quiz'));
 const Leaderboard = lazy(() => import('@pages/LeaderBoard'));
+const NotFound = lazy(() => import('@pages/NotFound'));
 
 const PageLoader = () => (
   <Loading/>
@@ -34,7 +35,7 @@ export const AppRoutes = () => {
             <Route path={ROUTES.QUIZ} element={<Quiz />} />
             <Route path={ROUTES.LEADERBOARD} element={<Leaderboard />} />
 
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Route>
       </Routes>

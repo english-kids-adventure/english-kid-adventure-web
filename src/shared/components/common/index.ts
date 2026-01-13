@@ -6,3 +6,4 @@ export * from './LevelBadge';
 export * from './Loading';
 export * from './StatCard';
 export * from './Text';
+export * from './PaginationControl';
