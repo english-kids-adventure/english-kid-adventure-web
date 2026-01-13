@@ -14,10 +14,10 @@ interface UsePaginationParams<T> {
   perPage?: number;
 }
 
-export function usePagination<T>({
+export const usePagination = <T>({
   fetchFn,
   perPage = PAGINATION.PAGE_OFFSET.PER_PAGE,
-}: UsePaginationParams<T>) {
+}: UsePaginationParams<T>) => {
   const [items, setItems] = useState<T[]>([]);
   const [page, setPage] = useState(PAGINATION.PAGE_OFFSET.PAGE);
   const [pagination, setPagination] = useState<{
@@ -57,4 +57,4 @@ export function usePagination<T>({
     loading,
     error,
   };
-}
+};

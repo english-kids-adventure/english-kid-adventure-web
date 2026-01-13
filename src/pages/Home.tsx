@@ -9,7 +9,7 @@ import { usePlayer } from '@shared/hooks/usePlayer';
 import { Loading, PaginationControl } from '@shared/components/common';
 import { PAGINATION } from '@shared/constants';
 
-export default function Home() {
+const Home = () => {
   const {
     items: topics,
     loading,
@@ -88,4 +88,6 @@ export default function Home() {
       </div>
     </main>
   );
-}
+};
+
+export default Home;
