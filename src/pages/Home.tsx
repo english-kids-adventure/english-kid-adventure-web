@@ -24,7 +24,7 @@ const Home = () => {
   const { currentStreak } = streakData;
 
   return (
-    <main className="min-h-screen bg-gray-50 p-4 md:p-8">
+    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
       <div className="mx-auto">
 
         <div className="bg-btn-primary rounded-3xl p-8 md:p-12 mb-8 shadow-xl">
@@ -86,7 +86,7 @@ const Home = () => {
           </div>
         )}
       </div>
-    </main>
+    </div>
   );
 };
 
