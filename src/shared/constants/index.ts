@@ -2,7 +2,7 @@ export * from './api';
 export * from './routes';
 export * from './forms';
 export * from './messages';
-export * from './cursorPagination';
+export * from './pagination';
 export * from './labels';
 export * from './placeholders';
 export * from './quiz';

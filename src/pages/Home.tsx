@@ -2,58 +2,46 @@ import { Star, Flame, Layers } from 'lucide-react';
 import StatCard from '@features/learning/components/StatCard';
 import TopicCard from '@features/learning/components/TopicCard';
 import Text from '@shared/components/common/Text';
-import DotsLoading from '@features/learning/components/DotsLoading';
 import { Heading } from '@shared/components/common/Heading';
 import { useTopic } from '@features/learning/hooks/useTopic';
-import { useEffect, useRef } from 'react';
 import { useStreak } from '@features/profile';
 import { usePlayer } from '@shared/hooks/usePlayer';
+import { Loading, PaginationControl } from '@shared/components/common';
+import { PAGINATION } from '@shared/constants';
 
-export default function Home() {
+const Home = () => {
   const {
-    topics,
+    items: topics,
     loading,
     error,
-    hasMore,
-    loadMore,
-  } = useTopic();
+    page,
+    setPage,
+    pagination,
+  } = useTopic(PAGINATION.PAGE_OFFSET.PER_PAGE);
 
   const { totalStars } = usePlayer();
   const { streakData } = useStreak();
   const { currentStreak } = streakData;
 
-  const loadMoreRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (!hasMore || loading || !loadMoreRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          loadMore();
-        }
-      },
-      { rootMargin: '200px' },
-    );
-
-    observer.observe(loadMoreRef.current);
-    return () => observer.disconnect();
-  }, [hasMore, loading, loadMore]);
-
   return (
-    <main className="min-h-screen bg-gray-50 p-4 md:p-8">
+    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
       <div className="mx-auto">
 
         <div className="bg-btn-primary rounded-3xl p-8 md:p-12 mb-8 shadow-xl">
-          <Heading level={1} color="default">
+          <Heading level={1}>
             Welcome to English Kids Adventure!
           </Heading>
-          <Text as="p" variant="subtitle" className="mt-4 mb-8" color="default">
+
+          <Text
+            as="p"
+            variant="subtitle"
+            className="mt-4 mb-8"
+          >
             Choose a topic to start your fun English learning journey
           </Text>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <StatCard icon={<Layers />} value={30} label="Topics" />
+            <StatCard icon={<Layers />} value={pagination?.total || 0} label="Topics" />
             <StatCard icon={<Star />} value={totalStars} label="Your Stars" />
             <StatCard icon={<Flame />} value={currentStreak} label="Days in a Row" />
           </div>
@@ -64,7 +52,13 @@ export default function Home() {
         </Heading>
 
         {error && (
-          <Text className="text-red-500 mb-4">{error}</Text>
+          <Text className="text-red-500 mb-4">
+            {error}
+          </Text>
+        )}
+
+        {loading && (
+          <Loading />
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -82,17 +76,18 @@ export default function Home() {
           ))}
         </div>
 
-        {hasMore && <div ref={loadMoreRef} className="h-10" />}
-
-        {loading && <DotsLoading />}
-
-        {!hasMore && !loading && (
-          <Text as="p" align="center" className="mt-10" color="primary">
-            You have reached the end
-          </Text>
+        {pagination && pagination.totalPages > 1 && (
+          <div className="mt-10 flex justify-center">
+            <PaginationControl
+              page={page}
+              totalPages={pagination.totalPages}
+              onPageChange={setPage}
+            />
+          </div>
         )}
       </div>
-    </main>
+    </div>
   );
-}
+};
 
+export default Home;
