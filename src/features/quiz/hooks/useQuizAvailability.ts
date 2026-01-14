@@ -23,7 +23,7 @@ export const useQuizAvailability = (videoId?: number) => {
       const quiz = await quizApi.getQuizByVideo(videoId);
       if (!quiz || quiz.length === 0) {
         setCanStart(false);
-        setError('No quiz available for this video');
+        setError('No quiz');
         return;
       }
 
@@ -35,14 +35,14 @@ export const useQuizAvailability = (videoId?: number) => {
         todayAttempt.timesPlayed >= MAX_ATTEMPTS_PER_DAY
       ) {
         setCanStart(false);
-        setError('No attempts left for today');
+        setError('No attempts left');
         return;
       }
 
       setCanStart(true);
-    } catch (err) {
+    } catch {
       setCanStart(false);
-      setError('Cannot start quiz');
+      setError('No quiz');
     } finally {
       setLoading(false);
     }

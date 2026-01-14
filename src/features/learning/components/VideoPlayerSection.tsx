@@ -30,6 +30,25 @@ export const VideoPlayerSection = ({
   onClaimXP,
   onStartQuiz,
 }: Props) => {
+  const getButtonText = () => {
+    if (quizLoading) return 'Loading...';
+
+    if (quizError === 'No quiz') {
+      return 'No quiz';
+    }
+
+    if (!canStart) {
+      return 'No attempts left';
+    }
+
+    return 'Start quiz';
+  };
+
+  const isDisabled =
+    quizLoading ||
+    quizError === 'No quiz' ||
+    !canStart;
+
   return (
     <div className="space-y-6 text-left">
       <div className="overflow-hidden bg-slate-100">
@@ -52,26 +71,16 @@ export const VideoPlayerSection = ({
 
           <Button
             variant="primary"
-            disabled={!canStart || quizLoading}
+            disabled={isDisabled}
             onClick={onStartQuiz}
             icon={<ClipboardCheck size={18} />}
             className={
-              !canStart
+              isDisabled
                 ? 'opacity-60 cursor-not-allowed bg-gray-500 hover:bg-gray-600'
                 : ''
             }
           >
-            {quizLoading ? (
-              'Loading...'
-            ) : quizError ? (
-              quizError.includes('No quiz') ? (
-                'No Quiz'
-              ) : (
-                'No Attempts Left'
-              )
-            ) : (
-              'Start Quiz'
-            )}
+            {getButtonText()}
           </Button>
         </div>
 
