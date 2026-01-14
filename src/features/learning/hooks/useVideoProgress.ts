@@ -16,14 +16,31 @@ export function useVideoProgress(
     setCanClaimXP(false);
     claimedSessions.current[videoId] = false;
     isClaiming.current = false;
+
+    Object.keys(claimedSessions.current).forEach((key) => {
+      claimedSessions.current[key] = false;
+    });
   }, [videoId]);
+
+  useEffect(() => {
+    return () => {
+      Object.keys(claimedSessions.current).forEach((key) => {
+        claimedSessions.current[key] = false;
+      });
+      setCanClaimXP(false);
+    };
+  }, []);
 
   const checkProgress = useCallback(() => {
     const player = playerRef.current;
-    if (!player || typeof player.getCurrentTime !== 'function') return;
+    if (!player) return;
+
+    if (typeof player.getCurrentTime !== 'function') return;
 
     const current = player.getCurrentTime();
     const total = player.getDuration();
+    const playerState = (player as unknown as { getPlayerState?: () => number })?.getPlayerState?.();
+
     if (total <= 0) return;
 
     const progress = current / total;

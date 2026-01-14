@@ -1,13 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { videoService } from '@features/learning/services/videoService';
 import { useCallback, useState } from 'react';
-import type { Video } from '@features/learning/types';
+import type { Video, VideoItem, ProfileResponse } from '@features/learning/types';
 import { usePlayer } from '@shared/hooks/usePlayer';
 
-export type VideoUI = Video & {
-  isUnlocked: boolean;
-  isCompleted: boolean;
-};
+export type VideoUI = VideoItem;
 
 interface UseVideoDetailParams {
   topicId: number;
@@ -17,7 +14,7 @@ interface UseVideoDetailParams {
 export function useVideoDetail({ topicId, videoId }: UseVideoDetailParams) {
   const queryClient = useQueryClient();
   const [showQuiz, setShowQuiz] = useState(false);
-  const { addXp, syncFromProfile } = usePlayer();
+  const { addXp } = usePlayer();
 
   const { data: topicVideos = [], isLoading: loadingTopicVideos } = useQuery<Video[]>({
     queryKey: ['topic-videos', topicId],
@@ -37,8 +34,21 @@ export function useVideoDetail({ topicId, videoId }: UseVideoDetailParams) {
   const { mutate: claimXpApi, isPending } = useMutation({
     mutationFn: () => videoService.completeVideo(videoId),
     onSuccess: async (updatedUser) => {
-      queryClient.setQueryData(['profile'], updatedUser);
-      queryClient.invalidateQueries({ queryKey: ['profile'] });
+      queryClient.setQueryData(['profile'], (old: ProfileResponse | undefined) => {
+        if (!old?.data) return updatedUser;
+
+        return {
+          ...old,
+          data: {
+            ...old.data,
+            total_xp: updatedUser.totalXp,
+            total_stars: updatedUser.totalStars,
+            current_streak: old.data.current_streak,
+            longest_streak: old.data.longest_streak,
+            completed_days: old.data.completed_days,
+          },
+        };
+      });
 
       queryClient.setQueryData<Video[]>(
         ['topic-videos', topicId],
@@ -49,7 +59,6 @@ export function useVideoDetail({ topicId, videoId }: UseVideoDetailParams) {
       );
 
       if (videoUI) addXp(videoUI.xpReward);
-      await syncFromProfile();
     },
   });
 
