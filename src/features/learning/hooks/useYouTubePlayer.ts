@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { YTPlayer, YTEvent } from '@shared/types/youtube';
 
-export function useYouTubePlayer(onCheckProgress: () => void) {
+export const useYouTubePlayer = (onCheckProgress: () => void) => {
   const playerRef = useRef<YTPlayer | null>(null);
   const onCheckRef = useRef(onCheckProgress);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -56,4 +56,4 @@ export function useYouTubePlayer(onCheckProgress: () => void) {
   }, []);
 
   return { playerRef };
-}
+};

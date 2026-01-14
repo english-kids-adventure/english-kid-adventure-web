@@ -29,12 +29,12 @@ const variantStyles: Record<ButtonVariant, string> = {
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: 'px-[1.2em] py-[0.4em] text-sm rounded-full',
-  md: 'px-[1.2em] py-[0.5em] text-sm rounded-lg',
-  lg: 'px-[1.2em] py-[0.6em] text-sm rounded-xl',
+  sm: 'px-5 py-1.5 text-sm rounded-full',
+  md: 'px-5 py-2 text-sm rounded-lg',
+  lg: 'px-5 py-2.5 text-sm rounded-xl',
 };
 
-export function Button({
+export const Button = ({
   children,
   variant = 'primary',
   size = 'md',
@@ -46,7 +46,7 @@ export function Button({
   onClick,
   className,
   type = 'button',
-}: ButtonProps) {
+}: ButtonProps) => {
   return (
     <button
       type={type}
@@ -72,6 +72,6 @@ export function Button({
       {icon && iconPosition === 'suffix' && icon}
     </button>
   );
-}
+};
 
 export default Button;

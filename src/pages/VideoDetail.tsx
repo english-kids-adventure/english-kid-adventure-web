@@ -27,7 +27,7 @@ const VideoDetail = () => {
     videoId: videoIdNum,
   });
 
-  const { canStart, loading: quizLoading } = useQuizAvailability(videoIdNum);
+  const { canStart, loading: quizLoading, error: quizError } = useQuizAvailability(videoIdNum);
 
   if (loading) return <Loading />;
   if (!video) return <Text align="center" color="muted">The lesson could not be found!</Text>;
@@ -50,6 +50,7 @@ const VideoDetail = () => {
             isCompleted={isCompleted}
             canStart={canStart}
             quizLoading={quizLoading}
+            quizError={quizError}
             onClaimXP={handleClaimXP}
             onStartQuiz={handleStartQuiz}
           />

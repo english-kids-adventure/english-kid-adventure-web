@@ -2,7 +2,7 @@ import { Flame, Sparkles, Star } from 'lucide-react';
 import { Text, Button, Loading, StatCard } from '@shared/components/common';
 import { useStreak, Streak } from '@features/profile';
 import { usePlayer } from '@shared/hooks/usePlayer';
-import { useProfile } from '@/features/profile/hooks/useProfile';
+import { useProfile } from '@features/profile/hooks/useProfile';
 
 const Header = () => {
   const { totalXp, totalStars } = usePlayer();
@@ -42,7 +42,7 @@ const Header = () => {
             <Text as="span">{`${streakData.currentStreak} Days`}</Text>
           </Button>
           {isOpen && (
-            <div className="absolute right-0 mt-3 z-[100]">
+            <div className="absolute right-0 mt-3 z-50">
               <Streak days={days} currentStreak={currentStreak} longestStreak={longestStreak} />
             </div>
           )}

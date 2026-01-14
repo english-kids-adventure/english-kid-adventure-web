@@ -31,7 +31,7 @@ const colorStyles: Record<TextColor, string> = {
   danger: 'text-danger',
 };
 
-export function Text({
+export const Text = ({
   as: Component = 'span',
   children,
   variant = 'body',
@@ -40,7 +40,7 @@ export function Text({
   truncate = false,
   className,
   maxWidth,
-}: TextProps) {
+}: TextProps) => {
   return (
     <Component
       className={clsx(
@@ -56,6 +56,6 @@ export function Text({
       {children}
     </Component>
   );
-}
+};
 
 export default Text;

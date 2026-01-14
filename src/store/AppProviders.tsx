@@ -7,7 +7,7 @@ const providers = [
   PlayerProvider,
 ];
 
-export function AppProviders({ children }: ProviderProps) {
+export const AppProviders = ({ children }: ProviderProps) => {
   return providers.reduceRight(
     (acc, Provider) => <Provider>{acc}</Provider>,
     children,

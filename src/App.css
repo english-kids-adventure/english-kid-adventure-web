@@ -40,3 +40,63 @@
 .read-the-docs {
   color: #888;
 }
+
+.card-base {
+  background-color: white;
+  border-radius: 1rem;
+}
+
+.card-elevated {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.card-bordered {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+}
+
+.card-hover {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.card-hover:hover {
+  transform: scale(1.05);
+}
+
+.shadow-hover {
+  transition: box-shadow 0.2s ease;
+}
+
+.shadow-hover:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: all 0.3s ease;
+  border-radius: 9999px;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 28rem;
+  background-color: white;
+  border-radius: 1.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}

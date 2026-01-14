@@ -8,6 +8,7 @@ export const useClaimAward = () => {
     mutationFn: (missionId: number) => taskApi.claimDailyXP(missionId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks'] });
+      queryClient.invalidateQueries({ queryKey: ['profile'] });
     },
   });
 };

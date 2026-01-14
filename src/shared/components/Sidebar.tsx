@@ -32,7 +32,7 @@ export const Sidebar = () => {
   return (
     <aside className="h-screen bg-white shadow-sm flex flex-col text-sm px-2 sm:px-6 w-auto sm:min-w-[220px] sm:max-w-[280px]">
       <Link to={ROUTES.HOME} className="flex justify-center">
-        <img src={logo} alt="Logo" className="w-10 sm:max-w-[100px] sm:w-full" />
+        <img src={logo} alt="Logo" className="w-10 sm:max-w-25 sm:w-full" />
       </Link>
 
       <nav className="flex-1 px-2 sm:px-4 space-y-2">

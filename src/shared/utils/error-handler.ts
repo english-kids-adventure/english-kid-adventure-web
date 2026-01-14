@@ -6,10 +6,10 @@ interface ApiErrorData {
   error?: string;
 }
 
-export function handleApiError(
+export const handleApiError = (
   error: unknown,
   fallbackMessage: string = MESSAGES.ERROR.DEFAULT_API,
-): string {
+): string => {
   if (axios.isAxiosError<ApiErrorData>(error)) {
     return (
       error.response?.data?.error ||
@@ -24,4 +24,4 @@ export function handleApiError(
   }
 
   return fallbackMessage;
-}
+};

@@ -9,7 +9,7 @@ import { usePlayer } from '@shared/hooks/usePlayer';
 import { Loading, PaginationControl } from '@shared/components/common';
 import { PAGINATION } from '@shared/constants';
 
-const Home = () => {
+export const Home = () => {
   const {
     items: topics,
     loading,

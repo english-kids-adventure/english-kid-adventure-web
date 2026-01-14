@@ -32,14 +32,14 @@ const levelClasses: Record<HeadingLevel, string> = {
   6: 'text-base font-medium',
 };
 
-export function Heading({
+export const Heading = ({
   children,
   level = 1,
   color = 'default',
   className,
   align = 'left',
   truncate = false,
-}: HeadingProps) {
+}: HeadingProps) => {
   return React.createElement(
     `h${level}` as keyof JSX.IntrinsicElements,
     {
@@ -54,4 +54,4 @@ export function Heading({
     },
     children,
   );
-}
+};

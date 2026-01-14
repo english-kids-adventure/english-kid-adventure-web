@@ -26,10 +26,10 @@ export const initialState: AuthState = {
   showConfirmPassword: false,
 };
 
-export function authReducer(
+export const authReducer = (
   state: AuthState,
   action: AuthAction | CoreFormActions<string>,
-): AuthState {
+): AuthState => {
   switch (action.type) {
     case 'UPDATE_FIELD':
       return { ...state, [action.field as keyof AuthState]: action.value };
@@ -44,4 +44,4 @@ export function authReducer(
     default:
       return state;
   }
-}
+};

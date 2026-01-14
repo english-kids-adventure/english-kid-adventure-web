@@ -1,8 +1,8 @@
 import { Trophy, ListChecks } from 'lucide-react';
 import { Heading, Loading } from '@shared/components/common';
 import { useTask } from '@features/task/hooks/useTask';
-import { TaskDailyCard } from '@/features/task/components/TaskDailyCard';
-import { TaskWeeklyCard } from '@/features/task/components/TaskWeeklyCard';
+import { TaskDailyCard } from '@features/task/components/TaskDailyCard';
+import { TaskWeeklyCard } from '@features/task/components/TaskWeeklyCard';
 
 const Task = () => {
   const {

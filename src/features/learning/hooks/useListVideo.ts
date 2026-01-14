@@ -1,39 +1,17 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { videoService } from '@features/learning/services/videoService';
-import { topicService } from '@features/learning/services/topicService';
-import type { Video, Topic } from '@features/learning/types';
+import { useQueryClient } from '@tanstack/react-query';
+import { useTopicVideos } from './useTopicVideos';
+import { useTopicById } from './useTopicById';
+import type { Video } from '@features/learning/types';
 
-export function useListVideo(topicId?: string) {
+export const useListVideo = (topicId?: string) => {
   const queryClient = useQueryClient();
 
-  const {
-    data: videos = [],
-    isLoading: loadingVideos,
-  } = useQuery({
-    queryKey: ['videos', topicId],
-    queryFn: () => videoService.getVideosByTopic(Number(topicId)),
-    enabled: !!topicId,
-  });
-
-  const {
-    data: topic,
-    isLoading: loadingTopic,
-  } = useQuery<Topic | null>({
-    queryKey: ['topic', topicId],
-    queryFn: async () => {
-      const res = await topicService.getAll();
-      return (
-        res.topics.find(
-          (t:Topic) => t.topicId === Number(topicId),
-        ) ?? null
-      );
-    },
-    enabled: !!topicId,
-  });
+  const { topicVideos: videos, isLoading: loadingVideos } = useTopicVideos(Number(topicId));
+  const { topic, isLoading: loadingTopic } = useTopicById(topicId);
 
   const handleUnlocked = (videoId: number) => {
     queryClient.setQueryData<Video[]>(
-      ['videos', topicId],
+      ['topic-videos', Number(topicId)],
       (old = []) =>
         old.map((v) =>
           v.id === videoId
@@ -49,4 +27,4 @@ export function useListVideo(topicId?: string) {
     loading: loadingVideos || loadingTopic,
     handleUnlocked,
   };
-}
+};

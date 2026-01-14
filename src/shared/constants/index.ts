@@ -6,3 +6,6 @@ export * from './pagination';
 export * from './labels';
 export * from './placeholders';
 export * from './quiz';
+export * from './image';
+export * from './leaderboard';
+export * from './rewards';

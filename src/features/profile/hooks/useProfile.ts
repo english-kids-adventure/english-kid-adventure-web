@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { profileService } from '@/features/profile/services/profileService';
+import { profileService } from '@features/profile/services/profileService';
 import { useAuthStore } from '@store/useAuthStore';
 import { useEffect } from 'react';
 
@@ -32,7 +32,7 @@ export const useProfile = () => {
   });
 
   return {
-    user: data?.data ?? null,
+    user: data ?? null,
     isLoading,
     isError,
     isUpdating: updateMutation.isPending,

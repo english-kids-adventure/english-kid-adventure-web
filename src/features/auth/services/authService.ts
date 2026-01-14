@@ -1,14 +1,13 @@
-import axiosClient from '@lib/axios';
+import { post } from '@shared/services/apiService';
 import type { LoginCredentials, AuthResponse, RegisterCredentials } from '@features/auth/types/index';
 import { API_ENDPOINTS } from '@shared/constants/api';
 
 export const authService = {
-  login: async (data: LoginCredentials): Promise<AuthResponse> => {
-    const response = await axiosClient.post(API_ENDPOINTS.AUTH.LOGIN, data);
-    return response.data.data;
+  login: (data: LoginCredentials): Promise<AuthResponse> => {
+    return post(API_ENDPOINTS.AUTH.LOGIN, data);
   },
-  register: async (data: RegisterCredentials): Promise<AuthResponse> => {
-    const response = await axiosClient.post(API_ENDPOINTS.AUTH.REGISTER, data);
-    return response.data.data;
+
+  register: (data: RegisterCredentials): Promise<AuthResponse> => {
+    return post(API_ENDPOINTS.AUTH.REGISTER, data);
   },
 };

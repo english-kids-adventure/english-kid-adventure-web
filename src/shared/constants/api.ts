@@ -26,6 +26,11 @@ export const API_ENDPOINTS = {
   },
 
   LEADERBOARD: {
-    GET_WEEKLY: 'users/leaderboard',
+    GET_WEEKLY: '/users/leaderboard',
+  },
+
+  PROFILE: {
+    GET_PROFILE: '/users/profile',
+    UPDATE_PROFILE: '/users/profile',
   },
 };

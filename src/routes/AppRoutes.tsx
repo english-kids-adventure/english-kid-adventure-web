@@ -3,7 +3,7 @@ import { ROUTES } from '@shared/constants/routes';
 import { lazy, Suspense } from 'react';
 import { AuthGuard } from '@shared/guards/AuthGuard';
 import MainLayout from '@shared/layouts/MainLayout';
-import { Loading } from '@/shared/components/common';
+import { Loading } from '@shared/components/common';
 
 const Register = lazy(() => import('@pages/Register'));
 const Login = lazy(() => import('@pages/Login'));

@@ -11,7 +11,7 @@ interface Props {
   onUnlocked?: (videoId: number) => void;
 }
 
-export function VideoCard({ video, onUnlocked }: Props) {
+export const VideoCard = ({ video, onUnlocked }: Props) => {
   const {
     isLocked,
     isCompleted,
@@ -87,4 +87,4 @@ export function VideoCard({ video, onUnlocked }: Props) {
       </div>
     </div>
   );
-}
+};

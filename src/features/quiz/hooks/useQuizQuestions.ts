@@ -17,7 +17,7 @@ export interface QuizMappedQuestion {
   correct_answer_id: number
 }
 
-export function useQuizQuestions(videoId?: number) {
+export const useQuizQuestions = (videoId?: number) => {
   const query = useQuery<QuizQuestion[]>({
     queryKey: ['quiz', videoId],
     queryFn: () => quizApi.getQuizByVideo(videoId!),
@@ -47,4 +47,4 @@ export function useQuizQuestions(videoId?: number) {
     ...query,
     questions,
   };
-}
+};

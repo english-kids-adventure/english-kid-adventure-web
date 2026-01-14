@@ -8,19 +8,19 @@ interface StatCardProps {
   onClick?: () => void;
 }
 
-export function StatCard({
+export const StatCard = ({
   icon,
   value,
   bgClass = 'from-gray-400 to-gray-500',
   onClick,
-}: StatCardProps) {
+}: StatCardProps) => {
   const isClickable = Boolean(onClick);
 
   return (
     <div
       className={clsx(
         'inline-flex items-center gap-3',
-        'px-[1.2em] py-[0.4em]',
+        'px-5 py-1.5',
         'rounded-full text-white font-semibold',
         'bg-gradient-to-r',
         bgClass,
@@ -35,5 +35,5 @@ export function StatCard({
       <div className="text-sm whitespace-nowrap">{value}</div>
     </div>
   );
-}
+};
 

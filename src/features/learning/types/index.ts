@@ -1,3 +1,3 @@
 export * from './topic';
 export * from './video';
-export * from './profile';
+export * from '../../profile/types/profile';

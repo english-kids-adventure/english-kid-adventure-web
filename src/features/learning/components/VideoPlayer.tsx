@@ -11,7 +11,7 @@ interface VideoPlayerProps {
   onProgressReached: () => void;
 }
 
-export function VideoPlayer({ url, xpReward, onProgressReached }: VideoPlayerProps) {
+export const VideoPlayer = ({ url, xpReward, onProgressReached }: VideoPlayerProps) => {
   const {
     canClaimXP,
     handleClaim,
@@ -33,4 +33,4 @@ export function VideoPlayer({ url, xpReward, onProgressReached }: VideoPlayerPro
       </div>
     </div>
   );
-}
+};

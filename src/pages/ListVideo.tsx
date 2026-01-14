@@ -6,6 +6,7 @@ import { Heading } from '@shared/components/common/Heading';
 import Text from '@shared/components/common/Text';
 import { useListVideo } from '@features/learning/hooks/useListVideo';
 import { DEFAULT_IMAGES } from '@shared/constants/image';
+import type { VideoItem } from '@features/learning/types';
 
 const ListVideo = () => {
   const { topicId } = useParams<{ topicId: string }>();
@@ -44,7 +45,7 @@ const ListVideo = () => {
             There are no videos yet!
           </Text>
         ) : (
-          videos.map((video) => (
+          videos.map((video: VideoItem) => (
             <VideoCard
               key={video.id}
               video={video}

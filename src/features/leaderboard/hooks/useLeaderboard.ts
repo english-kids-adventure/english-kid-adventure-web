@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { leaderboardService } from '@/features/leaderboard/services/leaderboardService';
+import { leaderboardService } from '@features/leaderboard/services/leaderboardService';
 
 export const useLeaderboard = () => {
   const query = useQuery({

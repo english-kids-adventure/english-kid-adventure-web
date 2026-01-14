@@ -15,7 +15,7 @@ interface ResultQuizCardProps {
   resetQuiz: () => void
 }
 
-export default function ResultQuizCard({ results, resetQuiz }: ResultQuizCardProps) {
+export const ResultQuizCard = ({ results, resetQuiz }: ResultQuizCardProps) => {
   const {
     correctAnswers,
     totalQuestions,
@@ -37,8 +37,7 @@ export default function ResultQuizCard({ results, resetQuiz }: ResultQuizCardPro
 
   const navigate = useNavigate();
 
-  const { topicId, orderIndex } = useParams<{
-    topicId: string
+  const { orderIndex } = useParams<{
     orderIndex: string
   }>();
 
@@ -176,4 +175,6 @@ export default function ResultQuizCard({ results, resetQuiz }: ResultQuizCardPro
       </div>
     </div>
   );
-}
+};
+
+export default ResultQuizCard;

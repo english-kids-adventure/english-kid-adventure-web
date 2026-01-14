@@ -10,6 +10,3 @@ export interface ProfileData {
   completed_days: number[];
 }
 
-export interface ProfileResponse {
-  data: ProfileData;
-}

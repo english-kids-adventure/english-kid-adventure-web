@@ -1,4 +1,4 @@
-import type { User } from '@/shared/types';
+import type { User } from '@shared/types';
 
 export interface DayData {
   status: 'active' | 'missed' | 'future';
@@ -11,8 +11,4 @@ export interface DayData {
 export interface UserProfile extends User {
   weekly_xp: number;
   completed_days: number[];
-}
-
-export interface ProfileResponse {
-  data: UserProfile;
 }

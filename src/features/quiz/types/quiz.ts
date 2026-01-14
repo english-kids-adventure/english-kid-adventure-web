@@ -12,6 +12,12 @@ export interface QuizQuestion {
   answers: QuizAnswer[];
 }
 
+export interface QuizSubmitResponse {
+  starsEarned?: number;
+  totalStars?: number;
+  timesPlayed?: number;
+}
+
 export interface QuizAttempt {
   id: number
   userId: number
