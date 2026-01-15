@@ -31,6 +31,7 @@ export const topicService = {
         name: item.name,
         description: item.description,
         thumbnailUrl: item.thumbnailUrl,
+        totalHours: item.totalHours,
         progress: item.progress,
       })),
       pagination: data.pagination,

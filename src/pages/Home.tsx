@@ -71,7 +71,7 @@ export const Home = () => {
               description={topic.description}
               totalVideos={topic.progress.totalVideos}
               progressPercent={topic.progress.completedVideos}
-              totalTime={100}
+              totalTime={topic.totalHours}
             />
           ))}
         </div>
