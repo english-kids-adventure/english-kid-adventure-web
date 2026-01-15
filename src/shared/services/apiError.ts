@@ -11,7 +11,7 @@ export const handleApiError = (error: unknown): never => {
       message?: string
     };
 
-    const status = err.response?.status;
+    const _status = err.response?.status;
     const message =
       err.response?.data?.message ||
       err.response?.data?.error ||
