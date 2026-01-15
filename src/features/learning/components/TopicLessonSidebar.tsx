@@ -32,7 +32,7 @@ export const TopicLessonSidebar = ({ topicVideos, currentVideoId, levelConfigMap
               <div className="relative w-28 h-20 shrink-0 overflow-hidden bg-gray-200">
                 <img
                   src={`https://img.youtube.com/vi/${getYoutubeVideoId(item.url)}/mqdefault.jpg`}
-                  className={`w-full h-full object-cover ${!item.isUnlocked ? 'blur-[2px]' : ''}`}
+                  className={`w-full h-full object-cover ${!item.isUnlocked ? 'blur-sm' : ''}`}
                   alt={item.title}
                 />
                 {!item.isUnlocked && (

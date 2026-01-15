@@ -7,18 +7,18 @@ interface LevelBadgeProps {
   textColor?: string;
 }
 
-export function LevelBadge({
+export const LevelBadge = ({
   text,
   textSize = 'text-sm',
   bgColor = 'bg-green-200',
   textColor = 'text-green-600',
-}: LevelBadgeProps) {
+}: LevelBadgeProps) => {
   return (
     <div
       className={clsx(
         'inline-flex items-center justify-center',
         'rounded-full',
-        'px-[1.2em] py-[0.3em]',
+        'px-5 py-1.25',
         textSize,
         bgColor,
         textColor,
@@ -28,4 +28,4 @@ export function LevelBadge({
       {text}
     </div>
   );
-}
+};

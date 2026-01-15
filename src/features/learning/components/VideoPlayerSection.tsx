@@ -15,6 +15,7 @@ interface Props {
   isCompleted: boolean;
   canStart: boolean;
   quizLoading: boolean;
+  quizError?: string | null;
   onClaimXP: () => void;
   onStartQuiz: () => void;
 }
@@ -25,9 +26,29 @@ export const VideoPlayerSection = ({
   isCompleted,
   canStart,
   quizLoading,
+  quizError,
   onClaimXP,
   onStartQuiz,
 }: Props) => {
+  const getButtonText = () => {
+    if (quizLoading) return 'Loading...';
+
+    if (quizError === 'No quiz') {
+      return 'No quiz';
+    }
+
+    if (!canStart) {
+      return 'No attempts left';
+    }
+
+    return 'Start quiz';
+  };
+
+  const isDisabled =
+    quizLoading ||
+    quizError === 'No quiz' ||
+    !canStart;
+
   return (
     <div className="space-y-6 text-left">
       <div className="overflow-hidden bg-slate-100">
@@ -50,12 +71,16 @@ export const VideoPlayerSection = ({
 
           <Button
             variant="primary"
-            disabled={!canStart || quizLoading}
+            disabled={isDisabled}
             onClick={onStartQuiz}
             icon={<ClipboardCheck size={18} />}
-            className={!canStart ? 'opacity-60 cursor-not-allowed' : ''}
+            className={
+              isDisabled
+                ? 'opacity-60 cursor-not-allowed bg-gray-500 hover:bg-gray-600'
+                : ''
+            }
           >
-            Start Quiz
+            {getButtonText()}
           </Button>
         </div>
 

@@ -28,7 +28,7 @@ interface QuizQuestionCardProps {
   onNextQuestion: () => void
 }
 
-export default function QuizCard({
+export const QuizCard = ({
   currentQuestion,
   currentIndex,
   totalQuestions,
@@ -37,7 +37,7 @@ export default function QuizCard({
   showFeedback,
   onSelectAnswer,
   onNextQuestion,
-}: QuizQuestionCardProps) {
+}: QuizQuestionCardProps) => {
   return (
     <>
       <div className="flex items-center justify-between mb-6">
@@ -133,4 +133,6 @@ export default function QuizCard({
       </Button>
     </>
   );
-}
+};
+
+export default QuizCard;

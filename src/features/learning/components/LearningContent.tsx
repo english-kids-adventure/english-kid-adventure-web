@@ -6,7 +6,7 @@ interface LearningContentProps {
   videoId: string;
 }
 
-export function LearningContent({ topicId, videoId }: LearningContentProps) {
+export const LearningContent = ({ topicId, videoId }: LearningContentProps) => {
   const topicIdNum = Number(topicId);
   const videoIdNum = Number(videoId);
   const { video, loading, isCompleted, handleClaimXP } =
@@ -28,4 +28,4 @@ export function LearningContent({ topicId, videoId }: LearningContentProps) {
       </div>
     </div>
   );
-}
+};

@@ -2,8 +2,9 @@ import { useMemo, useState } from 'react';
 import { useQuizQuestions } from '@features/quiz/hooks/useQuizQuestions';
 import { quizApi } from '@features/quiz/services/quizService';
 import { usePlayer } from '@shared/hooks/usePlayer';
+import type { QuizSubmitResponse } from '@features/quiz/types';
 
-export function useQuiz(videoId?: number) {
+export const useQuiz = (videoId?: number) => {
   const { questions, isLoading } = useQuizQuestions(videoId);
   const { addStars } = usePlayer();
 
@@ -15,7 +16,13 @@ export function useQuiz(videoId?: number) {
     Array<{ questionId: number; selectedId: number; isCorrect: boolean }>
   >([]);
 
-  const [quizResult, setQuizResult] = useState(null);
+  const [quizResult, setQuizResult] = useState<{
+    correctAnswers: number;
+    totalQuestions: number;
+    starsEarned?: number;
+    totalStars?: number;
+    timesPlayed?: number;
+  } | null>(null);
 
   const currentQuestion = questions[currentIndex];
 
@@ -66,10 +73,15 @@ export function useQuiz(videoId?: number) {
       });
 
       if (res.success) {
-        setQuizResult(res.data);
+        const apiData = res.data as QuizSubmitResponse;
+        setQuizResult({
+          correctAnswers: correctCount,
+          totalQuestions: questions.length,
+          ...apiData,
+        });
 
-        if (res.data.starsEarned) {
-          addStars(res.data.starsEarned);
+        if (apiData.starsEarned) {
+          addStars(apiData.starsEarned);
         }
       }
     }
@@ -101,4 +113,4 @@ export function useQuiz(videoId?: number) {
     nextQuestion,
     resetQuiz,
   };
-}
+};

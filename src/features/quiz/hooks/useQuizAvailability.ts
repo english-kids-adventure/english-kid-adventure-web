@@ -3,7 +3,7 @@ import { quizApi } from '@features/quiz/services/quizService';
 
 const MAX_ATTEMPTS_PER_DAY = 3;
 
-export function useQuizAvailability(videoId?: number) {
+export const useQuizAvailability = (videoId?: number) => {
   const [canStart, setCanStart] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -23,7 +23,7 @@ export function useQuizAvailability(videoId?: number) {
       const quiz = await quizApi.getQuizByVideo(videoId);
       if (!quiz || quiz.length === 0) {
         setCanStart(false);
-        setError('No quiz available for this video');
+        setError('No quiz');
         return;
       }
 
@@ -35,14 +35,14 @@ export function useQuizAvailability(videoId?: number) {
         todayAttempt.timesPlayed >= MAX_ATTEMPTS_PER_DAY
       ) {
         setCanStart(false);
-        setError('No attempts left for today');
+        setError('No attempts left');
         return;
       }
 
       setCanStart(true);
-    } catch (err) {
+    } catch {
       setCanStart(false);
-      setError('Cannot start quiz');
+      setError('No quiz');
     } finally {
       setLoading(false);
     }
@@ -58,4 +58,4 @@ export function useQuizAvailability(videoId?: number) {
     error,
     refresh: fetchAvailability,
   };
-}
+};

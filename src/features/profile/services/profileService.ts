@@ -1,14 +1,13 @@
-import axios from '@/lib/axios';
-import type { ProfileResponse } from '@/features/profile/types';
+import { get, put } from '@shared/services/apiService';
+import type { ProfileData } from '@features/profile/types/profile';
+import { API_ENDPOINTS } from '@shared/constants/api';
 
 export const profileService = {
-  getProfile: async (): Promise<ProfileResponse> => {
-    const response = await axios.get<ProfileResponse>('/users/profile');
-    return response.data;
+  getProfile: async (): Promise<ProfileData> => {
+    return get<ProfileData>( API_ENDPOINTS.PROFILE.GET_PROFILE);
   },
-
   updateProfile: async (data: Record<string, unknown>) => {
-    const response = await axios.put('/users/profile', data);
-    return response.data;
+    return put<ProfileData, Record<string, unknown>>(
+      API_ENDPOINTS.PROFILE.UPDATE_PROFILE, data);
   },
 };

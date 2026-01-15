@@ -13,7 +13,7 @@ const initialState: PlayerState = {
   loading: false,
 };
 
-export function PlayerProvider({ children }: { children: ReactNode }) {
+export const PlayerProvider = ({ children }: { children: ReactNode }) => {
   const [state, setState] = useState<PlayerState>(initialState);
 
   const token = useAuthStore((s) => s.isAuthenticated);
@@ -29,12 +29,10 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
     try {
       setState((prev) => ({ ...prev, loading: true }));
       const res = await profileService.getProfile();
-      const data = res.data;
-
       setState({
-        totalXp: data.total_xp,
-        weeklyXp: data.weekly_xp,
-        totalStars: data.total_stars,
+        totalXp: res.total_xp,
+        weeklyXp: res.weekly_xp,
+        totalStars: res.total_stars,
         loading: false,
       });
     } catch {
@@ -60,4 +58,4 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
       {children}
     </PlayerContext.Provider>
   );
-}
+};

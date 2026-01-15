@@ -2,11 +2,11 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import type { YTPlayer } from '@shared/types/youtube';
 import React from 'react';
 
-export function useVideoProgress(
+export const useVideoProgress = (
   playerRef: React.MutableRefObject<YTPlayer | null>,
   videoId: number | string,
   onProgressReached: () => Promise<void> | void,
-) {
+) => {
   const [canClaimXP, setCanClaimXP] = useState(false);
 
   const claimedSessions = useRef<Record<string | number, boolean>>({});
@@ -39,7 +39,6 @@ export function useVideoProgress(
 
     const current = player.getCurrentTime();
     const total = player.getDuration();
-    const playerState = (player as unknown as { getPlayerState?: () => number })?.getPlayerState?.();
 
     if (total <= 0) return;
 
@@ -77,4 +76,4 @@ export function useVideoProgress(
     checkProgress,
     handleClaim,
   };
-}
+};

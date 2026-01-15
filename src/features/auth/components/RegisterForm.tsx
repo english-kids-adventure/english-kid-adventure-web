@@ -37,7 +37,7 @@ export const RegisterForm = () => {
     <AuthBackground>
       <form onSubmit={onSubmit} noValidate className="w-full max-w-md bg-white rounded-3xl px-8 py-10 shadow-xl">
         <div className="text-center">
-          <img src={logo} alt="Logo" className="mx-auto w-[100px]" />
+          <img src={logo} alt="Logo" className="mx-auto w-25" />
           <Heading level={2} color='primary'>{UI_LABELS.AUTH.CREATE_ACCOUNT}</Heading>
           <Text as="p" variant='body' color='muted' className="flex items-center justify-center gap-2 mt-2">
             {UI_LABELS.AUTH.START_JOURNEY} <Rocket size={16} className="text-orange-500" />

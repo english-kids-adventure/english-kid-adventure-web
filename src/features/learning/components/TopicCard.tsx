@@ -1,7 +1,9 @@
-import { UI_LABELS } from '@shared/constants';
-import { Text } from '@shared/components/common/Text';
+import { UI_LABELS, ROUTES } from '@shared/constants';
 import { Link } from 'react-router-dom';
 import { DEFAULT_IMAGES } from '@shared/constants/image';
+import { useMemo } from 'react';
+import React from 'react';
+import { Text, getProgressStyle } from '@shared/components/common';
 
 interface TopicProps {
   thumbnailUrl: string;
@@ -9,39 +11,27 @@ interface TopicProps {
   description: string;
   totalVideos: number;
   totalTime: number;
-  progressPercent: number;
+  completedVideos: number;
   topicId: number;
 }
 
-interface ProgressColors {
-  bg: string;
-  text: string;
-}
-
-const getProgressStyle = (progressPercent: number): ProgressColors => {
-  if (progressPercent === 0) return { bg: 'bg-btn-secondary', text: 'text-muted' };
-  if (progressPercent >= 1 && progressPercent <= 49) return { bg: 'bg-btn-danger', text: 'text-danger' };
-  if (progressPercent >= 50 && progressPercent <= 79) return { bg: 'bg-btn-primary', text: 'text-primary' };
-  if (progressPercent >= 80 && progressPercent <= 100) return { bg: 'bg-btn-success', text: 'text-success' };
-  return { bg: 'bg-btn-secondary', text: 'text-muted' };
-};
-
-export function TopicCard({
+export const TopicCard = React.memo(({
   thumbnailUrl,
   name,
   description,
   totalVideos,
   totalTime,
-  progressPercent,
+  completedVideos,
   topicId,
-}: TopicProps) {
-  const progressStyle = getProgressStyle(progressPercent);
+}: TopicProps) => {
+  const progressPercent = totalVideos > 0 ? (completedVideos / totalVideos * 100) : 0;
+  const progressStyle = useMemo(() => getProgressStyle(progressPercent), [progressPercent]);
 
   return (
-    <Link to={`/topics/${topicId}`} className="block">
+    <Link to={ROUTES.LISTVIDEO.replace(':topicId', String(topicId))} className="block">
       <div className="
         bg-white rounded-2xl shadow-lg overflow-hidden
-        hover:scale-[1.02] transition-transform duration-300
+        hover:scale-105 transition-transform duration-300
         cursor-pointer w-full"
       >
         <div className="w-full h-32">
@@ -84,6 +74,6 @@ export function TopicCard({
       </div>
     </Link>
   );
-}
+});
 
 export default TopicCard;

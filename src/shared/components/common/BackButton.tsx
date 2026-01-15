@@ -7,7 +7,7 @@ interface BackButtonProps {
   fallback?: string;
 }
 
-export function BackButton({ size = 24, fallback = ROUTES.HOME }: BackButtonProps) {
+export const BackButton = ({ size = 24, fallback = ROUTES.HOME }: BackButtonProps) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -38,5 +38,4 @@ export function BackButton({ size = 24, fallback = ROUTES.HOME }: BackButtonProp
       <ArrowLeft size={size} />
     </button>
   );
-}
-
+};

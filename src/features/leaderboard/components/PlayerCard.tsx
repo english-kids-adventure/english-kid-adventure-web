@@ -1,6 +1,6 @@
 import { Heading, Text } from '@shared/components/common';
 import { usePlayerCard } from '@features/leaderboard/hooks/usePlayerCard';
-import { DEFAULT_IMAGES } from '@/shared/constants/image';
+import { DEFAULT_IMAGES } from '@shared/constants/image';
 
 interface PlayerCardProps {
   player: {

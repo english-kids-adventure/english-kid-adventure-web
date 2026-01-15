@@ -1,5 +1,5 @@
 import { CircleCheck } from 'lucide-react';
-import { Heading, Text, Button } from '@shared/components/common';
+import { Heading, Text, Button, Card } from '@shared/components/common';
 import CircularProgress from '@shared/components/icon/CircularProgress';
 import type { TaskUI } from '@features/task/types/task';
 
@@ -12,7 +12,7 @@ export const TaskDailyCard = ({ task, onClaim }: TaskDailyProps) => {
   const isCompleted = task.isCompleted;
   const isClaimed = task.isClaimed;
   return (
-    <div className="bg-card rounded-lg p-4 shadow-sm border border-border hover:shadow-md transition-shadow">
+    <Card variant="bordered" padding="sm">
       <div className="flex items-center gap-4">
         <div className="shrink-0">
           <div className="w-10 h-10 flex items-center justify-center">
@@ -53,6 +53,6 @@ export const TaskDailyCard = ({ task, onClaim }: TaskDailyProps) => {
           />
         )}
       </div>
-    </div>
+    </Card>
   );
 };

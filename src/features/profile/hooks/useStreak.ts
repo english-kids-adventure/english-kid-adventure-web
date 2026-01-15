@@ -1,8 +1,8 @@
 
 import { useState, useEffect, useRef, useMemo } from 'react';
-import { useProfile } from '@/features/profile/hooks/useProfile';
-import type { DayData } from '@/features/profile/types';
-import { UI_LABELS } from '@/shared/constants';
+import { useProfile } from '@features/profile/hooks/useProfile';
+import type { DayData } from '@features/profile/types';
+import { UI_LABELS } from '@shared/constants';
 
 export const useStreak = () => {
   const [isOpen, setIsOpen] = useState(false);

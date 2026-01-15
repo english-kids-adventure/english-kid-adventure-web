@@ -9,7 +9,7 @@ import { usePlayer } from '@shared/hooks/usePlayer';
 import { Loading, PaginationControl } from '@shared/components/common';
 import { PAGINATION } from '@shared/constants';
 
-const Home = () => {
+export const Home = () => {
   const {
     items: topics,
     loading,
@@ -70,8 +70,8 @@ const Home = () => {
               name={topic.name}
               description={topic.description}
               totalVideos={topic.progress.totalVideos}
-              progressPercent={topic.progress.completedVideos}
-              totalTime={100}
+              completedVideos={topic.progress.completedVideos}
+              totalTime={topic.totalHours}
             />
           ))}
         </div>

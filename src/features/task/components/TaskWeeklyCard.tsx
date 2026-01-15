@@ -1,6 +1,6 @@
 import { CircleCheck, Star } from 'lucide-react';
 import clsx from 'clsx';
-import { Heading, Text, Button } from '@shared/components/common';
+import { Heading, Text, Button, Card } from '@shared/components/common';
 import type { TaskUI } from '@features/task/types/task';
 
 interface TaskWeeklyProps {
@@ -12,12 +12,11 @@ export const TaskWeeklyCard = ({ task, onClaim }: TaskWeeklyProps) => {
   const isCompleted = task.isCompleted;
   const isClaimed = task.isClaimed;
   return (
-    <div
+    <Card
+      variant="bordered"
+      padding="sm"
       className={clsx(
-        'rounded-lg p-4 border transition-all',
-        isCompleted
-          ? 'bg-yellow-50 border-yellow-200 shadow-sm'
-          : 'bg-card border-border shadow-sm',
+        isCompleted && 'bg-yellow-50 border-yellow-200',
       )}
     >
       <div className="flex items-center gap-4">
@@ -58,6 +57,6 @@ export const TaskWeeklyCard = ({ task, onClaim }: TaskWeeklyProps) => {
           </Button>
         ) : null}
       </div>
-    </div>
+    </Card>
   );
 };

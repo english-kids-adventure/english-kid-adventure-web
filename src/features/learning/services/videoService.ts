@@ -1,30 +1,27 @@
-import axiosClient from '@lib/axios';
+import { get, post } from '@shared/services/apiService';
 import { API_ENDPOINTS } from '@shared/constants/api';
-import type { Video, UnlockVideoResponse, CompleteVideoResponse } from '@features/learning/types';
+import type {
+  Video,
+  UnlockVideoResponse,
+  CompleteVideoResponse,
+} from '@features/learning/types';
 
 export const videoService = {
-  getVideosByTopic: async (topicId: number): Promise<Video[]> => {
-    const response = await axiosClient.get(
+  getVideosByTopic(topicId: number): Promise<Video[]> {
+    return get<Video[]>(
       API_ENDPOINTS.VIDEO.LIST_VIDEO_BY_TOPIC(topicId),
     );
-    return response.data.data;
   },
 
-  unlockVideo: async (
-    videoId: number,
-  ): Promise<UnlockVideoResponse> => {
-    const response = await axiosClient.post(
+  unlockVideo(videoId: number): Promise<UnlockVideoResponse> {
+    return post<UnlockVideoResponse>(
       API_ENDPOINTS.VIDEO.UNLOCK(videoId),
     );
-
-    return response.data.data;
   },
 
-  completeVideo: async (videoId: number): Promise<CompleteVideoResponse> => {
-    const response = await axiosClient.post(
+  completeVideo(videoId: number): Promise<CompleteVideoResponse> {
+    return post<CompleteVideoResponse>(
       API_ENDPOINTS.VIDEO.COMPLETE(videoId),
     );
-    return response.data.data;
   },
 };
-

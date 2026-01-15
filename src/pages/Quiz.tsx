@@ -1,10 +1,10 @@
-import ResultQuizCard from '@/features/quiz/components/ResultQuizCard';
-import { useQuiz } from '@/features/quiz/hooks/useQuiz';
+import ResultQuizCard from '@features/quiz/components/ResultQuizCard';
+import { useQuiz } from '@features/quiz/hooks/useQuiz';
 import { BackButton, Text, Loading } from '@shared/components/common';
 import QuizCard from '@features/quiz/components/QuizCard';
 import { useParams } from 'react-router-dom';
 
-export default function Quiz() {
+export const Quiz = () => {
   const { orderIndex } = useParams<{ orderIndex: string }>();
   const videoId = Number(orderIndex);
 
@@ -67,4 +67,6 @@ export default function Quiz() {
       />
     </div>
   );
-}
+};
+
+export default Quiz;

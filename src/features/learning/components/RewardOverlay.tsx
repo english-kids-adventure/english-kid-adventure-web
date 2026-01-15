@@ -6,7 +6,7 @@ interface RewardOverlayProps {
   xpReward: number;
 }
 
-export function RewardOverlay({ onClaim, xpReward }: RewardOverlayProps) {
+export const RewardOverlay = ({ onClaim, xpReward }: RewardOverlayProps) => {
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-slate-900/40 backdrop-blur-md z-50 transition-all duration-500">
 
@@ -16,7 +16,7 @@ export function RewardOverlay({ onClaim, xpReward }: RewardOverlayProps) {
         size='sm'
         className="flex flex-col items-center"
       >
-        <div className="flex items-center justify-center w-20 h-20 rounded-full bg-yellow-400 shadow-[0_0_40px_rgba(250,204,21,0.4)] animate-bounce border-4 border-white/50">
+        <div className="flex items-center justify-center w-20 h-20 rounded-full bg-yellow-400 shadow-lg animate-bounce border-4 border-white/50">
           <Check size={38} className="text-white drop-shadow-lg" />
         </div>
 
@@ -30,4 +30,4 @@ export function RewardOverlay({ onClaim, xpReward }: RewardOverlayProps) {
       </Button>
     </div>
   );
-}
+};

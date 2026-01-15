@@ -1,7 +1,9 @@
 export * from './components/StatCard';
 export * from './components/TopicCard';
+export * from './components/TopicLessonSidebar';
 export * from './components/VideoCard';
 export * from './components/VideoPlayer';
+export * from './components/VideoPlayerSection';
 export * from './components/LearningContent';
 export * from './components/RewardOverlay';
 

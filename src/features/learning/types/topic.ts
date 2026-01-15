@@ -3,6 +3,7 @@ export interface Topic {
   name: string;
   description: string;
   thumbnailUrl: string;
+  totalHours: number;
   progress: {
     totalVideos: number;
     completedVideos: number;
@@ -14,6 +15,7 @@ export interface TopicResponse {
   name: string;
   description: string;
   thumbnailUrl: string;
+  totalHours: number;
   progress: {
     totalVideos: number;
     completedVideos: number;

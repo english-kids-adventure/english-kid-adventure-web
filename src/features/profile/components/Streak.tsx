@@ -1,8 +1,8 @@
 import { Triangle, Flame } from 'lucide-react';
 import clsx from 'clsx';
-import { Text } from '@/shared/components/common/Text';
+import { Text } from '@shared/components/common/Text';
 import type { DayData } from '@/features/profile/types';
-import { UI_LABELS } from '@/shared/constants';
+import { UI_LABELS } from '@shared/constants';
 
 interface StreakProps {
   days: DayData[];
@@ -10,9 +10,9 @@ interface StreakProps {
   longestStreak: number;
 }
 
-export function Streak({ days, currentStreak, longestStreak }: StreakProps) {
+export const Streak = ({ days, currentStreak, longestStreak }: StreakProps) => {
   return (
-    <div className="relative w-[340px] p-6 rounded-[24px] shadow-md bg-white border border-gray-100 animate-in fade-in zoom-in duration-200">
+    <div className="relative w-96 p-6 rounded-2xl shadow-md bg-white animate-in fade-in zoom-in duration-200">
       <div className="absolute -top-2 right-10 w-4 h-4 bg-white rotate-45 border-l border-t border-gray-100" />
 
       <div className="relative flex flex-col items-center space-y-6">
@@ -41,15 +41,15 @@ export function Streak({ days, currentStreak, longestStreak }: StreakProps) {
             {days.map((day, i) => (
               <div key={i} className="flex flex-col items-center gap-2 relative">
                 {day.current && (
-                  <Triangle className="w-3 h-3 text-[#ff5252] fill-[#ff5252] absolute -top-4 rotate-180" />
+                  <Triangle className="w-3 h-3 text-red-500 fill-red-500 absolute -top-4 rotate-180" />
                 )}
 
                 <div
                   className={clsx(
                     'w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300',
                     {
-                      'border-2 border-dashed border-[#ff5252]': day.current && !day.active,
-                      'bg-[#ff5252] text-white': day.active,
+                      'border-2 border-dashed border-red-500': day.current && !day.active,
+                      'bg-red-500 text-white': day.active,
                       'bg-gray-200 border-none': !day.active && day.status === 'missed',
                       'border-2 border-gray-200': !day.active && day.status === 'future' && !day.current,
                     },
@@ -76,4 +76,4 @@ export function Streak({ days, currentStreak, longestStreak }: StreakProps) {
       </div>
     </div>
   );
-}
+};

@@ -3,7 +3,7 @@ import { ROUTES } from '@shared/constants/routes';
 import { lazy, Suspense } from 'react';
 import { AuthGuard } from '@shared/guards/AuthGuard';
 import MainLayout from '@shared/layouts/MainLayout';
-import { Loading } from '@/shared/components/common';
+import { Loading } from '@shared/components/common';
 
 const Register = lazy(() => import('@pages/Register'));
 const Login = lazy(() => import('@pages/Login'));
@@ -14,6 +14,7 @@ const Task = lazy(() => import('@pages/Task'));
 const Quiz = lazy(() => import('@pages/Quiz'));
 const Leaderboard = lazy(() => import('@pages/LeaderBoard'));
 const NotFound = lazy(() => import('@pages/NotFound'));
+const Profile = lazy(() => import('@pages/Profile'));
 
 const PageLoader = () => (
   <Loading/>
@@ -34,6 +35,7 @@ export const AppRoutes = () => {
             <Route path={ROUTES.TASK} element={<Task />} />
             <Route path={ROUTES.QUIZ} element={<Quiz />} />
             <Route path={ROUTES.LEADERBOARD} element={<Leaderboard />} />
+            <Route path={ROUTES.PROFILE} element={<Profile />} />
 
             <Route path="*" element={<NotFound />} />
           </Route>

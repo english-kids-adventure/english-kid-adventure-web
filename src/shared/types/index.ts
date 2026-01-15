@@ -12,13 +12,6 @@ export interface User {
   longest_streak: number;
 }
 
-export interface Topic {
-  id: number;
-  name: string;
-  description: string;
-  icon_url: string;
-}
-
 export interface Video {
   id: number;
   topic_id: number;

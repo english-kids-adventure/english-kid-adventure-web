@@ -3,9 +3,7 @@ import { ROUTES } from '@shared/constants/routes';
 import type { Video } from '@features/learning/types';
 import { useUnlockVideo } from '@features/learning/hooks/useUnlockVideo';
 
-export function useVideoCard( video: Video, onUnlocked?: (videoId: number) => void ) {
-  const navigate = useNavigate();
-
+export const useVideoCardState = (video: Video) => {
   const isLocked =
     video.level !== 'EASY' ||
     video.isUnlocked !== undefined
@@ -32,6 +30,16 @@ export function useVideoCard( video: Video, onUnlocked?: (videoId: number) => vo
     },
   }[video.level];
 
+  return {
+    isLocked,
+    isCompleted,
+    levelConfig,
+  };
+};
+
+export const useVideoNavigation = (video: Video) => {
+  const navigate = useNavigate();
+
   const goToVideo = () => {
     navigate(
       ROUTES.VIDEO_DETAIL
@@ -40,17 +48,18 @@ export function useVideoCard( video: Video, onUnlocked?: (videoId: number) => vo
     );
   };
 
-  const { handleUnlock, loading } = useUnlockVideo(
-    video.id,
-    onUnlocked,
-  );
+  return { goToVideo };
+};
+
+export const useVideoCard = (video: Video, onUnlocked?: (videoId: number) => void) => {
+  const cardState = useVideoCardState(video);
+  const { goToVideo } = useVideoNavigation(video);
+  const { handleUnlock, loading } = useUnlockVideo(video.id, onUnlocked);
 
   return {
-    isLocked,
-    isCompleted,
-    levelConfig,
+    ...cardState,
     goToVideo,
     handleUnlock,
     unlocking: loading,
   };
-}
+};

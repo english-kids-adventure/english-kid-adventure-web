@@ -37,7 +37,7 @@ export const LoginForm = () => {
     <AuthBackground>
       <form onSubmit={onSubmit} noValidate className="w-full max-w-md bg-white rounded-3xl px-8 py-10 shadow-xl">
         <div className="text-center">
-          <img src={logo} alt="Logo" className="mx-auto w-[100px]" />
+          <img src={logo} alt="Logo" className="mx-auto w-25" />
           <Heading level={2} color='primary'>{UI_LABELS.AUTH.WELCOME_BACK}</Heading>
         </div>
 
