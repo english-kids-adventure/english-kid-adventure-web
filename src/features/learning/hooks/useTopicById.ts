@@ -11,7 +11,7 @@ export const useTopicById = (topicId?: string) => {
     queryFn: async () => {
       const res = await topicService.getAll();
       return (
-        res.topics.find(
+        res.items.find(
           (t: Topic) => t.topicId === Number(topicId),
         ) ?? null
       );

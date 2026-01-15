@@ -3,7 +3,7 @@ import { getAccessToken, setAccessToken, removeAccessToken } from '@shared/servi
 import { useAuthStore } from '@store/useAuthStore';
 
 const axiosClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8080/api/v1',
+  baseURL: import.meta.env.VITE_API_URL || 'https://express-api-xxuh.onrender.com/api/v1',
   headers: {
     'Content-Type': 'application/json',
   },
