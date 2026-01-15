@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { videoService } from '@features/learning/services/videoService';
 import type { ProfileData } from '@features/profile/types/profile';
-import type { VideoUI } from './useTopicVideos';
+import type { VideoUI } from '@features/learning/hooks/useTopicVideos';
 
 export const useVideoCompletion = (videoId: number, topicId: number) => {
   const queryClient = useQueryClient();

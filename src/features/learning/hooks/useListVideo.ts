@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { useTopicVideos } from './useTopicVideos';
-import { useTopicById } from './useTopicById';
+import { useTopicVideos } from '@features/learning/hooks/useTopicVideos';
+import { useTopicById } from '@features/learning/hooks/useTopicById';
 import type { Video } from '@features/learning/types';
 
 export const useListVideo = (topicId?: string) => {
