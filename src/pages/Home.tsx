@@ -70,7 +70,7 @@ export const Home = () => {
               name={topic.name}
               description={topic.description}
               totalVideos={topic.progress.totalVideos}
-              progressPercent={topic.progress.completedVideos}
+              completedVideos={topic.progress.completedVideos}
               totalTime={topic.totalHours}
             />
           ))}

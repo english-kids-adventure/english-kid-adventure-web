@@ -11,7 +11,7 @@ interface TopicProps {
   description: string;
   totalVideos: number;
   totalTime: number;
-  progressPercent: number;
+  completedVideos: number;
   topicId: number;
 }
 
@@ -21,9 +21,10 @@ export const TopicCard = React.memo(({
   description,
   totalVideos,
   totalTime,
-  progressPercent,
+  completedVideos,
   topicId,
 }: TopicProps) => {
+  const progressPercent = totalVideos > 0 ? (completedVideos / totalVideos * 100) : 0;
   const progressStyle = useMemo(() => getProgressStyle(progressPercent), [progressPercent]);
 
   return (
